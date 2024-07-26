@@ -1,19 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Rubik', sans-serif;
+    background-color: #3C3C40;
+}
+
+.a-icon:hover {
+    background-color: transparent !important;
+}
+
+.icons-nav a:hover{
+    background-color: transparent;
 }
 
 nav {
-    background-color: #111;
-    padding: 10px 0;
+    background-color: #468C73;
     display: flex;
     justify-content: center;
+    align-items: center;
     border-radius: 30px;
     margin: 20px auto;
     width: fit-content;
-    padding: 10px 30px;
+    padding: 20px 30px;
+    transition: padding 0.3s ease-in-out; /* Suave transição no padding */
 }
 
 nav ul {
@@ -22,41 +33,55 @@ nav ul {
     padding: 0;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 nav ul li {
     margin: 0 15px;
+    transition: margin 0.3s ease-in-out;
+}
+
+nav ul li:hover {
+    margin: 0 30px;
+}
+
+nav ul li:hover ~ li {
+    margin-left: 30px;
+}
+
+nav ul li:hover ~ li ~ li {
+    margin-left: 30px;
 }
 
 nav ul li a {
     text-decoration: none;
     color: #fff;
-    font-size: 16px;
+    font-size: 25px;
+    font-weight: 500;
     padding: 10px 20px;
     border-radius: 25px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 nav ul li a.active, nav ul li a:hover {
-    background-color: #ff6600;
-    color: #fff;
+    background-color: #36D99D;
+    color: #292929;
+    font-weight: 600;
 }
 
-nav ul li.logo a {
-    background-color: transparent;
-    color: #ff6600;
-    font-weight: bold;
-    font-size: 18px;
+nav ul li.logo01 a {
     display: flex;
     align-items: center;
     padding: 0;
+    margin: 0 80px;
 }
 
-nav ul li.logo a span {
+nav ul li.logo01 img {
+    max-width: 200px;
+    height: auto;
+}
+
+nav ul li.logo01 a span {
     color: #fff;
     margin-left: 5px;
-}
-
-nav ul li.logo {
-    margin: 0 50px;
 }
