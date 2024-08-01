@@ -10,11 +10,11 @@
   <link rel="icon" href="./img/ICON-prokey.ico">
 
   <!--import googleFonts-->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
 
   <!--import googleICONS-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-
+  
   <!--import css/scroll-->
   <link rel="stylesheet" href="./styles.css">
   <script src="https://unpkg.com/scrollreveal"></script>
@@ -23,19 +23,24 @@
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a class="active" href="#">Início</a></li>
-            <li><a href="#">Funcionalidades</a></li>
-            <li><a href="#">Planos</a></li>
-            <li class="logo01"><a href="#" class="a-icon"><img src="./img/ProtectKey-LOGOW.png" alt="Logo"/></a></li>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Contato</a></li>
-            <li class="icons-nav">
-              <a href="#"><span class="material-symbols-outlined" style="font-size: 40px; color: aliceblue">person_2</span></a>
-              <a href="#"><span class="material-symbols-outlined" style="font-size: 40px; color: aliceblue;">shield_lock</span></a>
-          </li>
-        </ul>
-    </nav>
+  <nav class="navbar">
+    <div class="navbar-container">
+        <!--LOGO-->
+        <img src="./img/ProtectKey-LOGOW.png" alt="LOGO" class="navbar-logo">
+        <!--MENU-->
+        <button class="hamburger" id="hamburger">&#9776;</button>
+        <!--OPTIONS-->
+        <div class="navbar-menu" id="navbarMenu">
+            <a href="#" class="navbar-item">Produto</a>
+            <a href="#" class="navbar-item">Planos</a>
+            <a href="#" class="navbar-item">Download</a>
+            <a href="#" class="navbar-item">Sobre</a>
+            <button class="navbar-action">Plano Empresarial</button>
+            <a href="#" class="navbar-login">Login</a>
+        </div>
+    </div>
+</nav>
+<script src="script.js"></script>
 </body>
+
 </html>
