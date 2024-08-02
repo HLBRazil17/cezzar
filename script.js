@@ -11,8 +11,7 @@ document.getElementById('hamburger').addEventListener('click', function() {
 document.addEventListener('click', function(e) {
     var menu = document.getElementById('navbarMenu');
     var hamburger = document.getElementById('hamburger');
-    // Verifica se o clique não foi no hamburger e nem no menu aberto
     if (!hamburger.contains(e.target) && !menu.contains(e.target) && menu.style.right == '0px') {
-        menu.style.right = '-100%'; // Fecha o menu
+        menu.style.right = '-100%';
     }
 });
