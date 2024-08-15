@@ -1,9 +1,10 @@
 <?php
+
 //VARIÁVEIS PARA CONECTAR AO BANCO DE DADOS
 $servername = "localhost:3308";
 $username = "root";
 $password = "etec2023";
-$dbname = "";
+$dbname = "gerenciadorsenhas";
 
 try {
     //VERIFICA SE A CONEXÃO FOI ESTABELECIDA

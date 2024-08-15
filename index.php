@@ -10,13 +10,14 @@
     <link rel="icon" href="./img/ICON-prokey.ico">
 
     <!--import googleFonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <!--import font awesome-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!--import css/scroll-->
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./style/styles.css">
     <script src="https://unpkg.com/scrollreveal"></script>
 
     <title>Protect Key</title>
@@ -43,9 +44,27 @@
                         <a href="#" class="navbar-item">Sobre</a>
                     </div>
                 </div>
+
+                <!--PROFILE ICON-->
                 <div class="navbar-right">
-                    <a class="navbar-action">Planos Empresariais</a>
-                    <img src="./img/user.png" alt="Profile" class="profile-icon">
+                    <details class="dropdown">
+                        <summary class="profile-icon">
+                            <img src="./img/user.png" alt="Profile">
+                        </summary>
+                        <div class="dropdown-content">
+                            <?php if (isset($_SESSION['userNome'])): ?>
+                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="account.php">Conta</a>
+                                <form action="logout.php" method="post" style="display: inline;">
+                                    <button type="submit" class="logout-btn">Sair</button>
+                                </form>
+                            <?php else: ?>
+                                <p>Bem-vindo!</p>
+                                <a href="register.php">Registrar</a>
+                                <a href="login.php" style="border-bottom: none;">Login</a>
+                            <?php endif; ?>
+                        </div>
+                    </details>
                 </div>
             </div>
         </nav>
@@ -55,6 +74,7 @@
         <section class="hero">
             <div class="content">
                 <img src="./img/background01.png" alt="Imagem do Protect Key">
+
                 <div class="text">
                     <h1>Seu Gerenciador de Senhas Confiável <svg xmlns="http://www.w3.org/2000/svg" width="65"
                             height="auto" viewBox="0 0 45 45">
@@ -76,25 +96,32 @@
             </div>
         </section>
 
+
+
         <!-- Seção de Recursos -->
         <section class="features second-section">
-            <!-- Título da seção "Recursos Principais" -->
+
             <h2>Recursos Principais</h2>
 
-            <!-- Lista de funcionalidades principais -->
-            <div class="feature-list">
-                <!-- Item de funcionalidade individual -->
-                <div class="feature-item">
-                    <h3>Segurança de Nível Militar</h3>
-                    <img src="./img/seguranca-icon.png" alt="Icone de Segurança">
-                    <p>Proteja suas senhas com criptografia avançada e autenticação multifator.</p>
-                    <ul>
-                        <li>Criptografia AES-256</li>
-                        <li>Autenticação multifator (MFA)</li>
-                        <li>Proteção contra ataques de força bruta</li>
-                    </ul>
-                    <p>Com a segurança de nível militar, você pode ter certeza de que suas senhas estão protegidas
-                        contra qualquer ameaça.</p>
+            <!-- Div para o fundo azul com cantos arredondados -->
+            <div class="features blue-background">
+                <!-- Título da seção "Recursos Principais" -->
+
+                <!-- Lista de funcionalidades principais -->
+                <div class="feature-list">
+                    <!-- Item de funcionalidade individual -->
+                    <div class="feature-item">
+                        <h3>Segurança de Nível Militar</h3>
+                        <img src="./img/seguranca-icon.png" alt="Icone de Segurança">
+                        <p>Proteja suas senhas com criptografia avançada e autenticação multifator.</p>
+                        <ul>
+                            <li>Criptografia AES-256</li>
+                            <li>Autenticação multifator (MFA)</li>
+                            <li>Proteção contra ataques de força bruta</li>
+                        </ul>
+                        <p>Com a segurança de nível militar, você pode ter certeza de que suas senhas estão protegidas
+                            contra qualquer ameaça.</p>
+                    </div>
                 </div>
 
                 <!-- Item de funcionalidade individual -->
@@ -121,7 +148,8 @@
                         <li>Controle de permissões</li>
                         <li>Revogação de acesso a qualquer momento</li>
                     </ul>
-                    <p>Compartilhar senhas nunca foi tão seguro. Você pode controlar quem tem acesso e por quanto tempo.</p>
+                    <p>Compartilhar senhas nunca foi tão seguro. Você pode controlar quem tem acesso e por quanto tempo.
+                    </p>
                 </div>
             </div>
         </section>
@@ -195,68 +223,68 @@
 
     <!--FOOTER-->
     <footer>
-    <div class="content">
-      <div class="top">
-        <div class="logo-details">
-          <img class="logo-footer" src="./img/logo-icon.png" alt="logo icon">
-          <span class="logo_name"><strong>Protect </strong> Key</span>
+        <div class="content">
+            <div class="top">
+                <div class="logo-details">
+                    <img class="logo-footer" src="./img/logo-icon.png" alt="logo icon">
+                    <span class="logo_name"><strong>Protect </strong> Key</span>
+                </div>
+                <div class="media-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="link-boxes">
+                <ul class="box">
+                    <li class="link_name">Companhia</li>
+                    <li><a href="#">Página Inicial</a></li>
+                    <li><a href="#">Entre em Contato</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Começar Agora</a></li>
+                </ul>
+                <ul class="box">
+                    <li class="link_name">Services</li>
+                    <li><a href="#">App design</a></li>
+                    <li><a href="#">Web design</a></li>
+                    <li><a href="#">Logo design</a></li>
+                    <li><a href="#">Banner design</a></li>
+                </ul>
+                <ul class="box">
+                    <li class="link_name">Account</li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="#">Prefrences</a></li>
+                    <li><a href="#">Purchase</a></li>
+                </ul>
+                <ul class="box">
+                    <li class="link_name">Courses</li>
+                    <li><a href="#">HTML & CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">Photography</a></li>
+                    <li><a href="#">Photoshop</a></li>
+                </ul>
+                <ul class="box input-box">
+                    <li class="link_name">Subscribe</li>
+                    <li><input type="text" placeholder="Enter your email"></li>
+                    <li><input type="button" value="Subscribe"></li>
+                </ul>
+            </div>
         </div>
-        <div class="media-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
+        <div class="bottom-details">
+            <div class="bottom_text">
+                <span class="copyright_text">Copyright © 2021 <a href="#">CodingLab.</a>All rights reserved</span>
+                <span class="policy_terms">
+                    <a href="#">Privacy policy</a>
+                    <a href="#">Terms & condition</a>
+                </span>
+            </div>
         </div>
-      </div>
-      <div class="link-boxes">
-        <ul class="box">
-          <li class="link_name">Companhia</li>
-          <li><a href="#">Página Inicial</a></li>
-          <li><a href="#">Entre em Contato</a></li>
-          <li><a href="#">Sobre</a></li>
-          <li><a href="#">Começar Agora</a></li>
-        </ul>
-        <ul class="box">
-          <li class="link_name">Services</li>
-          <li><a href="#">App design</a></li>
-          <li><a href="#">Web design</a></li>
-          <li><a href="#">Logo design</a></li>
-          <li><a href="#">Banner design</a></li>
-        </ul>
-        <ul class="box">
-          <li class="link_name">Account</li>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">My account</a></li>
-          <li><a href="#">Prefrences</a></li>
-          <li><a href="#">Purchase</a></li>
-        </ul>
-        <ul class="box">
-          <li class="link_name">Courses</li>
-          <li><a href="#">HTML & CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-          <li><a href="#">Photography</a></li>
-          <li><a href="#">Photoshop</a></li>
-        </ul>
-        <ul class="box input-box">
-          <li class="link_name">Subscribe</li>
-          <li><input type="text" placeholder="Enter your email"></li>
-          <li><input type="button" value="Subscribe"></li>
-        </ul>
-      </div>
-    </div>
-    <div class="bottom-details">
-      <div class="bottom_text">
-        <span class="copyright_text">Copyright © 2021 <a href="#">CodingLab.</a>All rights reserved</span>
-        <span class="policy_terms">
-          <a href="#">Privacy policy</a>
-          <a href="#">Terms & condition</a>
-        </span>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-    <script src="script.js"></script>
+    <script src="./script/script.js"></script>
 </body>
 
 </html>

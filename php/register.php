@@ -208,5 +208,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-require ('./Front/register.php');
+require ('./front/register.php');
 ?>

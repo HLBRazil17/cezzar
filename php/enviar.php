@@ -1,5 +1,6 @@
 <?php
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -31,8 +32,8 @@ function sendEmail($to, $token) {
         $mail->isSMTP();
         $mail->Host = 'sandbox.smtp.mailtrap.io'; // Endereço do servidor SMTP
         $mail->SMTPAuth = true;
-        $mail->Username = 'a4cdc46caed4d7';
-        $mail->Password = '5f35bb2a727bed';
+        $mail->Username = 'ab5297e24d2261';
+        $mail->Password = 'ce8f33fcb0479d';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 2525;
 
