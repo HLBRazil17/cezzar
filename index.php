@@ -18,7 +18,6 @@
 
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
-    <script src="https://unpkg.com/scrollreveal"></script>
 
     <title>Protect Key</title>
 </head>
@@ -226,8 +225,7 @@
         <div class="content">
             <div class="top">
                 <div class="logo-details">
-                    <img class="logo-footer" src="./img/logo-icon.png" alt="logo icon">
-                    <span class="logo_name"><strong>Protect </strong> Key</span>
+                    <a href="#"><img class="logo-footer" src="./img/ProtectKey-LOGOW.png" alt="logo icon"></a>
                 </div>
                 <div class="media-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>

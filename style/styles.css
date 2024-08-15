@@ -2,139 +2,140 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 /* Estilos gerais do corpo */
 body {
-    font-family: 'Rubik', sans-serif;
-    background-color: #3C3C40;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  font-family: 'Rubik', sans-serif;
+  background-color: #3C3C40;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-main{
+main {
   flex: 1;
 }
 
 /* Navbar principal */
 .navbar {
-    background: linear-gradient(90deg, #090c30 0%, #131B61 50%, #1E2B91 100%);
-    color: white;
-    padding: 10px 20px;
-    position: relative;
+  background: linear-gradient(90deg, #090c30 0%, #131B61 50%, #1E2B91 100%);
+  color: white;
+  padding: 10px 20px;
+  position: relative;
 }
 
 /* Container da navbar */
 .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Container dos itens da navbar à esquerda */
 .navbar-left {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 /* Container dos itens da navbar à direita */
 .navbar-right {
-    display: flex;
-    align-items: end;
-    position: relative;
+  display: flex;
+  align-items: end;
+  position: relative;
 }
 
 .logo {
-    width: 280px;
-    height: auto;
-    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 280px;
+  height: auto;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo-hover {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: auto;
-    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: auto;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo-container {
-    position: relative;
+  position: relative;
 }
 
 .logo-container:hover .logo {
-    opacity: 0;
+  opacity: 0;
 }
 
 .logo-container:hover .logo-hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Botão de menu hamburguer */
 .hamburger {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 /* Menu da navbar */
 .navbar-menu {
-    display: flex;
-    position: relative;
-    right: 0;
-    flex-direction: row;
-    width: auto;
-    height: auto;
-    transition: right 0.3s;
-    padding-left: 80px;
+  display: flex;
+  position: relative;
+  right: 0;
+  flex-direction: row;
+  width: auto;
+  height: auto;
+  transition: right 0.3s;
+  padding-left: 80px;
 }
 
 /* Itens gerais da navbar (links e botões) */
 .navbar-item,
 .navbar-login,
 .navbar-register {
-    color: white;
-    text-decoration: none;
-    padding: 15px 40px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 20px;
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0);
+  color: white;
+  text-decoration: none;
+  padding: 15px 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0);
 }
 
 .navbar-item:hover {
-    color: #379dfd;
-    text-shadow: 0px 0px 8px #000000bb, 0px 0px 8px #000000bb;
+  color: #379dfd;
+  text-shadow: 0px 0px 8px #000000bb, 0px 0px 8px #000000bb;
 }
 
 /* Botão "Plano Empresarial" na navbar */
 .navbar-action {
-    background-color: #000e6b;
-    color: #ffffff;
-    border: 2px solid transparent;
-    border-radius: 24px;
-    box-sizing: border-box;
-    cursor: pointer;
-    padding: 12px 24px;
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-right: 20px;
+  background-color: #000e6b;
+  color: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-right: 20px;
 }
 
 /* Efeito hover para o botão "Plano Empresarial" */
 .navbar-action:hover {
-    background-color: #1a73e8;
-    border: 2px solid #E1E2ED;
-    color: #ffffff;
+  background-color: #1a73e8;
+  border: 2px solid #E1E2ED;
+  color: #ffffff;
 }
 
 /*CONTEUDO NAV-MENU*/
@@ -150,8 +151,10 @@ main{
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 100%; /* Coloca o dropdown logo abaixo do ícone de perfil */
-  right: 0; /* Alinha o dropdown à direita */
+  top: 100%;
+  /* Coloca o dropdown logo abaixo do ícone de perfil */
+  right: 0;
+  /* Alinha o dropdown à direita */
   background-color: #379DFD;
   min-width: 170px;
   min-height: 100px;
@@ -162,7 +165,8 @@ main{
 }
 
 .dropdown[open] .dropdown-content {
-  display: block; /* Exibe o dropdown quando o details está aberto */
+  display: block;
+  /* Exibe o dropdown quando o details está aberto */
 }
 
 .dropdown-content p {
@@ -189,7 +193,7 @@ main{
   text-align: center;
 }
 
-.dropdown-content a:hover{
+.dropdown-content a:hover {
   color: white;
 }
 
@@ -212,102 +216,119 @@ main{
 
 /* Seção hero (destaque inicial) */
 .hero {
-    background: linear-gradient(160deg, #090c30 0%, #1e2a91 50%, #3d84d6c7 100%);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: linear-gradient(160deg, #090c30 0%, #1e2a91 50%, #3d84d6c7 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero .content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 80%;
-    /* Ajuste conforme necessário */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  /* Ajuste conforme necessário */
 }
 
 .hero img {
-    max-width: 50%;
-    height: auto;
-    margin-left: -100px;
+  max-width: 50%;
+  height: auto;
+  margin-left: -100px;
 }
 
 .hero .text {
-    margin-left: 100px;
-    max-width: 50%;
-    padding: 0 20px;
+  margin-left: 100px;
+  max-width: 50%;
+  padding: 0 20px;
 }
 
 .hero-buttons {
-    margin-top: 60px;
+  margin-top: 60px;
+}
+
+
+.hero02 {
+  background: linear-gradient(160deg, #090c30 0%, #1e2a91 50%, #3d84d6c7 100%);
+  color: white;
+  min-height: 100vh; /* 100% da altura da viewport */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
 /*Segunda seção*/
 .second-section {
-    background-color: #e9e9e9;
-    color: #020F66;
-    padding: 50px 0;
+  background-color: #e9e9e9;
+  color: #020F66;
+  padding: 50px 0;
 }
 
 
 .blue-background {
-  background-color: #175DDC; /* Azul similar ao da imagem */
-  border-radius: 15px; /* Cantos arredondados */
-  padding: 20px; /* Espaçamento interno */
-  color: white; /* Texto branco para contraste */
-  display: grid; /* Torna a lista um contêiner em grid */
-  grid-template-columns: repeat(3, 1fr); /* Define três colunas de largura igual */
-  gap: 20px; /* Define o espaçamento entre os itens */
+  background-color: #175DDC;
+  /* Azul similar ao da imagem */
+  border-radius: 15px;
+  /* Cantos arredondados */
+  padding: 20px;
+  /* Espaçamento interno */
+  color: white;
+  /* Texto branco para contraste */
+  display: grid;
+  /* Torna a lista um contêiner em grid */
+  grid-template-columns: repeat(3, 1fr);
+  /* Define três colunas de largura igual */
+  gap: 20px;
+  /* Define o espaçamento entre os itens */
 }
 
 /* Título da seção hero */
 .hero h1 {
-    font-size: 3.5em;
-    margin-bottom: 20px;
-    padding: 0 15px 0 0;
+  font-size: 3.5em;
+  margin-bottom: 20px;
+  padding: 0 15px 0 0;
 }
 
 /* Texto da seção hero */
 .hero p {
-    font-size: 1.8em;
-    margin-bottom: 30px;
+  font-size: 1.8em;
+  margin-bottom: 30px;
 }
 
 /* Botões da seção hero */
 .hero-buttons .btn {
-    display: inline-block;
-    padding: 15px 30px;
-    margin: 5px;
-    font-size: 1.3em;
-    text-decoration: none;
-    border-radius: 24px;
-    transition: background-color 0.3s, color 0.3s;
+  display: inline-block;
+  padding: 15px 30px;
+  margin: 5px;
+  font-size: 1.3em;
+  text-decoration: none;
+  border-radius: 24px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Estilo do botão primário */
 .btn-primary {
-    background-color: white;
-    color: #1A237E;
+  background-color: white;
+  color: #1A237E;
 }
 
 /* Efeito hover para o botão primário */
 .btn-primary:hover {
-    background-color: #E0E0E0;
+  background-color: #E0E0E0;
 }
 
 /* Estilo do botão secundário */
 .btn-secondary {
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
 }
 
 /* Efeito hover para o botão secundário */
 .btn-secondary:hover {
-    background-color: white;
-    color: #1A237E;
+  background-color: white;
+  color: #1A237E;
 }
 
 /* Seções adicionais (recursos, testemunhos, preços, FAQ, contato) */
@@ -315,87 +336,114 @@ main{
 .pricing,
 .faq,
 .contact {
-    text-align: center;
-    color: black;
-    font-family: "DM Sans", sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  text-align: center;
+  color: black;
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 /* Estilo para a seção de funcionalidades principais */
 .features {
-    text-align: center; /* Centraliza o texto dentro da seção */
-    padding: 20px; /* Adiciona espaçamento interno à seção */
+  text-align: center;
+  /* Centraliza o texto dentro da seção */
+  padding: 20px;
+  /* Adiciona espaçamento interno à seção */
 }
 
 /* Define a lista de funcionalidades como um contêiner flexível */
 .feature-list {
-    display: grid; /* Torna a lista um contêiner em grid */
-    grid-template-columns: repeat(3, 1fr); /* Define três colunas de largura igual */
-    gap: 20px; /* Define o espaçamento entre os itens */
+  display: grid;
+  /* Torna a lista um contêiner em grid */
+  grid-template-columns: repeat(3, 1fr);
+  /* Define três colunas de largura igual */
+  gap: 20px;
+  /* Define o espaçamento entre os itens */
 }
 
 /* Estiliza cada item de funcionalidade individual */
 .feature-item {
-    background: rgba(255, 255, 255, 0.2); /* Fundo semitransparente */
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px); /* Efeito de desfoque */
-    -webkit-backdrop-filter: blur(10px); /* Efeito de desfoque para Safari */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda semitransparente */
-    transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.2);
+  /* Fundo semitransparente */
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  /* Efeito de desfoque */
+  -webkit-backdrop-filter: blur(10px);
+  /* Efeito de desfoque para Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Borda semitransparente */
+  transition: all 0.3s ease;
 }
 
 /* Adiciona efeito de hover para cada item de funcionalidade */
 .feature-item:hover {
-    transform: translateY(-10px); /* Move o item para cima quando o mouse está sobre ele */
+  transform: translateY(-10px);
+  /* Move o item para cima quando o mouse está sobre ele */
 }
 
 /* Estiliza as imagens dentro de cada item de funcionalidade */
 .feature-item img {
-    width: 100px; /* Define a largura da imagem */
-    height: auto; /* Mantém a proporção original da imagem */
-    display: block; /* Define a imagem como um elemento block */
-    margin: 0 auto 20px; /* Centraliza a imagem dentro do contêiner e adiciona margem inferior */
+  width: 100px;
+  /* Define a largura da imagem */
+  height: auto;
+  /* Mantém a proporção original da imagem */
+  display: block;
+  /* Define a imagem como um elemento block */
+  margin: 0 auto 20px;
+  /* Centraliza a imagem dentro do contêiner e adiciona margem inferior */
 }
 
 /* Títulos dos itens de funcionalidade */
 .feature-item h3 {
-    font-size: 1.8em; /* Define o tamanho da fonte */
-    font-weight: 700; /* Define a espessura da fonte */
-    color: #020F66; /* Define a cor do título */
-    margin-bottom: 15px; /* Adiciona espaçamento inferior ao título */
+  font-size: 1.8em;
+  /* Define o tamanho da fonte */
+  font-weight: 700;
+  /* Define a espessura da fonte */
+  color: #020F66;
+  /* Define a cor do título */
+  margin-bottom: 15px;
+  /* Adiciona espaçamento inferior ao título */
 }
 
 /* Parágrafos dentro dos itens de funcionalidade */
 .feature-item p {
-    font-size: 1.2em; /* Define o tamanho da fonte */
-    color: #333; /* Define a cor do texto */
-    margin-bottom: 15px; /* Adiciona espaçamento inferior ao parágrafo */
+  font-size: 1.2em;
+  /* Define o tamanho da fonte */
+  color: #333;
+  /* Define a cor do texto */
+  margin-bottom: 15px;
+  /* Adiciona espaçamento inferior ao parágrafo */
 }
 
 /* Listas de características dentro dos itens de funcionalidade */
 .feature-item ul {
-    list-style-type: none; /* Remove os marcadores de lista */
-    padding: 0; /* Remove o preenchimento padrão */
-    color: #333; /* Define a cor do texto */
-    margin-bottom: 15px; /* Adiciona espaçamento inferior à lista */
+  list-style-type: none;
+  /* Remove os marcadores de lista */
+  padding: 0;
+  /* Remove o preenchimento padrão */
+  color: #333;
+  /* Define a cor do texto */
+  margin-bottom: 15px;
+  /* Adiciona espaçamento inferior à lista */
 }
 
 /* Itens das listas de características */
 .feature-item ul li {
-    margin-bottom: 10px; /* Adiciona espaçamento inferior a cada item da lista */
+  margin-bottom: 10px;
+  /* Adiciona espaçamento inferior a cada item da lista */
 }
 
 /* Estilos responsivos para telas menores */
 @media (max-width: 768px) {
-    .feature-list {
-        grid-template-columns: 1fr; /* Define uma coluna para telas pequenas */
-    }
+  .feature-list {
+    grid-template-columns: 1fr;
+    /* Define uma coluna para telas pequenas */
+  }
 }
 
 
@@ -405,26 +453,26 @@ main{
 .pricing h2,
 .faq h2,
 .contact h2 {
-    font-size: 3.5em;
-    margin: 40px 0 60px;
-    color: #131B61;
+  font-size: 3.5em;
+  margin: 40px 0 60px;
+  color: #131B61;
 }
 
 .feature-item h3 {
-    font-size: 1.8em;
-    font-weight: 700;
+  font-size: 1.8em;
+  font-weight: 700;
 }
 
 .feature-item img {
-    width: 200px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    /* Centraliza a imagem dentro do contêiner */
+  width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  /* Centraliza a imagem dentro do contêiner */
 }
 
 .feature-item p {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 /* Lista de itens nas seções adicionais */
@@ -432,8 +480,8 @@ main{
 .testimonial-list,
 .pricing-list,
 .faq-list {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 /* Itens individuais nas seções adicionais */
@@ -441,12 +489,12 @@ main{
 .testimonial-item,
 .pricing-item,
 .faq-item {
-    background-color: #F2F2F2;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 40px;
-    flex: 1 1 calc(33.333% - 40px);
-    box-sizing: border-box;
+  background-color: #F2F2F2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 40px;
+  flex: 1 1 calc(33.333% - 40px);
+  box-sizing: border-box;
 }
 
 /* Títulos dos itens nas seções adicionais */
@@ -454,107 +502,114 @@ main{
 .testimonial-item h4,
 .pricing-item h3,
 .faq-item h3 {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 /* Lista de preços nos itens de preços */
 .pricing-item ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 /* Itens da lista de preços */
 .pricing-item ul li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 /* Estilos responsivos para telas menores */
 @media (max-width: 768px) {
 
-    /* Mostrar botão hamburguer em telas pequenas */
-    .hamburger {
-        display: block;
-    }
+  /* Mostrar botão hamburguer em telas pequenas */
+  .hamburger {
+    display: block;
+  }
 
-    /* Menu da navbar em telas pequenas */
-    .navbar-menu {
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 300px;
-        height: 100vh;
-        background-color: #1a73e8;
-        transition: right 0.5s;
-    }
+  /* Menu da navbar em telas pequenas */
+  .navbar-menu {
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background-color: #1a73e8;
+    transition: right 0.5s;
+  }
 
-    /* Itens da navbar em telas pequenas */
-    .navbar-item,
-    .navbar-action,
-    .profile-icon {
-        text-align: center;
-        display: block;
-        width: 100%;
-    }
+  /* Itens da navbar em telas pequenas */
+  .navbar-item,
+  .navbar-action,
+  .profile-icon {
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
 
-    /* Container da navbar à esquerda em telas pequenas */
-    .navbar-left {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  /* Container da navbar à esquerda em telas pequenas */
+  .navbar-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    /* Itens individuais nas seções adicionais em telas pequenas */
-    .feature-item,
-    .testimonial-item,
-    .pricing-item,
-    .faq-item {
-        flex: 1 1 100%;
-    }
+  /* Itens individuais nas seções adicionais em telas pequenas */
+  .feature-item,
+  .testimonial-item,
+  .pricing-item,
+  .faq-item {
+    flex: 1 1 100%;
+  }
 }
 
 
 /* FOOTER */
-.logo-footer{
-  width: 40px;
+.logo-footer {
+  width: 400px;
+  margin-top: 20px;
 }
 
-.logo_name{
+.logo_name {
   font-size: 35px;
 }
 
-footer{
-  font-family: "Poppins" , sans-serif;
+footer {
+  font-family: "Poppins", sans-serif;
   background: #140B5C;
   width: 100%;
   bottom: 0;
   left: 0;
 }
-footer::before{
+
+footer::before {
   left: 0;
   top: 100px;
   height: 1px;
   width: 100%;
   background: #AFAFB6;
 }
-footer .content{
+
+footer .content {
   max-width: 1250px;
   margin: auto;
   padding: 30px 40px 40px 40px;
 }
-footer .content .top{
+
+footer .content .top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 50px;
 }
-.content .top .logo-details{
+
+.content .top .logo-details {
   color: #fff;
   font-size: 30px;
 }
-.content .top .media-icons{
+
+.content .top .media-icons {
   display: flex;
 }
-.content .top .media-icons a{
+
+.content .top .media-icons a {
   height: 40px;
   width: 40px;
   margin: 0 8px;
@@ -566,57 +621,71 @@ footer .content .top{
   text-decoration: none;
   transition: all 0.4s ease;
 }
-.top .media-icons a:nth-child(1){
+
+.top .media-icons a:nth-child(1) {
   background: #4267B2;
 }
-.top .media-icons a:nth-child(1):hover{
+
+.top .media-icons a:nth-child(1):hover {
   color: #4267B2;
   background: #fff;
 }
-.top .media-icons a:nth-child(2){
+
+.top .media-icons a:nth-child(2) {
   background: #1DA1F2;
 }
-.top .media-icons a:nth-child(2):hover{
+
+.top .media-icons a:nth-child(2):hover {
   color: #1DA1F2;
   background: #fff;
 }
-.top .media-icons a:nth-child(3){
+
+.top .media-icons a:nth-child(3) {
   background: #E1306C;
 }
-.top .media-icons a:nth-child(3):hover{
+
+.top .media-icons a:nth-child(3):hover {
   color: #E1306C;
   background: #fff;
 }
-.top .media-icons a:nth-child(4){
+
+.top .media-icons a:nth-child(4) {
   background: #0077B5;
 }
-.top .media-icons a:nth-child(4):hover{
+
+.top .media-icons a:nth-child(4):hover {
   color: #0077B5;
   background: #fff;
 }
-.top .media-icons a:nth-child(5){
+
+.top .media-icons a:nth-child(5) {
   background: #FF0000;
 }
-.top .media-icons a:nth-child(5):hover{
+
+.top .media-icons a:nth-child(5):hover {
   color: #FF0000;
   background: #fff;
 }
-footer .content .link-boxes{
+
+footer .content .link-boxes {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-footer .content .link-boxes .box{
+
+footer .content .link-boxes .box {
   width: calc(100% / 5 - 10px);
 }
-.content .link-boxes .box .link_name{
+
+.content .link-boxes .box .link_name {
   color: #fff;
   font-size: 18px;
   font-weight: 400;
   margin-bottom: 10px;
   position: relative;
 }
-.link-boxes .box .link_name::before{
+
+.link-boxes .box .link_name::before {
   content: '';
   position: absolute;
   left: 0;
@@ -625,11 +694,13 @@ footer .content .link-boxes .box{
   width: 35px;
   background: #fff;
 }
-.content .link-boxes .box li{
+
+.content .link-boxes .box li {
   margin: 6px 0;
   list-style: none;
 }
-.content .link-boxes .box li a{
+
+.content .link-boxes .box li a {
   color: #fff;
   font-size: 14px;
   font-weight: 400;
@@ -637,14 +708,17 @@ footer .content .link-boxes .box{
   opacity: 0.8;
   transition: all 0.4s ease
 }
-.content .link-boxes .box li a:hover{
+
+.content .link-boxes .box li a:hover {
   opacity: 1;
   text-decoration: underline;
 }
-.content .link-boxes .input-box{
+
+.content .link-boxes .input-box {
   margin-right: 55px;
 }
-.link-boxes .input-box input{
+
+.link-boxes .input-box input {
   height: 40px;
   width: calc(100% + 55px);
   outline: none;
@@ -656,11 +730,13 @@ footer .content .link-boxes .box{
   color: #fff;
   margin-top: 5px;
 }
-.link-boxes .input-box input::placeholder{
+
+.link-boxes .input-box input::placeholder {
   color: #AFAFB6;
   font-size: 16px;
 }
-.link-boxes .input-box input[type="button"]{
+
+.link-boxes .input-box input[type="button"] {
   background: #fff;
   color: #140B5C;
   border: none;
@@ -671,83 +747,101 @@ footer .content .link-boxes .box{
   cursor: pointer;
   transition: all 0.4s ease;
 }
-.input-box input[type="button"]:hover{
+
+.input-box input[type="button"]:hover {
   opacity: 1;
 }
-footer .bottom-details{
+
+footer .bottom-details {
   width: 100%;
   background: #0F0844;
 }
-footer .bottom-details .bottom_text{
+
+footer .bottom-details .bottom_text {
   max-width: 1250px;
   margin: auto;
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
 }
+
 .bottom-details .bottom_text span,
-.bottom-details .bottom_text a{
+.bottom-details .bottom_text a {
   font-size: 14px;
   font-weight: 300;
   color: #fff;
   opacity: 0.8;
   text-decoration: none;
 }
-.bottom-details .bottom_text a:hover{
+
+.bottom-details .bottom_text a:hover {
   opacity: 1;
   text-decoration: underline;
 }
-.bottom-details .bottom_text a{
+
+.bottom-details .bottom_text a {
   margin-right: 10px;
 }
 
 @media (max-width: 900px) {
-  footer .content .link-boxes{
+  footer .content .link-boxes {
     flex-wrap: wrap;
   }
-  footer .content .link-boxes .input-box{
+
+  footer .content .link-boxes .input-box {
     width: 40%;
     margin-top: 10px;
   }
 }
-@media (max-width: 700px){
-  footer{
+
+@media (max-width: 700px) {
+  footer {
     position: relative;
   }
-  .content .top .logo-details{
+
+  .content .top .logo-details {
     font-size: 26px;
   }
-  .content .top .media-icons a{
+
+  .content .top .media-icons a {
     height: 35px;
     width: 35px;
     font-size: 14px;
     line-height: 35px;
   }
-  footer .content .link-boxes .box{
+
+  footer .content .link-boxes .box {
     width: calc(100% / 3 - 10px);
   }
-  footer .content .link-boxes .input-box{
+
+  footer .content .link-boxes .input-box {
     width: 60%;
   }
+
   .bottom-details .bottom_text span,
-  .bottom-details .bottom_text a{
+  .bottom-details .bottom_text a {
     font-size: 12px;
   }
 }
-@media (max-width: 520px){
-  footer::before{
+
+@media (max-width: 520px) {
+  footer::before {
     top: 145px;
   }
-  footer .content .top{
+
+  footer .content .top {
     flex-direction: column;
   }
-  .content .top .media-icons{
+
+  .content .top .media-icons {
     margin-top: 16px;
   }
-  footer .content .link-boxes .box{
+
+  footer .content .link-boxes .box {
     width: calc(100% / 2 - 10px);
   }
-  footer .content .link-boxes .input-box{
+
+  footer .content .link-boxes .input-box {
     width: 100%;
   }
 }
@@ -799,12 +893,12 @@ footer .bottom-details .bottom_text{
 /* Responsividade */
 @media (min-width: 768px) {
   .testimonial-list {
-      flex-direction: row;
-      justify-content: center;
+    flex-direction: row;
+    justify-content: center;
   }
-  
+
   .testimonial-item {
-      margin: 0 10px;
+    margin: 0 10px;
   }
 }
 
@@ -870,8 +964,8 @@ footer .bottom-details .bottom_text{
 /* Responsividade para a Seção de Planos e Preços */
 @media (min-width: 768px) {
   .pricing-list {
-      flex-direction: row;
-      justify-content: center;
+    flex-direction: row;
+    justify-content: center;
   }
 }
 

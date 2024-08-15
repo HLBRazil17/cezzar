@@ -20,8 +20,6 @@
   <link rel="stylesheet" href="./style/styles.css">
   <link rel="stylesheet" href="./style/styles-loginReg.css">
 
-  <script src="https://unpkg.com/scrollreveal"></script>
-
   <title>Registro</title>
 </head>
 
@@ -126,8 +124,7 @@
     <div class="content">
       <div class="top">
         <div class="logo-details">
-          <img class="logo-footer" src="./img/logo-icon.png" alt="logo icon">
-          <span class="logo_name"><strong>Protect </strong> Key</span>
+          <a href="#"><img class="logo-footer" src="./img/ProtectKey-LOGOW.png" alt="logo icon"></a>
         </div>
         <div class="media-icons">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -139,11 +136,11 @@
       </div>
       <div class="link-boxes">
         <ul class="box">
-          <li class="link_name">Company</li>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Contact us</a></li>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Get started</a></li>
+          <li class="link_name">Companhia</li>
+          <li><a href="#">Página Inicial</a></li>
+          <li><a href="#">Entre em Contato</a></li>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Começar Agora</a></li>
         </ul>
         <ul class="box">
           <li class="link_name">Services</li>

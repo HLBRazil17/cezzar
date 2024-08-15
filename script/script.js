@@ -30,3 +30,75 @@ document.getElementById('userTel').addEventListener('input', function (e) {
     e.target.value = tel; // Atualiza o valor do input
 });
 
+//função de suavizar o scrool
+function smoothScrollTo(target, duration) {
+    const start = window.pageYOffset;
+    const end = target.getBoundingClientRect().top + window.pageYOffset;
+    const distance = end - start;
+    let startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const easing = easeInOutQuad(progress);
+        window.scrollTo(0, start + distance * easing);
+
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animation);
+        }
+    }
+
+    function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    requestAnimationFrame(animation);
+}
+
+// Exemplo de uso: Rolar suavemente para um elemento com ID "section1" em 1500ms
+document.querySelector('a[href="#section1"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    smoothScrollTo(target, 1500);
+});
+
+
+//script store_password
+function toggleForm() {
+    var formContainer = document.getElementById('formContainer');
+    if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+        formContainer.style.display = 'block';
+    } else {
+        formContainer.style.display = 'none';
+    }
+}
+
+function cancelForm() {
+    var formContainer = document.getElementById('formContainer');
+    formContainer.style.display = 'none';
+}
+
+function editPassword(id, siteName, url, loginName, email, password) {
+    var formContainer = document.getElementById('formContainer');
+    formContainer.style.display = 'block';
+
+    document.getElementById('actionType').value = 'update';
+    document.getElementById('passwordId').value = id;
+    document.getElementById('siteName').value = siteName;
+    document.getElementById('url').value = url;
+    document.getElementById('loginName').value = loginName;
+    document.getElementById('email').value = email;
+    document.getElementById('password').value = password;
+}
+
+function showPassword(element, password) {
+    element.textContent = password;
+    element.style.textDecoration = 'none';
+    element.style.cursor = 'default';
+    var cell = element.parentElement;
+    cell.innerHTML = password;
+    setTimeout(function () {
+        cell.innerHTML = '<span class="toggle-password" onclick="showPassword(this, \'' + password + '\')">Mostrar</span>';
+    }, 3000);
+}

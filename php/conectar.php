@@ -1,17 +1,21 @@
 <?php
 
-//VARIÁVEIS PARA CONECTAR AO BANCO DE DADOS
-$servername = "localhost:3308";
+// VARIÁVEIS PARA CONECTAR AO BANCO DE DADOS
+$servername = "localhost";
 $username = "root";
-$password = "etec2023";
+$password = "etec2024";
 $dbname = "gerenciadorsenhas";
 
-try {
-    //VERIFICA SE A CONEXÃO FOI ESTABELECIDA
-    $conn = new mysqli($servername, $username, $password, $dbname);
+// Criando a conexão
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-} catch (Exception $e) {
-
-    die("Erro:" . $e->getMessage());
+// Verificando a conexão
+if ($conn->connect_error) {
+    die("Falha na conexão: " . $conn->connect_error);
+} else {
+    echo "Conexão bem-sucedida!";
 }
+
+// Fechando a conexão (opcional)
+$conn->close();
 ?>
