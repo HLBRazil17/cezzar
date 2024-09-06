@@ -10,8 +10,6 @@ require_once('functions.php');
 $errorMessage = '';
 $successMessage = '';
 
-session_start();
-
 // Verificar se o usuário está autenticado
 if (!isset($_SESSION['userID'])) {
     header('Location: login.php');
@@ -140,6 +138,4 @@ if ($stmt = $conn->prepare($sql)) {
 
     $stmt->close();
 }
-
-require('./Front/store_password.php');
 ?>

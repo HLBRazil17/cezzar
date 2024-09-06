@@ -228,7 +228,7 @@ main {
   align-items: center;
   justify-content: space-between;
   width: 80%;
-  /* Ajuste conforme necessário */
+  margin: 8vh;
 }
 
 .hero img {
@@ -495,12 +495,18 @@ main {
   margin: 40px;
   flex: 1 1 calc(33.333% - 40px);
   box-sizing: border-box;
+  
 }
+
+/* Fundo dos itens da seção Planos e Preços*/
+.pricing-item{
+  height: 45vh;
+}
+
 
 /* Títulos dos itens nas seções adicionais */
 .feature-item h3,
 .testimonial-item h4,
-.pricing-item h3,
 .faq-item h3 {
   margin-top: 0;
 }
@@ -932,15 +938,18 @@ footer .bottom-details .bottom_text {
 }
 
 .pricing-item h3 {
-  font-size: 1.8em;
+  font-size: 2em;
+  text-shadow: 0px 0px 5px #006effa2 ;
   color: #007bff;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
 .pricing-item p {
   font-size: 1.5em;
   color: #555;
   margin-bottom: 25px;
+  font-weight: 600;
 }
 
 .pricing-item ul {

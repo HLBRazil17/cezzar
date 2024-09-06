@@ -52,5 +52,4 @@ if ($stmt = $conn->prepare($sql)) {
     $errorMessage = 'Não foi possível preparar a consulta.';
 }
 
-require("./Front/logs.php");
 ?>

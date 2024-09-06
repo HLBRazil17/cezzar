@@ -229,5 +229,4 @@ if ($searchTerm) {
     $result = $conn->query("SELECT * FROM users");
     $users = $result->fetch_all(MYSQLI_ASSOC);
 }
-require('./Front/gerenciador.php');
 ?>

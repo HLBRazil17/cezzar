@@ -1,8 +1,14 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--import favicon-->
+    <link rel="icon" href="./img/ICON-prokey.ico">
     <title>Gerenciar Usuários</title>
     <style>
         /* Estilos para células editáveis */
@@ -17,7 +23,11 @@
     </div>
 
     <!-- Exibir mensagens de sucesso e erro -->
-    <?php if ($errorMessage): ?>
+    
+    <?php 
+    require './php/gerenciador.php';
+        
+    if ($errorMessage): ?>
         <div style="color: red;">
             <?= htmlspecialchars($errorMessage ?? '', ENT_QUOTES, 'UTF-8') ?>
         </div>

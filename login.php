@@ -1,3 +1,8 @@
+<?php
+session_start();
+require './php/login.php'
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -54,7 +59,7 @@
               <?php if (isset($_SESSION['userNome'])): ?>
                 <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
                 <a href="account.php">Conta</a>
-                <form action="logout.php" method="post" style="display: inline;">
+                <form action="./php/logout.php" method="post" style="display: inline;">
                   <button type="submit" class="logout-btn">Sair</button>
                 </form>
               <?php else: ?>

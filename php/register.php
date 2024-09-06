@@ -1,7 +1,7 @@
 <?php
 
-require ('conectar.php');
-require ('enviar.php');
+require('conectar.php');
+require('enviar.php');
 
 // Inicializar variáveis para mensagens de erro e sucesso
 $errorMessage = '';
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             // Verificar se o e-mail já está registrado
             $sql = "SELECT userID FROM gerenciadorsenhas.users WHERE userEmail = ?";
-            if ($stmt = $conn->prepare($sql)) {
+            if ($stmt = $conn->prepare($sql)) { 
                 $stmt->bind_param("s", $userEmail);
                 $stmt->execute();
                 $stmt->store_result();
@@ -208,5 +208,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-require ('./front/register.php');
-?>
+
+?>  

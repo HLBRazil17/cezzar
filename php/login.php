@@ -50,6 +50,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-require('./Front/login.php');
 ?>
 

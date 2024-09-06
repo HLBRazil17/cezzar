@@ -1,3 +1,9 @@
+<?php
+session_start();
+require("./php/preference.php")
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -37,10 +43,10 @@
 
                     <button class="hamburger" id="hamburger">&#9776;</button>
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="#" class="navbar-item">Produto</a>
-                        <a href="#" class="navbar-item">Planos</a>
-                        <a href="#" class="navbar-item">Download</a>
+                        <a href="store_password.php" class="navbar-item">Senhas</a>
+                        <a href="#" class="navbar-item" data-scroll="planos">Planos</a>
                         <a href="#" class="navbar-item">Sobre</a>
+                        <a href="#" class="navbar-item">Contate-nos</a>
                     </div>
                 </div>
 
@@ -52,11 +58,9 @@
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php">Conta</a>
-                                <form action="logout.php" method="post" style="display: inline;">
-                                    <button type="submit" class="logout-btn">Sair</button>
-                                </form>
+                                <p>Bem-vindo! <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="account.php">Detalhes</a>
+                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
@@ -88,8 +92,8 @@
                     <p>Mantenha suas senhas seguras e acessíveis com o Protect Key. Armazene, gerencie e compartilhe
                         suas senhas de maneira segura, onde quer que esteja.</p>
                     <div class="hero-buttons">
-                        <a href="#" class="btn btn-primary">Iniciar um teste gratuito</a>
-                        <a href="#" class="btn btn-secondary">Ver planos e preços</a>
+                        <a href="register.php" class="btn btn-primary">Iniciar um teste gratuito</a>
+                        <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
                     </div>
                 </div>
             </div>
@@ -170,31 +174,51 @@
             </div>
         </section>
 
-        <!-- Seção de Planos e Preços -->
-        <section class="pricing">
-            <h2>Planos e Preços</h2>
-            <div class="pricing-list">
-                <div class="pricing-item">
-                    <h3>Básico</h3>
-                    <p>Grátis para sempre</p>
-                    <ul>
-                        <li>Armazenamento ilimitado de senhas</li>
-                        <li>Acesso em um dispositivo</li>
-                    </ul>
-                    <a href="#" class="btn btn-primary">Escolher Plano</a>
-                </div>
-                <div class="pricing-item">
-                    <h3>Premium</h3>
-                    <p>$9.99/mês</p>
-                    <ul>
-                        <li>Armazenamento ilimitado de senhas</li>
-                        <li>Acesso em múltiplos dispositivos</li>
-                        <li>Autenticação multifator</li>
-                    </ul>
-                    <a href="#" class="btn btn-primary">Escolher Plano</a>
-                </div>
-            </div>
-        </section>
+       <!-- Seção de Planos e Preços -->
+<section class="pricing" id="planos">
+    <h2>Planos e Preços</h2>
+    <div class="pricing-list">
+        <!-- Plano Básico -->
+        <div class="pricing-item">
+            <h3>Básico</h3>
+            <p>Grátis para sempre</p>
+            <ul>
+                <li>Armazenamento limitado de senhas</li>
+                <li>Acesso em um dispositivo</li>
+                <li>Suporte básico</li>
+            </ul>
+        </div>
+
+        <!-- Plano Pro -->
+        <div class="pricing-item">
+            <h3>Pro</h3>
+            <p>$14.99/mês</p>
+            <ul>
+                <li>Armazenamento ilimitado de senhas</li>
+                <li>Acesso em múltiplos dispositivos</li>
+                <li>Autenticação multifator</li>
+                <li>Suporte prioritário</li>
+                <li>Relatórios de segurança</li>
+            </ul>
+            <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
+        </div>
+
+        <!-- Plano Premium -->
+        <div class="pricing-item">
+            <h3>Premium</h3>
+            <p>$24.99/mês</p>
+            <ul>
+                <li>Armazenamento ilimitado de senhas</li>
+                <li>Acesso em múltiplos dispositivos</li>
+                <li>Autenticação multifator</li>
+                <li>Suporte premium 24/7</li>
+                <li>Relatórios avançados</li>
+                <li>Backup e recuperação de dados</li>
+            </ul>
+            <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
+        </div>
+    </div>
+</section>
 
         <!-- Seção de FAQ -->
         <section class="faq">
@@ -282,7 +306,25 @@
         </div>
     </footer>
 
-    <script src="./script/script.js"></script>
-</body>
+      <script>
+        document.querySelectorAll('[data-scroll]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
 
+                const targetId = this.getAttribute('data-scroll');
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <script src="./script/script.js"></script>
+
+</body>
 </html>
