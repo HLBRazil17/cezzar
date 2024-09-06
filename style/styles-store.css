@@ -32,7 +32,7 @@ body {
     background-color: var(--bg-color);
     border-radius: 10px;
     overflow: hidden;
-    margin: 0 auto;
+    margin: 0 25vw 0 auto;
   }
   
   .button, .button__icon, .button__text {
@@ -87,7 +87,7 @@ body {
 /* Estilo para o formulário INICIALMENTE INVISÍVEL */
 .form-container {
     position: fixed; /* Fixo na tela */
-    top: 50%;
+    top: 65vh;
     left: 50%;
     transform: translate(-50%, -50%); /* Centraliza na tela */
     z-index: 1000; /* Garante que sobreponha outros elementos */
@@ -160,7 +160,7 @@ body {
 
 /* Estilo da tabela de senhas salvas */
 .saved-table {
-    width: 80%;
+    width: 50vw;
     margin: 40px auto;
     background-color: #0d3b66;
     border-radius: 10px;

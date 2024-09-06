@@ -1,5 +1,6 @@
 <?php
 session_start();
+require './php/logs.php';
 ?>
 
 <!DOCTYPE html>

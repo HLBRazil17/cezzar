@@ -1,5 +1,6 @@
 <?php
 session_start();
+require './php/gerenciador.php'
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +26,6 @@ session_start();
     <!-- Exibir mensagens de sucesso e erro -->
     
     <?php 
-    require './php/gerenciador.php';
         
     if ($errorMessage): ?>
         <div style="color: red;">
@@ -129,6 +129,6 @@ session_start();
         </div>
     <?php endif; ?>
 
-    <script src="../Front/script2.js"></script>
+    <script src="../script/script2.js"></script>
 </body>
 </html>

@@ -6,8 +6,6 @@ require('logAction.php');
 $errorMessage = '';
 $logs = [];
 
-session_start();
-
 // Verificar se o usuário está autenticado
 if (!isset($_SESSION['userID'])) {
     header('Location: login.php');

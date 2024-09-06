@@ -17,8 +17,6 @@ $canEdit = false;
 $userData = [];
 $searchTerm = '';
 
-session_start();
-
 // Verificar se o usuário está autenticado
 if (!isset($_SESSION['userID'])) {
     header('Location: login.php');
@@ -37,12 +35,12 @@ if ($stmt = $conn->prepare($sql)) {
 
     // Verificar se a role é "admin"
     if ($role !== 'admin') {
-        header('Location: index.html');
+        header('Location: ../index.php');
         exit();
     }
 } else {
     $errorMessage = 'Não foi possível verificar a permissão do usuário.';
-    header('Location: index.html');
+    header('Location: ../index.php');
     exit();
 }
 
