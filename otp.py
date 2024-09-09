@@ -1,5 +1,6 @@
 import pyotp
 import qrcode
+import time
 
 nomeUsuario = "Helton"
 
@@ -7,7 +8,7 @@ nomeUsuario = "Helton"
 chave_mestra="5JHSKDDJNBQEBCOUBF34MLFXGPWZVUCT"
 
 codigo = pyotp.TOTP(chave_mestra)
-
+agora = codigo.now()
 #Codigo atual do autenticador
 print(codigo.now())
 
@@ -19,5 +20,11 @@ img = qrcode.make(link)
 type(img)
 img.save("qrcode.png")
 
-tentativa=input()
+# Verificar OTP, substituir a variavel "agora", pelo input do usuario.
 
+validade = codigo.verify(otp=agora, for_time=int(time.time()))
+
+if validade:
+    print("Código OTP válido!")
+else:
+    print("Código OTP inválido!")
