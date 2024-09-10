@@ -1,7 +1,7 @@
 <?php
 session_start();
 require './php/register.php'
-?>
+    ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -73,9 +73,9 @@ require './php/register.php'
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php"> Detalhes</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <p>Bem-vindo! <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="account.php" style="font-size: 18px;">Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-bottom: none; font-size: 18px;">Sair da conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>

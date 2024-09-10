@@ -138,4 +138,13 @@ if ($stmt = $conn->prepare($sql)) {
 
     $stmt->close();
 }
+
+// Verifica se a imagem existe no sistema de arquivos
+$image_path = './img/sem-itens.png';
+$button_style = 'style="margin: 0 auto 25vh auto;"'; // Estilo padrão
+
+if (file_exists($image_path)) {
+    // Se a imagem existir, altera o estilo do botão
+    $button_style; // Exemplo de alteração
+}
 ?>

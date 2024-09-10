@@ -28,6 +28,7 @@ main {
   color: white;
   padding: 10px 20px;
   position: relative;
+  min-width: fit-content;
 }
 
 /* Container da navbar */
@@ -170,14 +171,14 @@ main {
 }
 
 .dropdown-content p {
-  margin: 0;
+  margin: 1px;
   padding: 12px 16px;
   color: #000000;
   background-color: #E0E0E0;
   font-weight: 700;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  font-size: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 23px;
   text-align: center;
 }
 
@@ -190,7 +191,9 @@ main {
   font-weight: 500;
   font-size: 20px;
   transition: all ease 0.6s;
-  text-align: center;
+  text-align: left;
+  min-width: fit-content;
+  width: max-content;
 }
 
 .dropdown-content a:hover {
@@ -323,6 +326,7 @@ main {
   background-color: transparent;
   color: white;
   border: 2px solid white;
+  cursor: pointer;
 }
 
 /* Efeito hover para o botão secundário */

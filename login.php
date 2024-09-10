@@ -1,7 +1,7 @@
 <?php
 session_start();
 require './php/login.php'
-?>
+  ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -43,12 +43,13 @@ require './php/login.php'
 
           <button class="hamburger" id="hamburger">&#9776;</button>
           <div class="navbar-menu" id="navbarMenu">
-            <a href="#" class="navbar-item">Produto</a>
-            <a href="#" class="navbar-item">Planos</a>
-            <a href="#" class="navbar-item">Download</a>
+            <a href="store_password.php" class="navbar-item">Senhas</a>
+            <a href="#" class="navbar-item" data-scroll="planos">Planos</a>
             <a href="#" class="navbar-item">Sobre</a>
+            <a href="#" class="navbar-item">Contate-nos</a>
           </div>
         </div>
+
         <!--PROFILE ICON-->
         <div class="navbar-right">
           <details class="dropdown">
@@ -57,11 +58,9 @@ require './php/login.php'
             </summary>
             <div class="dropdown-content">
               <?php if (isset($_SESSION['userNome'])): ?>
-                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                <a href="account.php">Conta</a>
-                <form action="./php/logout.php" method="post" style="display: inline;">
-                  <button type="submit" class="logout-btn">Sair</button>
-                </form>
+                <p>Bem-vindo! <?php echo $_SESSION['userNome']; ?></p>
+                <a href="account.php" style="font-size: 18px;">Detalhes da Conta</a>
+                <a href="./php/logout.php" style="border-bottom: none; font-size: 18px;">Sair da conta</a>
               <?php else: ?>
                 <p>Bem-vindo!</p>
                 <a href="register.php">Registrar</a>
@@ -70,6 +69,7 @@ require './php/login.php'
             </div>
           </details>
         </div>
+      </div>
     </nav>
   </header>
 
