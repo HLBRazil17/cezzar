@@ -58,26 +58,26 @@ require './php/store_password.php';
                     </div>
                 </div>
 
-                <!-- Ícone de perfil com dropdown -->
+                <!--PROFILE ICON-->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
                             <img src="./img/user.png" alt="Profile">
                         </summary>
                         <div class="dropdown-content">
-                            <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php">Detalhes da Conta</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <p>Bem-vindo! <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="account.php" style="font-size: 18px;">Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-bottom: none; font-size: 18px;">Sair da conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
-                                <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="register.php">Registrar uma Conta</a>
+                                <a href="login.php" style="border-bottom: none;">Login em Conta</a>
                             <?php endif; ?>
                         </div>
                     </details>
                 </div>
+            </div>
             </div>
         </nav>
     </header>
@@ -104,7 +104,7 @@ require './php/store_password.php';
                 <input type="email" id="email" name="email" placeholder="E-mail">
 
                 <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" placeholder="Senha" required>
+                <input type="password" id="password" name="password" placeholder="Senha" maxlength="230" required>
 
                 <!-- Mensagens de erro e sucesso -->
                 <?php
@@ -143,7 +143,8 @@ require './php/store_password.php';
                                         target="_blank"><?php echo htmlspecialchars($password['site_name']); ?></a></td>
                                 <td><?php echo htmlspecialchars($password['name']); ?></td>
                                 <td><?php echo htmlspecialchars($password['email']); ?></td>
-                                <td><span class="toggle-password" onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
+                                <td><span class="toggle-password"
+                                        onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
                                 </td>
                                 <td class="buttons">
                                     <!-- Botão de atualização de senha estilizado com imagem -->
@@ -343,19 +344,20 @@ require './php/store_password.php';
         // Observa o body para mudanças no filho (no caso, a tabela pode ser removida ou adicionada)
         observer.observe(document.body, { childList: true, subtree: true });
 
-        // Verifica no carregamento inicial
-        verificarTabela();
+        // Função para verificar se a tabela existe e mostrar/ocultar a imagem
+        function verificarTabela() {
+            const tabela = document.getElementById('savedTable');
+            const imagem = document.getElementById('img-senha');
 
-        // Verifica se o elemento com o ID 'formContainer' existe
-        const tabela = document.getElementById('formContainer');
-        const imagem = document.getElementById('img-senha');
-
-        // Se a tabela existe, esconde a imagem
-        if (tabela) {
-            imagem.style.display = 'none'; // Oculta a imagem
-        } else {
-            imagem.style.display = 'inline'; // Mostra a imagem se a tabela não existir
+            if (tabela) {
+                imagem.style.display = 'none'; // Oculta a imagem se a tabela existir
+            } else {
+                imagem.style.display = 'flex'; // Mostra a imagem se a tabela não existir
+            }
         }
+
+        // Verifica no carregamento inicial
+        document.addEventListener("DOMContentLoaded", verificarTabela);
     </script>
 </body>
 

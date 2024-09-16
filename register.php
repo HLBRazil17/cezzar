@@ -78,8 +78,8 @@ require './php/register.php'
                                 <a href="./php/logout.php" style="border-bottom: none; font-size: 18px;">Sair da conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
-                                <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="register.php">Registrar uma Conta</a>
+                                <a href="login.php" style="border-bottom: none;">Login em Conta</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -107,7 +107,7 @@ require './php/register.php'
 
                     <div class="input-box">
                         <input type="text" id="userCpf" name="userCpf"
-                            placeholder="Digite seu documento de identificação">
+                            placeholder="Digite seu CPF">
                         <br><br>
                     </div>
 

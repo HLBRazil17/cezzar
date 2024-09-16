@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("./php/preference.php")
-?>
+    ?>
 
 
 <!DOCTYPE html>
@@ -63,8 +63,8 @@ require("./php/preference.php")
                                 <a href="./php/logout.php" style="border-bottom: none; font-size: 18px;">Sair da conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
-                                <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="register.php">Registrar uma Conta</a>
+                                <a href="login.php" style="border-bottom: none;">Login em Conta</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -79,7 +79,8 @@ require("./php/preference.php")
                 <img src="./img/background01.png" alt="Imagem do Protect Key">
 
                 <div class="text">
-                    <h1>Seu Gerenciador de Senhas Confiável <svg xmlns="http://www.w3.org/2000/svg" width="65" viewBox="0 0 45 45">
+                    <h1>Seu Gerenciador de Senhas Confiável <svg xmlns="http://www.w3.org/2000/svg" width="65"
+                            viewBox="0 0 45 45">
                             <polygon fill="#42a5f5"
                                 points="29.62,3 33.053,8.308 39.367,8.624 39.686,14.937 44.997,18.367 42.116,23.995 45,29.62 39.692,33.053 39.376,39.367 33.063,39.686 29.633,44.997 24.005,42.116 18.38,45 14.947,39.692 8.633,39.376 8.314,33.063 3.003,29.633 5.884,24.005 3,18.38 8.308,14.947 8.624,8.633 14.937,8.314 18.367,3.003 23.995,5.884">
                             </polygon>
@@ -173,51 +174,51 @@ require("./php/preference.php")
             </div>
         </section>
 
-       <!-- Seção de Planos e Preços -->
-<section class="pricing" id="planos">
-    <h2>Planos e Preços</h2>
-    <div class="pricing-list">
-        <!-- Plano Básico -->
-        <div class="pricing-item">
-            <h3>Básico</h3>
-            <p>Grátis para sempre</p>
-            <ul>
-                <li>Armazenamento limitado de senhas</li>
-                <li>Acesso em um dispositivo</li>
-                <li>Suporte básico</li>
-            </ul>
-        </div>
+        <!-- Seção de Planos e Preços -->
+        <section class="pricing" id="planos">
+            <h2>Planos e Preços</h2>
+            <div class="pricing-list">
+                <!-- Plano Básico -->
+                <div class="pricing-item">
+                    <h3>Básico</h3>
+                    <p>Grátis para sempre</p>
+                    <ul>
+                        <li>Armazenamento limitado de senhas</li>
+                        <li>Acesso em um dispositivo</li>
+                        <li>Suporte básico</li>
+                    </ul>
+                </div>
 
-        <!-- Plano Pro -->
-        <div class="pricing-item">
-            <h3>Pro</h3>
-            <p>$14.99/mês</p>
-            <ul>
-                <li>Armazenamento ilimitado de senhas</li>
-                <li>Acesso em múltiplos dispositivos</li>
-                <li>Autenticação multifator</li>
-                <li>Suporte prioritário</li>
-                <li>Relatórios de segurança</li>
-            </ul>
-            <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
-        </div>
+                <!-- Plano Pro -->
+                <div class="pricing-item">
+                    <h3>Pro</h3>
+                    <p>$14.99/mês</p>
+                    <ul>
+                        <li>Armazenamento ilimitado de senhas</li>
+                        <li>Acesso em múltiplos dispositivos</li>
+                        <li>Autenticação multifator</li>
+                        <li>Suporte prioritário</li>
+                        <li>Relatórios de segurança</li>
+                    </ul>
+                    <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
+                </div>
 
-        <!-- Plano Premium -->
-        <div class="pricing-item">
-            <h3>Premium</h3>
-            <p>$24.99/mês</p>
-            <ul>
-                <li>Armazenamento ilimitado de senhas</li>
-                <li>Acesso em múltiplos dispositivos</li>
-                <li>Autenticação multifator</li>
-                <li>Suporte premium 24/7</li>
-                <li>Relatórios avançados</li>
-                <li>Backup e recuperação de dados</li>
-            </ul>
-            <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
-        </div>
-    </div>
-</section>
+                <!-- Plano Premium -->
+                <div class="pricing-item">
+                    <h3>Premium</h3>
+                    <p>$24.99/mês</p>
+                    <ul>
+                        <li>Armazenamento ilimitado de senhas</li>
+                        <li>Acesso em múltiplos dispositivos</li>
+                        <li>Autenticação multifator</li>
+                        <li>Suporte premium 24/7</li>
+                        <li>Relatórios avançados</li>
+                        <li>Backup e recuperação de dados</li>
+                    </ul>
+                    <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
+                </div>
+            </div>
+        </section>
 
         <!-- Seção de FAQ -->
         <section class="faq">
@@ -305,7 +306,7 @@ require("./php/preference.php")
         </div>
     </footer>
 
-      <script>
+    <script>
         document.querySelectorAll('[data-scroll]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -322,8 +323,9 @@ require("./php/preference.php")
             });
         });
     </script>
-    
+
     <script src="./script/script.js"></script>
 
 </body>
+
 </html>
