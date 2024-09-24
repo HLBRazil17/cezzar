@@ -13,10 +13,10 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Finalmente, destruir a sessão
+//  destruir a sessão
 session_destroy();
 
 // Redirecionar para a página de login
-header("Location: ../login.php");
+header("Location:../login.php");
 exit();
 ?>

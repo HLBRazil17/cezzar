@@ -1,7 +1,17 @@
 <?php
 session_start();
-require("./php/preference.php")
-    ?>
+require("php/conectar.php");
+require("php/functions.php"); 
+require("php/preference.php"); 
+
+// Verifica se o usuário está logado
+if (isset($_SESSION['userID'])) {
+    $userId = $_SESSION['userID']; // Obtém o ID do usuário da sessão
+    $userPlan = getUserPlan($userId, $conn); // Obtém o plano do usuário
+} else {
+    $userPlan = 'Não logado'; // Valor padrão se o usuário não estiver logado
+}
+?>
 
 
 <!DOCTYPE html>
@@ -44,9 +54,19 @@ require("./php/preference.php")
                     <button class="hamburger" id="hamburger">&#9776;</button>
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Senhas</a>
-                        <a href="#" class="navbar-item" data-scroll="planos">Planos</a>
-                        <a href="#" class="navbar-item">Sobre</a>
-                        <a href="#" class="navbar-item">Contate-nos</a>
+                        <a href="planos.php" class="navbar-item">Planos</a>
+                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <?php if (checkAdminRole($conn, $userId)) { ?>
+                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                            <a href="logs.php" class="navbar-item">Logs</a>
+                            <?php } ?>
+                            
+                            <?php endif; ?>
+                                
+                        
                     </div>
                 </div>
 
@@ -58,13 +78,13 @@ require("./php/preference.php")
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo! <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php" style="font-size: 18px;">Detalhes da Conta</a>
-                                <a href="./php/logout.php" style="border-bottom: none; font-size: 18px;">Sair da conta</a>
+                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="account.php">Detalhes</a>
+                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
-                                <a href="register.php">Registrar uma Conta</a>
-                                <a href="login.php" style="border-bottom: none;">Login em Conta</a>
+                                <a href="register.php">Registrar</a>
+                                <a href="login.php" style="border-bottom: none;">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -80,7 +100,7 @@ require("./php/preference.php")
 
                 <div class="text">
                     <h1>Seu Gerenciador de Senhas Confiável <svg xmlns="http://www.w3.org/2000/svg" width="65"
-                            viewBox="0 0 45 45">
+                            height="auto" viewBox="0 0 45 45">
                             <polygon fill="#42a5f5"
                                 points="29.62,3 33.053,8.308 39.367,8.624 39.686,14.937 44.997,18.367 42.116,23.995 45,29.62 39.692,33.053 39.376,39.367 33.063,39.686 29.633,44.997 24.005,42.116 18.38,45 14.947,39.692 8.633,39.376 8.314,33.063 3.003,29.633 5.884,24.005 3,18.38 8.308,14.947 8.624,8.633 14.937,8.314 18.367,3.003 23.995,5.884">
                             </polygon>
@@ -92,8 +112,13 @@ require("./php/preference.php")
                     <p>Mantenha suas senhas seguras e acessíveis com o Protect Key. Armazene, gerencie e compartilhe
                         suas senhas de maneira segura, onde quer que esteja.</p>
                     <div class="hero-buttons">
-                        <a href="register.php" class="btn btn-primary">Iniciar um teste gratuito</a>
+                    <?php if (isset($_SESSION['userNome'])): ?>
+                        <a href="store_password.php" class="btn btn-primary">Salvar Senha</a>
                         <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
+                            <?php else: ?>
+                                <a href="register.php" class="btn btn-primary">Iniciar um teste gratuito</a>
+                                <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
+                            <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -174,51 +199,65 @@ require("./php/preference.php")
             </div>
         </section>
 
-        <!-- Seção de Planos e Preços -->
-        <section class="pricing" id="planos">
-            <h2>Planos e Preços</h2>
-            <div class="pricing-list">
-                <!-- Plano Básico -->
-                <div class="pricing-item">
-                    <h3>Básico</h3>
-                    <p>Grátis para sempre</p>
-                    <ul>
-                        <li>Armazenamento limitado de senhas</li>
-                        <li>Acesso em um dispositivo</li>
-                        <li>Suporte básico</li>
-                    </ul>
-                </div>
+       <!-- Seção de Planos e Preços -->
+<section class="pricing" id="planos">
+    <h2>Planos e Preços</h2>
+    <div class="pricing-list">
+        <!-- Plano Básico -->
+        <div class="pricing-item">
+            <h3>Básico</h3>
+            <p>Grátis para sempre</p>
+            <ul>
+                <li>Armazenamento limitado de senhas</li>
+                <li>Acesso em um dispositivo</li>
+                <li>Suporte básico</li>
+            </ul>
+            <?php if ($userPlan === 'básico') : ?>
+                    <span class="btn">Você já possui um plano</span>
+                <?php else : ?>
+                    <a href="" class="btn">Escolher Plano </a>
+                <?php endif; ?>
+        </div>
+        
 
-                <!-- Plano Pro -->
-                <div class="pricing-item">
-                    <h3>Pro</h3>
-                    <p>$14.99/mês</p>
-                    <ul>
-                        <li>Armazenamento ilimitado de senhas</li>
-                        <li>Acesso em múltiplos dispositivos</li>
-                        <li>Autenticação multifator</li>
-                        <li>Suporte prioritário</li>
-                        <li>Relatórios de segurança</li>
-                    </ul>
-                    <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
-                </div>
-
-                <!-- Plano Premium -->
-                <div class="pricing-item">
-                    <h3>Premium</h3>
-                    <p>$24.99/mês</p>
-                    <ul>
-                        <li>Armazenamento ilimitado de senhas</li>
-                        <li>Acesso em múltiplos dispositivos</li>
-                        <li>Autenticação multifator</li>
-                        <li>Suporte premium 24/7</li>
-                        <li>Relatórios avançados</li>
-                        <li>Backup e recuperação de dados</li>
-                    </ul>
-                    <a href="<?php echo $paymentUrl; ?>" class="btn btn-primary" target="_blank">Escolher Plano</a>
-                </div>
+        <!-- Plano Pro -->
+        <div class="pricing-item">
+            <h3>Pro</h3>
+            <p>R$14.99/mês</p>
+            <ul>
+                <li>Armazenamento ilimitado de senhas</li>
+                <li>Acesso em múltiplos dispositivos</li>
+                <li>Autenticação multifator</li>
+                <li>Suporte prioritário</li>
+                <li>Relatórios de segurança</li>
+            </ul>
+            <?php if ($userPlan === 'pro') : ?>
+                    <span class="btn">Você já possui este plano</span>
+                <?php else : ?>
+                     <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="btn btn-primary" target="_blank">Escolher Plano </a>
+                <?php endif; ?>
             </div>
-        </section>
+
+        <!-- Plano Premium -->
+        <div class="pricing-item">
+            <h3>Premium</h3>
+            <p>R$24.99/mês</p>
+            <ul>
+                <li>Armazenamento ilimitado de senhas</li>
+                <li>Acesso em múltiplos dispositivos</li>
+                <li>Autenticação multifator</li>
+                <li>Suporte premium 24/7</li>
+                <li>Relatórios avançados</li>
+                <li>Backup e recuperação de dados</li>
+            </ul>
+            <?php if ($userPlan === 'premium') : ?>
+                    <span class="btn">Você já possui este plano</span>
+                <?php else : ?>
+                    <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="btn btn-primary" target="_blank">Escolher Plano </a>
+                <?php endif; ?>
+            </div>
+    </div>
+</section>
 
         <!-- Seção de FAQ -->
         <section class="faq">
@@ -306,7 +345,7 @@ require("./php/preference.php")
         </div>
     </footer>
 
-    <script>
+      <script>
         document.querySelectorAll('[data-scroll]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -323,9 +362,8 @@ require("./php/preference.php")
             });
         });
     </script>
-
+    
     <script src="./script/script.js"></script>
 
 </body>
-
 </html>

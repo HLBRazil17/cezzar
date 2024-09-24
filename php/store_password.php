@@ -1,7 +1,6 @@
 <?php
 // Incluir o arquivo de conexão com o banco de dados
 require('conectar.php');
-require('logAction.php');
 
 // Incluir o arquivo de funções
 require_once('functions.php');
@@ -9,6 +8,11 @@ require_once('functions.php');
 // Inicializar variáveis para mensagens de erro e sucesso
 $errorMessage = '';
 $successMessage = '';
+
+// Definir o limite de tamanho para a senha (em caracteres)
+$passwordMaxLength = 255;
+
+session_start();
 
 // Verificar se o usuário está autenticado
 if (!isset($_SESSION['userID'])) {
@@ -44,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($actionType != 'delete') {
         if (empty($siteName) || empty($password)) {
             $errorMessage = 'O nome do site e a senha são obrigatórios.';
+        } elseif (strlen($password) > $passwordMaxLength) {
+            // Verificar se a senha excede o limite
+            $errorMessage = 'A senha é muito longa. O limite é de ' . $passwordMaxLength . ' caracteres.';
         } else {
             // Preparar SQL e executar com base na ação
             if ($actionType == 'add') {
@@ -140,7 +147,7 @@ if ($stmt = $conn->prepare($sql)) {
 }
 
 // Verifica se a imagem existe no sistema de arquivos
-$image_path = './img/sem-itens.png';
+$image_path = './front/img/sem-itens.png';
 $button_style = 'style="margin: 0 auto 25vh auto;"'; // Estilo padrão
 
 if (file_exists($image_path)) {

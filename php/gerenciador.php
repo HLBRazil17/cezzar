@@ -1,12 +1,6 @@
 <?php
 require('conectar.php');
-require('logAction.php');
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Load Composer's autoloader
-require './lib/vendor/autoload.php';
+require("functions.php"); 
 
 $errorMessage = '';
 $successMessage = '';
@@ -17,6 +11,8 @@ $canEdit = false;
 $userData = [];
 $searchTerm = '';
 
+session_start();
+
 // Verificar se o usuário está autenticado
 if (!isset($_SESSION['userID'])) {
     header('Location: login.php');
@@ -25,24 +21,12 @@ if (!isset($_SESSION['userID'])) {
 
 // Obter a role do usuário
 $userID = $_SESSION['userID'];
-$sql = "SELECT role FROM users WHERE userID = ?";
-if ($stmt = $conn->prepare($sql)) {
-    $stmt->bind_param("i", $userID);
-    $stmt->execute();
-    $stmt->bind_result($role);
-    $stmt->fetch();
-    $stmt->close();
 
-    // Verificar se a role é "admin"
-    if ($role !== 'admin') {
-        header('Location: ../index.php');
-        exit();
-    }
-} else {
-    $errorMessage = 'Não foi possível verificar a permissão do usuário.';
-    header('Location: ../index.php');
+// Verificar se o usuário é admin
+if (!checkAdminRole($conn, $userID)) {
+    header('Location: index.php');
     exit();
-}
+} 
 
 // Verifica o id do adm e o nome do adm
 $admID = $_SESSION['userID'];
@@ -108,10 +92,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $canEdit = true;
 
             // Buscar dados do usuário para preencher o formulário
-            $userQuery = $conn->prepare("SELECT userNome, userEmail, userCpf, userTel, userEstato, role FROM users WHERE userID = ?");
+            $userQuery = $conn->prepare("SELECT userNome, userEmail, userCpf, userTel, userEstato, role, plano FROM users WHERE userID = ?");
             $userQuery->bind_param("i", $userID);
             $userQuery->execute();
-            $userQuery->bind_result($userNome, $userEmail, $userCpf, $userTel, $userEstato, $role);
+            $userQuery->bind_result($userNome, $userEmail, $userCpf, $userTel, $userEstato, $role, $plano);
             $userQuery->fetch();
             $userQuery->close();
 
@@ -121,7 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'userCpf' => $userCpf,
                 'userTel' => $userTel,
                 'userEstato' => $userEstato,
-                'role' => $role
+                'role' => $role,
+                'plano' => $plano
             ];
         } else {
             $errorMessage = 'Código incorreto ou expirado.';
@@ -134,16 +119,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userTel = $_POST['userTel'] ?? null;
         $userEstato = $_POST['userEstato'];
         $role = $_POST['role'];
+        $plano = $_POST['plano'];
 
         // Verificar e atualizar apenas os campos que mudaram
-        $userQuery = $conn->prepare("SELECT userNome, userEmail, userCpf, userTel, userEstato, role FROM users WHERE userID = ?");
+        $userQuery = $conn->prepare("SELECT userNome, userEmail, userCpf, userTel, userEstato, role, plano FROM users WHERE userID = ?");
         $userQuery->bind_param("i", $userID);
         $userQuery->execute();
-        $userQuery->bind_result($oldNome, $oldEmail, $oldCpf, $oldTel, $oldEstato, $oldRole);
+        $userQuery->bind_result($oldNome, $oldEmail, $oldCpf, $oldTel, $oldEstato, $oldRole, $oldPlano);
         $userQuery->fetch();
         $userQuery->close();
 
-        if ($userNome === $oldNome && $userEmail === $oldEmail && $userCpf === $oldCpf && $userTel === $oldTel && $userEstato === $oldEstato && $role === $oldRole) {
+        if ($userNome === $oldNome && $userEmail === $oldEmail && $userCpf === $oldCpf && $userTel === $oldTel && $userEstato === $oldEstato && $role === $oldRole && $plano === $oldPlano) {
             $errorMessage = 'Nenhuma mudança foi feita.';
         } else {
             // Verificar se o e-mail já está em uso por outro usuário
@@ -157,21 +143,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($existingUserID) {
                 // O e-mail já está em uso por outro usuário
                 $errorMessage = 'Este e-mail já está em uso por outro usuário.';
-                logAction($conn, $userID, ' Falha Atualização de Usuario', 'Tentou cadastrar com um email ja existente: ' . $userEmail . ' pelo admin: ' . $adminNome . ' (ID: ' . $admID . ')');
+                logAction($conn, $userID, 'Falha Atualização de Usuario', 'Tentou cadastrar com um email ja existente: ' . $userEmail . ' pelo admin: ' . $adminNome . ' (ID: ' . $admID . ')');
             } else {
-                // Continue com a atualização se o e-mail não estiver em uso
-                $updateQuery = $conn->prepare("UPDATE users SET userNome = ?, userEmail = ?, userCpf = ?, userTel = ?, userEstato = ?, role = ? WHERE userID = ?");
-                $updateQuery->bind_param("ssssssi", $userNome, $userEmail, $userCpf, $userTel, $userEstato, $role, $userID);
-                $updateQuery->execute();
+                // Atualiza os dados da tabela 'users', incluindo o campo 'plano'
+                $updateUserQuery = $conn->prepare("UPDATE users SET userNome = ?, userEmail = ?, userCpf = ?, userTel = ?, userEstato = ?, role = ?, plano = ? WHERE userID = ?");
+                $updateUserQuery->bind_param("sssssssi", $userNome, $userEmail, $userCpf, $userTel, $userEstato, $role, $plano, $userID);
+                $updateUserQuery->execute();
 
-                if ($updateQuery->affected_rows > 0) {
+                // Verifica se as atualizações foram bem-sucedidas
+                if ($updateUserQuery->affected_rows > 0) {
                     logAction($conn, $userID, 'Atualização de Usuario', 'Informações Atualizadas: ' . $userNome . ' pelo admin: ' . $adminNome . ' (ID: ' . $admID . ')');
                     $successMessage = 'Informações atualizadas com sucesso.';
                 } else {
-                    $errorMessage = 'Falha ao atualizar as informações.';
+                    $errorMessage = 'Falha ao alterar as informações do usuario.';
                 }
 
-                $updateQuery->close();
+                $updateUserQuery->close();
             }
         }
     } elseif ($actionType === 'search') {
@@ -179,42 +166,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Função para enviar o código por e-mail
-function sendCodigoEmail($toEmail, $codigo) {
-    $mail = new PHPMailer(true);
-    try {
-        // Configurações do servidor SMTP
-        $mail->CharSet = "UTF-8";
-        $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'ab5297e24d2261';
-        $mail->Password = 'ce8f33fcb0479d';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 2525;
-
-        // Configurações do e-mail
-        $mail->setFrom('matheusridrigues2@gmail.com', 'Segurança');
-        $mail->addAddress($toEmail);
-
-        // Conteúdo do e-mail
-        $mail->isHTML(true);
-        $mail->Subject = 'Código de Atualização';
-        $mail->Body    = "Seu código de atualização é <strong>$codigo</strong>.";
-        $mail->AltBody = "Seu código de atualização é $codigo.";
-
-        $mail->send();
-        return '';
-    } catch (Exception $e) {
-        return "Erro ao enviar e-mail: {$mail->ErrorInfo}";
-    }
-}
-
 // Buscar todos os usuários com base no termo de pesquisa
 if ($searchTerm) {
-    $searchQuery = $conn->prepare("SELECT * FROM users WHERE userID LIKE ? OR userNome LIKE ? OR userEmail LIKE ? OR userCpf LIKE ? OR userTel LIKE ? OR userEstato LIKE ? OR role LIKE ?");
+    $searchQuery = $conn->prepare("
+        SELECT users.* 
+        FROM users 
+        WHERE users.userID LIKE ? OR users.userNome LIKE ? OR users.userEmail LIKE ? OR users.userCpf LIKE ? OR users.userTel LIKE ? OR users.userEstato LIKE ? OR users.role LIKE ? OR users.plano LIKE ?");
     $likeTerm = "%$searchTerm%";
-    $searchQuery->bind_param("sssssss", $likeTerm, $likeTerm, $likeTerm, $likeTerm, $likeTerm, $likeTerm, $likeTerm);
+    $searchQuery->bind_param("ssssssss", $likeTerm, $likeTerm, $likeTerm, $likeTerm, $likeTerm, $likeTerm, $likeTerm, $likeTerm);
     $searchQuery->execute();
     $result = $searchQuery->get_result();
     $users = $result->fetch_all(MYSQLI_ASSOC);
@@ -224,7 +183,9 @@ if ($searchTerm) {
     $searchTerm = '';
     
 } else {
-    $result = $conn->query("SELECT * FROM users");
+    $result = $conn->query("
+        SELECT users.* 
+        FROM users");
     $users = $result->fetch_all(MYSQLI_ASSOC);
 }
 ?>

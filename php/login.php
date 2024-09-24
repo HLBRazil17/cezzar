@@ -1,6 +1,6 @@
 <?php
-// Incluir o arquivo de conexão com o banco de dados
 require('conectar.php');
+require("functions.php"); 
 
 // Inicializar variáveis para mensagens de erro e sucesso
 $errorMessage = '';
@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Validar os dados
     if (empty($userIdent) || empty($userPassword)) {
-        $errorMessage = 'Nome/CPF e senha são obrigatórios.';
+        $errorMessage = 'CPF e senha são obrigatórios.';
     } else {
         // Preparar a consulta SQL para verificar o usuário
-        $sql = "SELECT userID, userNome, userCpf, userPassword FROM gerenciadorsenhas.users WHERE (userCpf = ? OR userToken = ?)";
+        $sql = "SELECT userID, userNome, userCpf, userPassword FROM gerenciadorsenhas.users WHERE userToken = ? OR userCpf = ?";
         if ($stmt = $conn->prepare($sql)) {
             // Vincular parâmetros
             $stmt->bind_param("ss", $userIdent, $userIdent);
@@ -34,13 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     session_start();
                     $_SESSION['userID'] = $userID;
                     $_SESSION['userNome'] = $userNome;
-                    header("Location: store_password.php?userID=$userID"); // Redirecionar para a página de registro com o ID do usuário
+
+                    // Registrar a ação de login
+                    logAction($conn, $userID, 'Login', 'Login bem sucedido: ' . $userNome);
+
+                    header("Location: store_password.php");
                     exit();
                 } else {
-                    $errorMessage = 'Senha inválida.';
+                    $errorMessage = 'Dados invalidos.';
+                    
                 }
             } else {
-                $errorMessage = 'CPF ou Token inválido.';
+                $errorMessage = 'Dados invalidos.';
+                
             }
 
             // Fechar a declaração
@@ -48,7 +54,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $errorMessage = 'Não foi possível preparar a declaração SQL.';
         }
-    }
+  // Redirecionar após o POST para evitar reenvio do formulário
+      /*  header("Location: login.php?error=" . urlencode($errorMessage));
+        exit(); */
+    } 
 }
-?>
 
+// Verificar se há uma mensagem de erro via GET
+  /* if (isset($_GET['error'])) {
+    $errorMessage = urldecode($_GET['error']);
+} */
+
+// Incluir o arquivo de visualização (formulário de login)
+?>

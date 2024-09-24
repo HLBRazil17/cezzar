@@ -28,7 +28,6 @@ main {
   color: white;
   padding: 10px 20px;
   position: relative;
-  min-width: fit-content;
 }
 
 /* Container da navbar */
@@ -171,14 +170,14 @@ main {
 }
 
 .dropdown-content p {
-  margin: 1px;
+  margin: 0;
   padding: 12px 16px;
   color: #000000;
   background-color: #E0E0E0;
   font-weight: 700;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  font-size: 23px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -191,9 +190,7 @@ main {
   font-weight: 500;
   font-size: 20px;
   transition: all ease 0.6s;
-  text-align: left;
-  min-width: fit-content;
-  width: max-content;
+  text-align: center;
 }
 
 .dropdown-content a:hover {
@@ -231,7 +228,7 @@ main {
   align-items: center;
   justify-content: space-between;
   width: 80%;
-  margin: 8vh;
+  /* Ajuste conforme necessário */
 }
 
 .hero img {
@@ -326,7 +323,6 @@ main {
   background-color: transparent;
   color: white;
   border: 2px solid white;
-  cursor: pointer;
 }
 
 /* Efeito hover para o botão secundário */
@@ -499,18 +495,12 @@ main {
   margin: 40px;
   flex: 1 1 calc(33.333% - 40px);
   box-sizing: border-box;
-  
 }
-
-/* Fundo dos itens da seção Planos e Preços*/
-.pricing-item{
-  height: 45vh;
-}
-
 
 /* Títulos dos itens nas seções adicionais */
 .feature-item h3,
 .testimonial-item h4,
+.pricing-item h3,
 .faq-item h3 {
   margin-top: 0;
 }
@@ -942,18 +932,15 @@ footer .bottom-details .bottom_text {
 }
 
 .pricing-item h3 {
-  font-size: 2em;
-  text-shadow: 0px 0px 5px #006effa2 ;
+  font-size: 1.8em;
   color: #007bff;
-  margin-bottom: 25px;
-  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .pricing-item p {
   font-size: 1.5em;
   color: #555;
   margin-bottom: 25px;
-  font-weight: 600;
 }
 
 .pricing-item ul {

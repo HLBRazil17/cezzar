@@ -1,40 +1,24 @@
 <?php
 session_start();
-require('./php/login.php');
+require("./php/esqueceu_senha.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!--import favicon-->
-    <link rel="icon" href="./img/ICON-prokey.ico">
-
-    <!--import googleFonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <!--import font awesome-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-    <!--import css/scroll-->
+    <title>Esqueceu a Senha</title>
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-loginReg.css">
-
-    <script src="https://unpkg.com/scrollreveal"></script>
-
-    <title>Login</title>
 </head>
-
 <body>
+    <!-- Cabeçalho -->
     <header class="header">
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-
+                    <!-- Logo -->
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
@@ -42,25 +26,30 @@ require('./php/login.php');
                                 class="logo-hover"></a>
                     </div>
 
+                    <!-- Botão de menu hambúrguer -->
                     <button class="hamburger" id="hamburger">&#9776;</button>
+
+                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
                      <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="#" class="navbar-item">Contate-nos</a>
+                        
                     </div>
                 </div>
-                    
-                <!--PROFILE ICON-->
+
+                <!-- Ícone de perfil com dropdown -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
                             <img src="./img/user.png" alt="Profile">
                         </summary>
                         <div class="dropdown-content">
+                            <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
                                 <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php">Detalhes</a>
+                                <a href="account.php">Detalhes da Conta</a>
                                 <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
@@ -74,43 +63,20 @@ require('./php/login.php');
         </nav>
     </header>
 
-
     <main class="main-content">
-        <section class="hero" style="height: 100vh;">
-            <div class="wrapper" style="height: 70%;">
+        <section class="hero">
+            <div class="wrapper">
+                <h1>Esqueceu a Senha</h1>
                 <form action="" method="post">
-                    <h1>Login</h1>
-
                     <div class="input-box">
-                        <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token"
-                            required>
-                        <br><br>
+                        <input type="email" name="userEmail" placeholder="Digite seu email" required>
                     </div>
-
-                    <div class="input-box">
-                        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha"
-                            required>
-                        <br><br>
-                    </div>
-
-                    <div class="register-link">
-                        <p>Não possui uma conta?<br> <a href="./register.php">Registre-se</a></p>
-                        <p>Esqueceu a senha?<br> <a href="esqueceu_senha.php">Obter Dica</a></p>
-                    </div>
-
-                    <?php
-                    if (!empty($errorMessage)) {
-                        echo "<p class='message error'>$errorMessage</p>";
-                    }
-                    ?>
-
-                    <?php if (isset($_SESSION['success_message'])): ?>
-                    <p class="message success"><?php echo htmlspecialchars($_SESSION['success_message']); ?></p>
-                    <?php unset($_SESSION['success_message']); // Remove a mensagem da sessão após exibi-la ?>
-                    <?php endif; ?>
-
-                    <button type="submit" class="btn">Login</button>
+                    <button type="submit" class="btn">Enviar Dica de Senha</button>
+                    <button type="submit" class="btn"><a href="login.php">Cancelar</a>
                 </form>
+                <?php if ($message): ?>
+                    <p class="message"><?php echo $message; ?></p>
+                <?php endif; ?>
             </div>
         </section>
     </main>
@@ -176,8 +142,7 @@ require('./php/login.php');
             </div>
         </div>
     </footer>
-    
-  <script src="./script/script2.js"></script>
+
 </body>
 
 </html>
