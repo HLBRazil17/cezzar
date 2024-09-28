@@ -28,6 +28,7 @@ main {
   color: white;
   padding: 10px 20px;
   position: relative;
+  min-width: fit-content;
 }
 
 /* Container da navbar */
@@ -170,14 +171,14 @@ main {
 }
 
 .dropdown-content p {
-  margin: 0;
+  margin: 1px;
   padding: 12px 16px;
   color: #000000;
   background-color: #E0E0E0;
   font-weight: 700;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  font-size: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 23px;
   text-align: center;
 }
 
@@ -188,13 +189,16 @@ main {
   display: block;
   border-bottom: 2px solid #E0E0E0;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   transition: all ease 0.6s;
-  text-align: center;
+  text-align: left;
+  width: 100%; /* Altere aqui para garantir que o link ocupe a largura total */
+  white-space: nowrap; /* Evita a quebra de linha */
 }
 
 .dropdown-content a:hover {
   color: white;
+  background-color: #1f7fd6; 
 }
 
 .profile-icon {
@@ -228,7 +232,7 @@ main {
   align-items: center;
   justify-content: space-between;
   width: 80%;
-  /* Ajuste conforme necessário */
+  margin: 8vh;
 }
 
 .hero img {
@@ -323,6 +327,7 @@ main {
   background-color: transparent;
   color: white;
   border: 2px solid white;
+  cursor: pointer;
 }
 
 /* Efeito hover para o botão secundário */
@@ -495,12 +500,18 @@ main {
   margin: 40px;
   flex: 1 1 calc(33.333% - 40px);
   box-sizing: border-box;
+  
 }
+
+/* Fundo dos itens da seção Planos e Preços*/
+.pricing-item{
+  height: 45vh;
+}
+
 
 /* Títulos dos itens nas seções adicionais */
 .feature-item h3,
 .testimonial-item h4,
-.pricing-item h3,
 .faq-item h3 {
   margin-top: 0;
 }
@@ -714,11 +725,11 @@ footer .content .link-boxes .box {
   text-decoration: underline;
 }
 
-.content .link-boxes .input-box {
+.content .link-boxes .input-box-fot {
   margin-right: 55px;
 }
 
-.link-boxes .input-box input {
+.link-boxes .input-box-fot input {
   height: 40px;
   width: calc(100% + 55px);
   outline: none;
@@ -731,12 +742,12 @@ footer .content .link-boxes .box {
   margin-top: 5px;
 }
 
-.link-boxes .input-box input::placeholder {
+.link-boxes .input-box-fot input::placeholder {
   color: #AFAFB6;
   font-size: 16px;
 }
 
-.link-boxes .input-box input[type="button"] {
+.link-boxes .input-box-fot input[type="button"] {
   background: #fff;
   color: #140B5C;
   border: none;
@@ -788,7 +799,7 @@ footer .bottom-details .bottom_text {
     flex-wrap: wrap;
   }
 
-  footer .content .link-boxes .input-box {
+  footer .content .link-boxes .input-box-fot {
     width: 40%;
     margin-top: 10px;
   }
@@ -814,7 +825,7 @@ footer .bottom-details .bottom_text {
     width: calc(100% / 3 - 10px);
   }
 
-  footer .content .link-boxes .input-box {
+  footer .content .link-boxes .input-box-fot {
     width: 60%;
   }
 
@@ -841,7 +852,7 @@ footer .bottom-details .bottom_text {
     width: calc(100% / 2 - 10px);
   }
 
-  footer .content .link-boxes .input-box {
+  footer .content .link-boxes .input-box-fot {
     width: 100%;
   }
 }
@@ -932,15 +943,18 @@ footer .bottom-details .bottom_text {
 }
 
 .pricing-item h3 {
-  font-size: 1.8em;
+  font-size: 2em;
+  text-shadow: 0px 0px 5px #006effa2 ;
   color: #007bff;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
 .pricing-item p {
   font-size: 1.5em;
   color: #555;
   margin-bottom: 25px;
+  font-weight: 600;
 }
 
 .pricing-item ul {

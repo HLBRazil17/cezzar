@@ -5,6 +5,7 @@ require("./php/esqueceu_senha.php");
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +13,7 @@ require("./php/esqueceu_senha.php");
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-loginReg.css">
 </head>
+
 <body>
     <!-- Cabeçalho -->
     <header class="header">
@@ -33,9 +35,9 @@ require("./php/esqueceu_senha.php");
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="#" class="navbar-item">Contate-nos</a>
-                        
+
                     </div>
                 </div>
 
@@ -66,13 +68,22 @@ require("./php/esqueceu_senha.php");
     <main class="main-content">
         <section class="hero">
             <div class="wrapper">
-                <h1>Esqueceu a Senha</h1>
+                <h1 style="font-size: 46px;">Esqueceu a Senha?</h1>
                 <form action="" method="post">
-                    <div class="input-box">
+                    <div class="input-box" style="margin-top:50px;">
                         <input type="email" name="userEmail" placeholder="Digite seu email" required>
                     </div>
-                    <button type="submit" class="btn">Enviar Dica de Senha</button>
-                    <button type="submit" class="btn"><a href="login.php">Cancelar</a>
+
+                    
+                    <div class="button-container" style="width: 225px; margin: 0 auto;">
+                        <button type="submit" class="btn"
+                            style="margin: 20px 0 30px; width: fit-content; padding: 0 30px;">Enviar Dica de
+                            Senha</button>
+                        <button class="btn" style="width: fit-content; padding: 0 75px;">
+                            <a href="login.php" style="text-decoration: none; color: inherit;">Cancelar</a>
+                        </button>
+                    </div>
+
                 </form>
                 <?php if ($message): ?>
                     <p class="message"><?php echo $message; ?></p>
@@ -125,7 +136,7 @@ require("./php/esqueceu_senha.php");
                     <li><a href="#">Photography</a></li>
                     <li><a href="#">Photoshop</a></li>
                 </ul>
-                <ul class="box input-box">
+                <ul class="box input-box-fot">
                     <li class="link_name">Subscribe</li>
                     <li><input type="text" placeholder="Enter your email"></li>
                     <li><input type="button" value="Subscribe"></li>

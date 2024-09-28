@@ -66,8 +66,8 @@ function generateToken($conn) {
     return $token;
 }
 
-// Função para enviar o TOKEN por  e-mail
-function sendEmail($to, $token) {
+// Função principal para enviar o e-mail
+function sendEmail($toEmail, $subject, $bodyContent, $altBodyContent = '') {
     $mail = new PHPMailer(true);
 
     try {
@@ -76,86 +76,61 @@ function sendEmail($to, $token) {
         $mail->isSMTP();
         $mail->Host = 'sandbox.smtp.mailtrap.io'; // Endereço do servidor SMTP
         $mail->SMTPAuth = true;
-        $mail->Username = 'ab5297e24d2261';
-        $mail->Password = 'ce8f33fcb0479d';
+        $mail->Username = '2d06e60e772532'; // Seu nome de usuário do SMTP
+        $mail->Password = '48251569a78ac1'; // Sua senha do SMTP
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 2525;
 
         // Configurações do e-mail
         $mail->setFrom('matheusridrigues2@gmail.com', 'Segurança');
-        $mail->addAddress($to);
-        $mail->Subject = 'Seu Token de Registro';
-        $mail->Body    = "Obrigado por se registrar! Aqui está seu token de registro:\n\n";
-        $mail->Body   .= "$token";
+        $mail->addAddress($toEmail);
+
+        // Conteúdo do e-mail
+        $mail->isHTML(true); // Definir o formato do e-mail como HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $bodyContent;
+        $mail->AltBody = $altBodyContent ?: strip_tags($bodyContent); // Alternativo para clientes sem suporte a HTML
 
         // Envia o e-mail
         $mail->send();
-        return '';
-    } catch (Exception $e) {
-        return 'Ocorreu um erro ao enviar o e-mail. Tente cadastrar novamente. Se o erro persistir, contate nosso suporte!';
-    }
-}
-
-// Função para enviar o código por e-mail
-function sendCodigoEmail($toEmail, $codigo) {
-    $mail = new PHPMailer(true);
-    try {
-        // Configurações do servidor SMTP
-        $mail->CharSet = "UTF-8";
-        $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'ab5297e24d2261';
-        $mail->Password = 'ce8f33fcb0479d';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 2525;
-
-        // Configurações do e-mail
-        $mail->setFrom('matheusridrigues2@gmail.com', 'Segurança');
-        $mail->addAddress($toEmail);
-
-        // Conteúdo do e-mail
-        $mail->isHTML(true);
-        $mail->Subject = 'Código de Atualização';
-        $mail->Body    = "Seu código de atualização é <strong>$codigo</strong>.";
-        $mail->AltBody = "Seu código de atualização é $codigo.";
-
-        $mail->send();
-        return '';
-    } catch (Exception $e) {
-        return "Erro ao enviar o código: {$mail->ErrorInfo}";
-    }
-}
-
-function sendDicaSenhaEmail($toEmail, $dicaSenha) {
-    $mail = new PHPMailer(true);
-    try {
-        // Configurações do servidor SMTP
-        $mail->CharSet = "UTF-8";
-        $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'ab5297e24d2261'; // Substitua pelo seu username
-        $mail->Password = 'ce8f33fcb0479d'; // Substitua pela sua senha
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 2525;
-
-        // Configurações do e-mail
-        $mail->setFrom('matheusridrigues2@gmail.com', 'Segurança');
-        $mail->addAddress($toEmail);
-
-        // Conteúdo do e-mail
-        $mail->isHTML(true);
-        $mail->Subject = 'Dica de Senha';
-        $mail->Body    = "Sua dica de senha é: <strong>$dicaSenha</strong>.";
-        $mail->AltBody = "Sua dica de senha é: $dicaSenha.";
-
-        $mail->send();
         return ''; // Retorna vazio em caso de sucesso
     } catch (Exception $e) {
-        return "Erro ao enviar a dica de senha: {$mail->ErrorInfo}"; // Retorna mensagem de erro
+        return "Erro ao enviar o e-mail: {$mail->ErrorInfo}"; // Retorna mensagem de erro
     }
 }
+
+// Função para enviar o Token por e-mail
+function sendTokenEmail($toEmail, $token) {
+    $subject = 'Seu Token de Registro';
+    $bodyContent = "Obrigado por se registrar! Aqui está seu token de registro: <strong>$token</strong>";
+    $altBodyContent = "Obrigado por se registrar! Aqui está seu token de registro: $token";
+    return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
+}
+
+// Função para enviar o Código por e-mail
+function sendCodigoEmail($toEmail, $codigo) {
+    $subject = 'Código de Atualização';
+    $bodyContent = "Seu código de atualização/entrada é <strong>$codigo</strong>.";
+    $altBodyContent = "Seu código de atualização/entrada é $codigo.";
+    return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
+}
+
+// Função para enviar o Código de entrada por e-mail
+function sendEntradaEmail($toEmail, $codigo) {
+    $subject = 'Código de Atualização';
+    $bodyContent = "Seu código de entrada é <strong>$codigo</strong>.";
+    $altBodyContent = "Seu código de entrada é $codigo.";
+    return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
+}
+
+// Função para enviar a Dica de Senha por e-mail
+function sendDicaSenhaEmail($toEmail, $dicaSenha) {
+    $subject = 'Dica de Senha';
+    $bodyContent = "Sua dica de senha é: <strong>$dicaSenha</strong>.";
+    $altBodyContent = "Sua dica de senha é: $dicaSenha.";
+    return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
+}
+
 
 function getUserIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -241,6 +216,17 @@ function validarCPF($userCpf) {
     }
 
     return true;
+}
+
+
+function generateUniqueCode($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
 }
 
 ?>

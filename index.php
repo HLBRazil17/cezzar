@@ -1,8 +1,8 @@
 <?php
 session_start();
 require("php/conectar.php");
-require("php/functions.php"); 
-require("php/preference.php"); 
+require("php/functions.php");
+require("php/preference.php");
 
 // Verifica se o usuário está logado
 if (isset($_SESSION['userID'])) {
@@ -55,18 +55,18 @@ if (isset($_SESSION['userID'])) {
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <!--<a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
 
                         <?php if (isset($_SESSION['userNome'])): ?>
                             <?php if (checkAdminRole($conn, $userId)) { ?>
-                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                            <a href="logs.php" class="navbar-item">Logs</a>
+                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                                <a href="logs.php" class="navbar-item">Logs</a>
                             <?php } ?>
-                            
-                            <?php endif; ?>
-                                
-                        
+
+                        <?php endif; ?>
+
+
                     </div>
                 </div>
 
@@ -78,13 +78,17 @@ if (isset($_SESSION['userID'])) {
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php">Detalhes</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="account.php"> Detalhes da Conta</a>
+                                <a href="logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="login.php" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -112,13 +116,13 @@ if (isset($_SESSION['userID'])) {
                     <p>Mantenha suas senhas seguras e acessíveis com o Protect Key. Armazene, gerencie e compartilhe
                         suas senhas de maneira segura, onde quer que esteja.</p>
                     <div class="hero-buttons">
-                    <?php if (isset($_SESSION['userNome'])): ?>
-                        <a href="store_password.php" class="btn btn-primary">Salvar Senha</a>
-                        <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
-                            <?php else: ?>
-                                <a href="register.php" class="btn btn-primary">Iniciar um teste gratuito</a>
-                                <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
-                            <?php endif; ?>
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="btn btn-primary">Salvar Senha</a>
+                            <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
+                        <?php else: ?>
+                            <a href="register.php" class="btn btn-primary">Iniciar um teste gratuito</a>
+                            <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -199,65 +203,67 @@ if (isset($_SESSION['userID'])) {
             </div>
         </section>
 
-       <!-- Seção de Planos e Preços -->
-<section class="pricing" id="planos">
-    <h2>Planos e Preços</h2>
-    <div class="pricing-list">
-        <!-- Plano Básico -->
-        <div class="pricing-item">
-            <h3>Básico</h3>
-            <p>Grátis para sempre</p>
-            <ul>
-                <li>Armazenamento limitado de senhas</li>
-                <li>Acesso em um dispositivo</li>
-                <li>Suporte básico</li>
-            </ul>
-            <?php if ($userPlan === 'básico') : ?>
-                    <span class="btn">Você já possui um plano</span>
-                <?php else : ?>
-                    <a href="" class="btn">Escolher Plano </a>
-                <?php endif; ?>
-        </div>
-        
+        <!-- Seção de Planos e Preços -->
+        <section class="pricing" id="planos">
+            <h2>Planos e Preços</h2>
+            <div class="pricing-list">
+                <!-- Plano Básico -->
+                <div class="pricing-item">
+                    <h3>Básico</h3>
+                    <p>Grátis para sempre</p>
+                    <ul>
+                        <li>Armazenamento limitado de senhas</li>
+                        <li>Acesso em um dispositivo</li>
+                        <li>Suporte básico</li>
+                    </ul>
+                    <?php if ($userPlan === 'básico'): ?>
+                        <span class="btn">Você já possui um plano</span>
+                    <?php else: ?>
+                        <a href="" class="btn">Escolher Plano </a>
+                    <?php endif; ?>
+                </div>
 
-        <!-- Plano Pro -->
-        <div class="pricing-item">
-            <h3>Pro</h3>
-            <p>R$14.99/mês</p>
-            <ul>
-                <li>Armazenamento ilimitado de senhas</li>
-                <li>Acesso em múltiplos dispositivos</li>
-                <li>Autenticação multifator</li>
-                <li>Suporte prioritário</li>
-                <li>Relatórios de segurança</li>
-            </ul>
-            <?php if ($userPlan === 'pro') : ?>
-                    <span class="btn">Você já possui este plano</span>
-                <?php else : ?>
-                     <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="btn btn-primary" target="_blank">Escolher Plano </a>
-                <?php endif; ?>
-            </div>
 
-        <!-- Plano Premium -->
-        <div class="pricing-item">
-            <h3>Premium</h3>
-            <p>R$24.99/mês</p>
-            <ul>
-                <li>Armazenamento ilimitado de senhas</li>
-                <li>Acesso em múltiplos dispositivos</li>
-                <li>Autenticação multifator</li>
-                <li>Suporte premium 24/7</li>
-                <li>Relatórios avançados</li>
-                <li>Backup e recuperação de dados</li>
-            </ul>
-            <?php if ($userPlan === 'premium') : ?>
-                    <span class="btn">Você já possui este plano</span>
-                <?php else : ?>
-                    <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="btn btn-primary" target="_blank">Escolher Plano </a>
-                <?php endif; ?>
+                <!-- Plano Pro -->
+                <div class="pricing-item">
+                    <h3>Pro</h3>
+                    <p>R$14.99/mês</p>
+                    <ul>
+                        <li>Armazenamento ilimitado de senhas</li>
+                        <li>Acesso em múltiplos dispositivos</li>
+                        <li>Autenticação multifator</li>
+                        <li>Suporte prioritário</li>
+                        <li>Relatórios de segurança</li>
+                    </ul>
+                    <?php if ($userPlan === 'pro'): ?>
+                        <span class="btn">Você já possui este plano</span>
+                    <?php else: ?>
+                        <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="btn btn-primary"
+                            target="_blank">Escolher Plano </a>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Plano Premium -->
+                <div class="pricing-item">
+                    <h3>Premium</h3>
+                    <p>R$24.99/mês</p>
+                    <ul>
+                        <li>Armazenamento ilimitado de senhas</li>
+                        <li>Acesso em múltiplos dispositivos</li>
+                        <li>Autenticação multifator</li>
+                        <li>Suporte premium 24/7</li>
+                        <li>Relatórios avançados</li>
+                        <li>Backup e recuperação de dados</li>
+                    </ul>
+                    <?php if ($userPlan === 'premium'): ?>
+                        <span class="btn">Você já possui este plano</span>
+                    <?php else: ?>
+                        <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="btn btn-primary"
+                            target="_blank">Escolher Plano </a>
+                    <?php endif; ?>
+                </div>
             </div>
-    </div>
-</section>
+        </section>
 
         <!-- Seção de FAQ -->
         <section class="faq">
@@ -327,7 +333,7 @@ if (isset($_SESSION['userID'])) {
                     <li><a href="#">Photography</a></li>
                     <li><a href="#">Photoshop</a></li>
                 </ul>
-                <ul class="box input-box">
+                <ul class="box input-box-fot">
                     <li class="link_name">Subscribe</li>
                     <li><input type="text" placeholder="Enter your email"></li>
                     <li><input type="button" value="Subscribe"></li>
@@ -345,7 +351,7 @@ if (isset($_SESSION['userID'])) {
         </div>
     </footer>
 
-      <script>
+    <script>
         document.querySelectorAll('[data-scroll]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -362,8 +368,9 @@ if (isset($_SESSION['userID'])) {
             });
         });
     </script>
-    
+
     <script src="./script/script.js"></script>
 
 </body>
+
 </html>
