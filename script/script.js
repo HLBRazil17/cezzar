@@ -15,3 +15,5 @@ document.addEventListener('click', function(e) {
         menu.style.right = '-100%';
     }
 });
+
+

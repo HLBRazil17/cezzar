@@ -88,7 +88,8 @@ if (isset($_SESSION['userID'])) {
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -145,42 +146,42 @@ if (isset($_SESSION['userID'])) {
                     <div class="feature-item">
                         <h3>Segurança de Nível Militar</h3>
                         <img src="./img/seguranca-icon.png" alt="Icone de Segurança">
-                        <p>Proteja suas senhas com criptografia avançada e autenticação multifator.</p>
+                        <p>• Proteja suas senhas com criptografia avançada e autenticação multifator.</p>
                         <ul>
-                            <li>Criptografia AES-256</li>
-                            <li>Autenticação multifator (MFA)</li>
-                            <li>Proteção contra ataques de força bruta</li>
+                            <li>✔️ Criptografia AES-256</li>
+                            <li>✔️ Autenticação multifator (MFA)</li>
+                            <li>✔️ Proteção contra ataques de força bruta</li>
                         </ul>
-                        <p>Com a segurança de nível militar, você pode ter certeza de que suas senhas estão protegidas
-                            contra qualquer ameaça.</p>
+                        <p>• Com a Segurança de Alto Nível, você pode ter Certeza de que suas Senhas estão Protegidas
+                            Contra qualquer Ameaça.</p>
                     </div>
                 </div>
 
                 <!-- Item de funcionalidade individual -->
                 <div class="feature-item">
-                    <h3>Acesso em Qualquer Lugar</h3>
+                    <h3>Acesso Ilimitado de Senhas</h3>
                     <img src="./img/acesso-icon.png" alt="">
-                    <p>Acesse suas senhas de qualquer dispositivo, a qualquer momento.</p>
+                    <p>• Acesse suas Senhas de Forma Ilimitada, a Qualquer Momento.</p>
                     <ul>
-                        <li>Compatível com dispositivos móveis</li>
-                        <li>Acesso offline</li>
-                        <li>Sincronização em tempo real</li>
+                        <li>✔️ Acesso Ilimitado</li>
+                        <li>✔️ Sincronização em Tempo Real</li>
+                        <li>✔️ Compatível com Dispositivos Desktop</li>
                     </ul>
-                    <p>Não importa onde você esteja, você terá acesso às suas senhas sempre que precisar, com ou sem
-                        conexão à internet.</p>
+                    <p>• Não importa onde esteja, você terá Acesso às suas Senhas Sempre que Precisar.</p>
                 </div>
 
                 <!-- Item de funcionalidade individual -->
                 <div class="feature-item">
-                    <h3>Compartilhamento Seguro</h3>
+                    <h3>Armazenamento Ilimitado</h3>
                     <img src="./img/compartilhamento-icon.png" alt="">
-                    <p>Compartilhe suas senhas com segurança com amigos e familiares.</p>
+                    <p>• Armazene suas Senhas com Segura e Criptografia de Ponta.</p>
                     <ul>
-                        <li>Compartilhamento criptografado</li>
-                        <li>Controle de permissões</li>
-                        <li>Revogação de acesso a qualquer momento</li>
+                        <li>✔️ Armazenamento Criptografado</li>
+                        <li>✔️ Controle e Alteração de Senhas</li>
+                        <li>✔️ Geramento de senhas</li>
                     </ul>
-                    <p>Compartilhar senhas nunca foi tão seguro. Você pode controlar quem tem acesso e por quanto tempo.
+                    <p>• Compartilhar senhas nunca foi tão seguro. Você pode controlar quem tem acesso e por quanto
+                        tempo.
                     </p>
                 </div>
             </div>
@@ -192,16 +193,37 @@ if (isset($_SESSION['userID'])) {
             <h2>O que nossos usuários dizem</h2>
             <div class="testimonial-list">
                 <div class="testimonial-item">
-                    <p>"O Protect Key facilitou minha vida. Agora posso gerenciar todas as minhas senhas em um só
-                        lugar."</p>
-                    <h4>Maria Silva</h4>
+                    <img src="./img/person01.png" alt="Foto de Pedro Santussi">
+                    <div class="testimonial-text">
+                        <p>"Cara o Protect Key mudou meu dia a dia. Eu sempre esquecia minhas senhas e ficava naquela
+                            correria pra recuperar tudo pedindo email. Agora tá tudo num lugar só, bem mais fácil.
+                            Recomendo demais!"</p>
+                        <h4>— Pedro Santussi</h4>
+                    </div>
                 </div>
+
                 <div class="testimonial-item">
-                    <p>"Muito seguro e fácil de usar. Recomendo a todos."</p>
-                    <h4>João Pereira</h4>
+                    <img src="./img/person02.png" alt="Foto de Thiago Pereira Mendes">
+                    <div class="testimonial-text">
+                        <p>"Eu vivia esquecendo minhas senhas e perdendo tempo pra recuperar. O que sinceramente era bem
+                            chato, resolveu meu problema. Agora minha vida ficou bem mais fácil!"</p>
+                        <h4>— Thiago Pereira Mendes</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-center">
+                <div class="testimonial-item">
+                    <img src="./img/person03.png" alt="Foto de Thiago Pereira Mendes">
+                    <div class="testimonial-text">
+                        <p>"Vou te contar funciona top. Eu sempre esquecia minhas senhas e era horrível ficar tentando recuperar. Agora tá tudo organizado, bem mais de boa."</p>
+                        <h4>— Roger Souza</h4>
+                    </div>
                 </div>
             </div>
         </section>
+
+        
 
         <!-- Seção de Planos e Preços -->
         <section class="pricing" id="planos">
