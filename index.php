@@ -53,10 +53,16 @@ if (isset($_SESSION['userID'])) {
 
                     <button class="hamburger" id="hamburger">&#9776;</button>
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Senhas</a>
-                        <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--<a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php else: ?>
+                            <a href="store_password.php" class="navbar-item">Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php endif; ?>
 
                         <?php if (isset($_SESSION['userNome'])): ?>
                             <?php if (checkAdminRole($conn, $userId)) { ?>
@@ -70,11 +76,12 @@ if (isset($_SESSION['userID'])) {
                     </div>
                 </div>
 
-                <!--PROFILE ICON-->
+                <!-- PROFILE ICON -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
@@ -134,7 +141,9 @@ if (isset($_SESSION['userID'])) {
         <!-- Seção de Recursos -->
         <section class="features second-section">
 
-            <h2>Recursos Principais</h2>
+            <div>
+                <a href="#"><img src="./img/recursos-principais.png" alt="Recursos Principais" class="recursos-img"></a>
+            </div>
 
             <!-- Div para o fundo azul com cantos arredondados -->
             <div class="features blue-background">
@@ -148,9 +157,45 @@ if (isset($_SESSION['userID'])) {
                         <img src="./img/seguranca-icon.png" alt="Icone de Segurança">
                         <p>• Proteja suas senhas com criptografia avançada e autenticação multifator.</p>
                         <ul>
-                            <li>✔️ Criptografia AES-256</li>
-                            <li>✔️ Autenticação multifator (MFA)</li>
-                            <li>✔️ Proteção contra ataques de força bruta</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                    viewBox="0,0,256,256">
+                                    <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                        stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                        stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                        font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                        <g transform="scale(5.12,5.12)">
+                                            <path
+                                                d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </svg> Criptografia AES-256</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                    viewBox="0,0,256,256">
+                                    <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                        stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                        stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                        font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                        <g transform="scale(5.12,5.12)">
+                                            <path
+                                                d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </svg> Autenticação multifator (MFA)</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                    viewBox="0,0,256,256">
+                                    <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                        stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                        stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                        font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                        <g transform="scale(5.12,5.12)">
+                                            <path
+                                                d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </svg> Proteção contra ataques de força bruta</li>
                         </ul>
                         <p>• Com a Segurança de Alto Nível, você pode ter Certeza de que suas Senhas estão Protegidas
                             Contra qualquer Ameaça.</p>
@@ -159,13 +204,49 @@ if (isset($_SESSION['userID'])) {
 
                 <!-- Item de funcionalidade individual -->
                 <div class="feature-item">
-                    <h3>Acesso Ilimitado de Senhas</h3>
+                    <h3>Acesso Ilimitado</h3>
                     <img src="./img/acesso-icon.png" alt="">
                     <p>• Acesse suas Senhas de Forma Ilimitada, a Qualquer Momento.</p>
                     <ul>
-                        <li>✔️ Acesso Ilimitado</li>
-                        <li>✔️ Sincronização em Tempo Real</li>
-                        <li>✔️ Compatível com Dispositivos Desktop</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                viewBox="0,0,256,256">
+                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                    <g transform="scale(5.12,5.12)">
+                                        <path
+                                            d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg> Acesso Ilimitado</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                viewBox="0,0,256,256">
+                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                    <g transform="scale(5.12,5.12)">
+                                        <path
+                                            d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg> Sincronização em Tempo Real</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                viewBox="0,0,256,256">
+                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                    <g transform="scale(5.12,5.12)">
+                                        <path
+                                            d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg> Compatível com Dispositivos Desktop</li>
                     </ul>
                     <p>• Não importa onde esteja, você terá Acesso às suas Senhas Sempre que Precisar.</p>
                 </div>
@@ -176,12 +257,48 @@ if (isset($_SESSION['userID'])) {
                     <img src="./img/compartilhamento-icon.png" alt="">
                     <p>• Armazene suas Senhas com Segura e Criptografia de Ponta.</p>
                     <ul>
-                        <li>✔️ Armazenamento Criptografado</li>
-                        <li>✔️ Controle e Alteração de Senhas</li>
-                        <li>✔️ Geramento de senhas</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                viewBox="0,0,256,256">
+                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                    <g transform="scale(5.12,5.12)">
+                                        <path
+                                            d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg> Geração de Senhas</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                viewBox="0,0,256,256">
+                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                    <g transform="scale(5.12,5.12)">
+                                        <path
+                                            d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg> Armazenamento Criptografado</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                viewBox="0,0,256,256">
+                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                    <g transform="scale(5.12,5.12)">
+                                        <path
+                                            d="M41.9375,8.625c-0.66406,0.02344 -1.27344,0.375 -1.625,0.9375l-18.8125,28.78125l-12.1875,-10.53125c-0.52344,-0.54297 -1.30859,-0.74609 -2.03125,-0.51953c-0.71875,0.22266 -1.25391,0.83203 -1.37891,1.57422c-0.125,0.74609 0.17578,1.49609 0.78516,1.94531l13.9375,12.0625c0.4375,0.37109 1.01563,0.53516 1.58203,0.45313c0.57031,-0.08594 1.07422,-0.41016 1.38672,-0.89062l20.09375,-30.6875c0.42969,-0.62891 0.46484,-1.44141 0.09375,-2.10547c-0.37109,-0.66016 -1.08594,-1.05469 -1.84375,-1.01953z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>Controle e Alteração de Senhas Ilimitado</li>
                     </ul>
-                    <p>• Compartilhar senhas nunca foi tão seguro. Você pode controlar quem tem acesso e por quanto
-                        tempo.
+                    <p>• Armazene a Quantidade de Senhas que Precisar! Teste nossa Geração de Senhas e o Controle de
+                        Senhas.
                     </p>
                 </div>
             </div>
@@ -216,76 +333,137 @@ if (isset($_SESSION['userID'])) {
                 <div class="testimonial-item">
                     <img src="./img/person03.png" alt="Foto de Thiago Pereira Mendes">
                     <div class="testimonial-text">
-                        <p>"Vou te contar funciona top. Eu sempre esquecia minhas senhas e era horrível ficar tentando recuperar. Agora tá tudo organizado, bem mais de boa."</p>
+                        <p>"Vou te contar funciona top. Eu sempre esquecia minhas senhas e era horrível ficar tentando
+                            recuperar. Agora tá tudo organizado, bem mais de boa."</p>
                         <h4>— Roger Souza</h4>
                     </div>
                 </div>
             </div>
         </section>
 
-        
+
 
         <!-- Seção de Planos e Preços -->
         <section class="pricing" id="planos">
             <h2>Planos e Preços</h2>
             <div class="pricing-list">
-                <!-- Plano Básico -->
-                <div class="pricing-item">
-                    <h3>Básico</h3>
-                    <p>Grátis para sempre</p>
-                    <ul>
-                        <li>Armazenamento limitado de senhas</li>
-                        <li>Acesso em um dispositivo</li>
-                        <li>Suporte básico</li>
+                <!-- Card do Plano Básico -->
+                <div class="card-price">
+                    <p class="price">
+                        Grátis
+                    </p>
+                    <ul class="lists">
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Armazenamento limitado de senhas</span>
+                        </li>
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Acesso em um dispositivo</span>
+                        </li>
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Suporte básico</span>
+                        </li>
                     </ul>
                     <?php if ($userPlan === 'básico'): ?>
-                        <span class="btn">Você já possui um plano</span>
+                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0">Você já possui este
+                            plano</span>
                     <?php else: ?>
-                        <a href="" class="btn">Escolher Plano </a>
+                        <a href="#" class="action">Escolher Plano</a>
                     <?php endif; ?>
                 </div>
 
-
-                <!-- Plano Pro -->
-                <div class="pricing-item">
-                    <h3>Pro</h3>
-                    <p>R$14.99/mês</p>
-                    <ul>
-                        <li>Armazenamento ilimitado de senhas</li>
-                        <li>Acesso em múltiplos dispositivos</li>
-                        <li>Autenticação multifator</li>
-                        <li>Suporte prioritário</li>
-                        <li>Relatórios de segurança</li>
+                <!-- Card do Plano Pro -->
+                <div class="card-price">
+                    <p class="price">
+                        R$14.99/mês
+                    </p>
+                    <ul class="lists">
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Armazenamento ilimitado de senhas</span>
+                        </li>
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Acesso em múltiplos dispositivos</span>
+                        </li>
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Autenticação multifator</span>
+                        </li>
                     </ul>
                     <?php if ($userPlan === 'pro'): ?>
                         <span class="btn">Você já possui este plano</span>
                     <?php else: ?>
-                        <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="btn btn-primary"
-                            target="_blank">Escolher Plano </a>
+                        <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="action">Escolher Pro</a>
                     <?php endif; ?>
                 </div>
 
-                <!-- Plano Premium -->
-                <div class="pricing-item">
-                    <h3>Premium</h3>
-                    <p>R$24.99/mês</p>
-                    <ul>
-                        <li>Armazenamento ilimitado de senhas</li>
-                        <li>Acesso em múltiplos dispositivos</li>
-                        <li>Autenticação multifator</li>
-                        <li>Suporte premium 24/7</li>
-                        <li>Relatórios avançados</li>
-                        <li>Backup e recuperação de dados</li>
+                <!-- Card do Plano Premium -->
+                <div class="card-price">
+                    <p class="price">
+                        R$24.99/mês
+                    </p>
+                    <ul class="lists">
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Backup e recuperação de dados</span>
+                        </li>
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Relatórios avançados</span>
+                        </li>
+                        <li class="list">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z">
+                                </path>
+                            </svg>
+                            <span>Suporte premium 24/7</span>
+                        </li>
                     </ul>
                     <?php if ($userPlan === 'premium'): ?>
                         <span class="btn">Você já possui este plano</span>
                     <?php else: ?>
-                        <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="btn btn-primary"
-                            target="_blank">Escolher Plano </a>
+                        <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="action">Escolher Premium</a>
                     <?php endif; ?>
                 </div>
             </div>
         </section>
+
 
         <!-- Seção de FAQ -->
         <section class="faq">
@@ -373,6 +551,9 @@ if (isset($_SESSION['userID'])) {
         </div>
     </footer>
 
+    <script src="./script/script.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+
     <script>
         document.querySelectorAll('[data-scroll]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -391,7 +572,86 @@ if (isset($_SESSION['userID'])) {
         });
     </script>
 
-    <script src="./script/script.js"></script>
+
+    <script>
+
+        // Inicialização do ScrollReveal
+        const sr = ScrollReveal({
+            reset: true, // As animações ocorrerão sempre que o elemento entrar na viewport
+            distance: '50px',
+            duration: 1000,
+            easing: 'ease-in-out',
+        });
+
+        // Animações para a Navegação e Hero
+        sr.reveal('.navbar-item', {
+            origin: 'top',
+            distance: '20px',
+            interval: 100
+        });
+
+        sr.reveal('.logo, .logo-hover', {
+            origin: 'left',
+            distance: '20px'
+        });
+
+        sr.reveal('.hero h1', {
+            origin: 'left',
+            distance: '50px'
+        });
+
+        sr.reveal('.hero p', {
+            origin: 'right',
+            distance: '50px',
+            delay: 200
+        });
+
+        sr.reveal('.hero-buttons .btn', {
+            origin: 'bottom',
+            distance: '30px',
+            interval: 100
+        });
+
+        // Animações para Recursos Principais
+        sr.reveal('.recursos-img', {
+            origin: 'bottom',
+            distance: '50px'
+        });
+
+        sr.reveal('.feature-item', {
+            origin: 'bottom',
+            distance: '50px'
+        });
+
+        // Animações para Testemunhos
+        sr.reveal('.testimonial-item', {
+            origin: 'left',
+            distance: '50px',
+            interval: 200
+        });
+
+        // Animações para Cards de Planos e Preços
+        sr.reveal('.card-price', {
+            origin: 'right',
+            distance: '50px',
+            interval: 200
+        });
+
+        // Animações para Perguntas Frequentes
+        sr.reveal('.faq-item', {
+            origin: 'bottom',
+            distance: '30px',
+            interval: 100
+        });
+
+        // Animações para a Seção de Contato
+        sr.reveal('.contact h2, .contact p', {
+            origin: 'bottom',
+            distance: '30px',
+            interval: 100
+        });
+    </script>
+
 
 </body>
 
