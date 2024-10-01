@@ -91,7 +91,7 @@ if (isset($_SESSION['userID'])) {
                                 ?>
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
                                 <a href="account.php"> Detalhes da Conta</a>
-                                <a href="logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <a href="./php/logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
@@ -379,7 +379,7 @@ if (isset($_SESSION['userID'])) {
                         </li>
                     </ul>
                     <?php if ($userPlan === 'básico'): ?>
-                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0">Você já possui este
+                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este
                             plano</span>
                     <?php else: ?>
                         <a href="#" class="action">Escolher Plano</a>
@@ -418,7 +418,7 @@ if (isset($_SESSION['userID'])) {
                         </li>
                     </ul>
                     <?php if ($userPlan === 'pro'): ?>
-                        <span class="btn">Você já possui este plano</span>
+                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este plano</span>
                     <?php else: ?>
                         <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="action">Escolher Pro</a>
                     <?php endif; ?>
@@ -456,7 +456,7 @@ if (isset($_SESSION['userID'])) {
                         </li>
                     </ul>
                     <?php if ($userPlan === 'premium'): ?>
-                        <span class="btn">Você já possui este plano</span>
+                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este plano</span>
                     <?php else: ?>
                         <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="action">Escolher Premium</a>
                     <?php endif; ?>

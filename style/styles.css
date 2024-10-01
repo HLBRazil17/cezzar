@@ -1056,7 +1056,7 @@ footer .bottom-details .bottom_text {
 
 /* Estilização da Seção de Planos e Preços */
 .pricing {
-  background-color: #f0f4f8;
+  background-color: #d3e1ee;
   padding: 60px 20px;
   text-align: center;
 }
@@ -1139,9 +1139,12 @@ footer .bottom-details .bottom_text {
 }
 
 .faq-item {
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
   text-align: left;
+  background-color: #dde7f0;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .faq-item h3 {
