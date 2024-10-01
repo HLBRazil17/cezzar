@@ -49,36 +49,32 @@ require('./php/store_password.php');
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="#" class="navbar-item">Contate-nos</a>
+                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
                         <?php if (checkAdminRole($conn, $userID)) { ?>
                             <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
                             <a href="logs.php" class="navbar-item">Logs</a>
-                        <?php } ?>
+                            <?php } ?>
                     </div>
                 </div>
 
-                <!--PROFILE ICON-->
+                <!-- Ícone de perfil com dropdown -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
                             <img src="./img/user.png" alt="Profile">
                         </summary>
                         <div class="dropdown-content">
+                            <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <?php
-                                // Utiliza strtok para obter a primeira parte antes do espaço
-                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
-                                ?>
-                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
-                                <a href="account.php"> Detalhes da Conta</a>
-                                <a href="logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="conta.php">Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                                <a href="login.php" style="border-bottom: none;">Login</a>
                             <?php endif; ?>
-
                         </div>
                     </details>
                 </div>
@@ -147,8 +143,7 @@ require('./php/store_password.php');
                                         target="_blank"><?php echo htmlspecialchars($password['site_name']); ?></a></td>
                                 <td><?php echo htmlspecialchars($password['name']); ?></td>
                                 <td><?php echo htmlspecialchars($password['email']); ?></td>
-                                <td><span class="toggle-password"
-                                        onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
+                                <td><span class="toggle-password" onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
                                 </td>
                                 <td class="buttons">
                                     <!-- Botão de atualização de senha estilizado com imagem -->
@@ -270,7 +265,7 @@ require('./php/store_password.php');
                     <li><a href="#">Photography</a></li>
                     <li><a href="#">Photoshop</a></li>
                 </ul>
-                <ul class="box input-box-fot">
+                <ul class="box input-box">
                     <li class="link_name">Subscribe</li>
                     <li><input type="text" placeholder="Enter your email"></li>
                     <li><input type="button" value="Subscribe"></li>

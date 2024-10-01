@@ -101,33 +101,82 @@ function sendEmail($toEmail, $subject, $bodyContent, $altBodyContent = '') {
 
 // Função para enviar o Token por e-mail
 function sendTokenEmail($toEmail, $token) {
-    $subject = 'Seu Token de Registro';
-    $bodyContent = "Obrigado por se registrar! Aqui está seu token de registro: <strong>$token</strong>";
-    $altBodyContent = "Obrigado por se registrar! Aqui está seu token de registro: $token";
+    $subject = 'Bem-vindo ao Protect Key - Seu Token de Registro';
+    $bodyContent = "<h1>Bem-vindo ao Protect Key!</h1>
+                    <p>Agradecemos por se registrar em nosso site. Para completar o seu cadastro, por favor, utilize o seguinte token:</p>
+                    <p><strong>Seu Token de Registro:</strong> {$token}</p>
+                    <p>Este token é necessário para ativar sua conta. Caso tenha alguma dúvida, não hesite em entrar em contato com nossa equipe de suporte.</p>
+                    <p>Atenciosamente,<br>A Equipe Protect Key</p>";
+    
+    $altBodyContent = "Bem-vindo ao Protect Key!\n"
+                    . "Agradecemos por se registrar em nosso site. Para completar o seu cadastro, por favor, utilize o seguinte token:\n"
+                    . "Seu Token de Registro: $token\n"
+                    . "Este token é necessário para ativar sua conta. Caso tenha alguma dúvida, não hesite em entrar em contato com nossa equipe de suporte.\n"
+                    . "Atenciosamente,\nA Equipe Protect Key";    
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
 // Função para enviar o Código por e-mail
 function sendCodigoEmail($toEmail, $codigo) {
-    $subject = 'Código de Atualização';
-    $bodyContent = "Seu código de atualização/entrada é <strong>$codigo</strong>.";
-    $altBodyContent = "Seu código de atualização/entrada é $codigo.";
+    $subject = 'Código de Atualização de Conta - Protect Key';
+    $bodyContent = "<h1>Atualização de Conta - Protect Key</h1>
+                    <p>Prezado(a),</p>
+                    <p>Você está recebendo este e-mail porque uma solicitação de atualização foi feita em sua conta.</p>
+                    <p>Para prosseguir com as alterações, por favor, forneça o seguinte código de atualização ao administrador:</p>
+                    <p><strong>Código de Atualização:</strong> {$codigo}</p>
+                    <p>Se você não solicitou essa atualização, por favor, entre em contato com nossa equipe de suporte imediatamente.</p>
+                    <p>Atenciosamente,<br>A Equipe Protect Key</p>";
+    
+    $altBodyContent = "Atualização de Conta - Protect Key\n"
+                    . "Prezado(a),\n"
+                    . "Você está recebendo este e-mail porque uma solicitação de atualização foi feita em sua conta.\n"
+                    . "Para prosseguir com as alterações, por favor, forneça o seguinte código de atualização ao administrador:\n"
+                    . "Código de Atualização: $codigo\n"
+                    . "Se você não solicitou essa atualização, por favor, entre em contato com nossa equipe de suporte imediatamente.\n"
+                    . "Atenciosamente,\nA Equipe Protect Key";
+    
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
 // Função para enviar o Código de entrada por e-mail
 function sendEntradaEmail($toEmail, $codigo) {
-    $subject = 'Código de Atualização';
-    $bodyContent = "Seu código de entrada é <strong>$codigo</strong>.";
-    $altBodyContent = "Seu código de entrada é $codigo.";
+    $subject = 'Código de Redefinição de Senha - Protect Key';
+$bodyContent = "<h1>Redefinição de Senha - Protect Key</h1>
+                <p>Prezado(a) usuário,</p>
+                <p>Você está recebendo este e-mail porque solicitou a redefinição de sua senha.</p>
+                <p>Para prosseguir, por favor, insira o seguinte código de entrada no campo designado para redefinir sua senha:</p>
+                <p><strong>Código de Redefinição:</strong> {$codigo}</p>
+                <p>Se você não solicitou essa redefinição, entre em contato com o suporte imediatamente para garantir a segurança da sua conta.</p>
+                <p>Atenciosamente,<br>A Equipe Protect Key</p>";
+
+$altBodyContent = "Redefinição de Senha - Protect Key\n"
+                . "Prezado(a) usuário,\n"
+                . "Você está recebendo este e-mail porque solicitou a redefinição de sua senha.\n"
+                . "Para prosseguir, por favor, insira o seguinte código de entrada no campo designado para redefinir sua senha:\n"
+                . "Código de Redefinição: $codigo\n"
+                . "Se você não solicitou essa redefinição, entre em contato com o suporte imediatamente para garantir a segurança da sua conta.\n"
+                . "Atenciosamente,\nA Equipe Protect Key";
+
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
 // Função para enviar a Dica de Senha por e-mail
 function sendDicaSenhaEmail($toEmail, $dicaSenha) {
-    $subject = 'Dica de Senha';
-    $bodyContent = "Sua dica de senha é: <strong>$dicaSenha</strong>.";
-    $altBodyContent = "Sua dica de senha é: $dicaSenha.";
+   $subject = 'Dica de Senha - Protect Key';
+$bodyContent = "<h1>Recuperação de Dica de Senha - Protect Key</h1>
+                <p>Prezado(a) usuário,</p>
+                <p>Você solicitou uma dica para ajudar a lembrar sua senha. A dica de sua senha é:</p>
+                <p><strong>Dica de Senha:</strong> {$dicaSenha}</p>
+                <p>Se você não solicitou essa dica ou suspeita de atividade não autorizada em sua conta, entre em contato com o suporte imediatamente.</p>
+                <p>Atenciosamente,<br>A Equipe Protect Key</p>";
+
+$altBodyContent = "Recuperação de Dica de Senha - Protect Key\n"
+                . "Prezado(a) usuário,\n"
+                . "Você solicitou uma dica para ajudar a lembrar sua senha. A dica de sua senha é:\n"
+                . "Dica de Senha: $dicaSenha\n"
+                . "Se você não solicitou essa dica ou suspeita de atividade não autorizada em sua conta, entre em contato com o suporte imediatamente.\n"
+                . "Atenciosamente,\nA Equipe Protect Key";
+
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
@@ -145,7 +194,6 @@ function getUserIP() {
         return ($ip === '::1' || $ip === '127.0.0.1') ? 'Localhost' : $ip;
     }
 }
-
 
 
 function logAction($conn, $userID, $actionType, $description) {
@@ -227,6 +275,20 @@ function generateUniqueCode($length = 10) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+// Função para verificar se o e-mail ou CPF ou o Tel já estão registrados
+function isAlreadyRegistered($conn, $field, $value) {
+    $sql = "SELECT userID FROM gerenciadorsenhas.users WHERE $field = ?";
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("s", $value);
+        $stmt->execute();
+        $stmt->store_result();
+        $result = $stmt->num_rows > 0; // Retorna true se já existe no banco
+        $stmt->close();
+        return $result;
+    }
+    return false;
 }
 
 ?>

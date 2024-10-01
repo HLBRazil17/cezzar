@@ -38,19 +38,17 @@ a{
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 30px 40px;
-    margin: 65px;
-    height: fit-content;
 }
 
 .wrapper h1{
-    font-size: 56px;
+    font-size: 36px;
     text-align: center;
 }
 
 .wrapper .input-box{
     position: relative;
     width: 100%;
-    height: 60px;
+    height: 50px;
     margin: 30px 0;
 }
 
@@ -90,20 +88,16 @@ a{
 }
 
 .wrapper .register-link{
-    font-size: 20px;
+    font-size: 14.5px;
     text-align: center;
-    margin: 20px 0 30px;
+    margin: 20px 0 20px;
 }
 
 .register-link p{
     color: white;
     text-decoration: none;
     font-weight: 600;
-    font-size: 20px;
-}
-
-.register-link-esqueceu{
-    margin: 0 0 20px 0 !important;
+    font-size: 18px;
 }
 
 .hero p{
@@ -122,87 +116,10 @@ a{
     color: rgb(226, 226, 226);
 }
 
-/* Adicione este CSS ao seu arquivo de estilos */
-.message-overlay {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.message-box {
-    position: relative;
-    border-radius: 5px;
-    padding: 20px 40px 20px 20px; /* Espaço extra para o ícone de fechar */
-    margin: 0;
-    color: #fff;
-    max-width: 80%;
-    text-align: center;
-}
-
-.close-icon {
-    position: absolute;
-    top: 20px;
-    right: 15px;
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-}
-
-.close-icon:hover {
-    color: #ccc; /* Mudança de cor ao passar o mouse */
+.message.success .message.error{
+    font-size: 16px;
+    padding: 20px;
 }
 
 
-.success-message {
-    color: green !important;               /* Cor verde para sucesso */
-    background-color: #c0dbc6;  /* Fundo verde claro */
-    border-radius: 7px;
-    padding: 10px;
-    margin: 10px 0;
-    width: fit-content;
-}
 
-.error-message {
-    color: red;                 /* Cor vermelha para erro */
-    background-color: #f8d7da;  /* Fundo vermelho claro */
-    border-radius: 7px;
-    padding: 10px;
-    margin: 10px 0;
-    width: fit-content;
-}
-
-
-/* VIZUALIZAÇÃO DE SENHA*/
-.input-box {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  /* Ajuste conforme necessário */
-}
-
-.input-box input {
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-  margin: 50px 0;
-}
-
-.input-box .toggle-password {
-  cursor: pointer;    /* Adiciona um cursor de "mãozinha" ao passar sobre o ícone */
-  position: absolute;
-  top: 19px;         /* Ajusta a posição para alinhar verticalmente com o campo de senha */
-  left: 280px;
-  transition: color ease 0.5s;
-  color: white;
-  font-size: 20px;
-}
-
-.input-box .toggle-password:hover {
-  color: #349dff;
-}

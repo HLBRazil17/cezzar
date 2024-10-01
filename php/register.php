@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userTel = $_POST['userTel'] ?? null;
     $userPassword = $_POST['userPassword'];
     $userPasswordRepeat = $_POST['userPasswordRepeat'];
-    $dicaSenha = $_POST['dicaSenha'] ?? null; // Recuperar a dica da senha
+    $dicaSenha = $_POST['dicaSenha'] ?? null; 
 
     // Validar os dados
     if (empty($userNome) || empty($userEmail) || empty($userPassword) || empty($userPasswordRepeat)) {
@@ -28,46 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
                 $errorMessage = 'O e-mail fornecido é inválido.';
             } else {
-                // Verificar se o CPF é válido (se foi informado)
-                if (!empty($userCpf) && !validarCPF($userCpf)) {
-                    $errorMessage = 'CPF inválido. Tente novamente.';
+                // Verificar se a senha é válida
+                if (!isPasswordValid($userPassword)) {
+                    $errorMessage = 'A senha deve ter pelo menos 12 caracteres, conter uma letra maiúscula e pelo menos um caractere especial.';
                 } else {
-                    // Verificar se o e-mail já está registrado
-                    $sql = "SELECT userID FROM gerenciadorsenhas.users WHERE userEmail = ?";
-                    if ($stmt = $conn->prepare($sql)) {
-                        $stmt->bind_param("s", $userEmail);
-                        $stmt->execute();
-                        $stmt->store_result();
-
-                        if ($stmt->num_rows > 0) {
-                            $errorMessage = 'O e-mail informado já está cadastrado.';
-                            $stmt->close();
-                        } else {
-                            // Verificar se o CPF já está registrado (se o CPF foi informado)
-                            if (!empty($userCpf)) {
-                                $sql = "SELECT userID FROM gerenciadorsenhas.users WHERE userCpf = ?";
-                                if ($stmt = $conn->prepare($sql)) {
-                                    $stmt->bind_param("s", $userCpf);
-                                    $stmt->execute();
-                                    $stmt->store_result();
-
-                                    if ($stmt->num_rows > 0) {
-                                        $errorMessage = 'O CPF informado já está cadastrado.';
-                                        $stmt->close();
-                                    } else {
-                                        // Continuar com o processo de registro se o CPF não estiver duplicado
-                                        cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $userPassword, $dicaSenha);
-                                    }
-                                } else {
-                                    $errorMessage = 'Não foi possível preparar a declaração SQL para o CPF.';
-                                }
-                            } else {
-                                // Continuar o processo de registro caso o CPF não seja obrigatório
-                                cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $userPassword, $dicaSenha);
-                            }
-                        }
+                    // Verificar se o CPF é válido (se foi informado)
+                    if (!empty($userCpf) && !validarCPF($userCpf)) {
+                        $errorMessage = 'CPF inválido. Tente novamente.';
                     } else {
-                        $errorMessage = 'Não foi possível preparar a declaração SQL para o e-mail.';
+                        // Verificar se o e-mail já está registrado
+                        if (isAlreadyRegistered($conn, 'userEmail', $userEmail)) {
+                            $errorMessage = 'O e-mail informado já está cadastrado.';
+                        } elseif (!empty($userCpf) && isAlreadyRegistered($conn, 'userCpf', $userCpf)) {
+                            $errorMessage = 'Os dados informados já estão cadastrados.';
+                        } elseif(!empty($userTel) && isAlreadyRegistered($conn, 'userTel', $userTel)) {
+                            $errorMessage = 'O Telefone informado já está cadastrado.';
+                        }else {
+                            // Continuar com o processo de registro
+                            cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $userPassword, $dicaSenha);
+                        }
                     }
                 }
             }
@@ -79,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 function cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $userPassword, $dicaSenha) {
     global $errorMessage, $successMessage;
 
-    // Criptografar a senha com MD5
+    // Criptografar a senha com MD5 (considere usar password_hash para maior segurança)
     $md5Password = md5($userPassword);
 
     // Gerar um token de 6 dígitos
@@ -97,7 +76,7 @@ function cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $use
                 $userID = $stmt->insert_id;
 
                 // Enviar o token por e-mail
-                $emailError = sendEmail($userEmail, $userToken);
+                $emailError = sendTokenEmail($userEmail, $userToken);
                 if ($emailError) {
                     $conn->rollback();
                     $errorMessage = $emailError;
@@ -118,6 +97,27 @@ function cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $use
         $conn->rollback();
         $errorMessage = 'Ocorreu um erro ao registrar o usuário. Por favor, tente novamente.';
     }
+}
+
+// Função para validar a senha
+function isPasswordValid($password) {
+    // Verifica se a senha tem pelo menos 12 caracteres
+    if (strlen($password) < 12) {
+        return false; // A senha deve ter pelo menos 12 caracteres
+    }
+
+    // Verifica se a senha contém pelo menos uma letra maiúscula
+    if (!preg_match('/[A-Z]/', $password)) {
+        return false; // A senha deve conter pelo menos uma letra maiúscula
+    }
+
+    // Verifica se a senha contém pelo menos um caractere especial
+    if (!preg_match('/[\W_]/', $password)) {
+        return false; // A senha deve conter pelo menos um caractere especial
+    }
+
+    // Se passar todas as verificações, retorna verdadeiro
+    return true;
 }
 
 // Fechar a conexão
