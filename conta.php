@@ -1,5 +1,5 @@
 <?php
-require('./php/account.php');
+require('./php/conta.php');
 ?>
 
 <!DOCTYPE html>
@@ -129,6 +129,6 @@ require('./php/account.php');
             document.getElementById('enableTwoFactor').dispatchEvent(new Event('change'));
         });
     </script>
-    <script src="../Front/script2.js"></script>
+    <script src="../script/script2.js"></script>
 </body>
 </html>

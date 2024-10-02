@@ -90,8 +90,8 @@ if (isset($_SESSION['userID'])) {
                                 $primeiroNome = strtok($_SESSION['userNome'], ' ');
                                 ?>
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
-                                <a href="account.php"> Detalhes da Conta</a>
-                                <a href="logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>

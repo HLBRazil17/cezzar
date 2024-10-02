@@ -15,8 +15,7 @@ require('./php/register.php');
     <link rel="icon" href="./img/ICON-prokey.ico">
 
     <!--import googleFonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <!--import font awesome-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -24,9 +23,22 @@ require('./php/register.php');
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-loginReg.css">
+
     <script src="https://unpkg.com/scrollreveal"></script>
 
     <title>Registro</title>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .success-message {
+            color: green;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -36,22 +48,20 @@ require('./php/register.php');
                 <div class="navbar-left">
 
                     <div class="logo-container">
-                        <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
-                                class="logo"></a>
-                        <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
-                                class="logo-hover"></a>
+                        <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo" class="logo"></a>
+                        <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover" class="logo-hover"></a>
                     </div>
 
                     <button class="hamburger" id="hamburger">&#9776;</button>
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="#" class="navbar-item">Contate-nos</a>
-
+                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        
                     </div>
                 </div>
-
+                
                 <!--PROFILE ICON-->
                 <div class="navbar-right">
                     <details class="dropdown">
@@ -60,20 +70,14 @@ require('./php/register.php');
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <?php
-                                // Utiliza strtok para obter a primeira parte antes do espaço
-                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
-                                ?>
-                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
-                                <a href="account.php"> Detalhes da Conta</a>
-                                <a href="logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="conta.php"> Detalhes</a>    
+                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php"
-                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                                <a href="login.php" style="border-bottom: none;">Login</a>
                             <?php endif; ?>
-
                         </div>
                     </details>
                 </div>
@@ -87,19 +91,6 @@ require('./php/register.php');
                 <form action="" method="post">
 
                     <h1>Registro</h1>
-
-                    <?php
-                    if (!empty($errorMessage)) {
-                        echo "<p style='background-color: #ff000091; border-radius: 7px; padding: 10px; margin: 10px 0;'>$errorMessage</p>";
-                    }
-                    if (!empty($successMessage)) {
-                        echo "<p style='background-color: green; border-radius: 7px; padding: 10px; margin: 10px 0;'>$successMessage</p>";
-                    }
-                    ?>
-
-
-
-
 
                     <div class="input-box">
                         <input type="text" id="userNome" name="userNome" placeholder="Digite seu nome*" required>
@@ -121,42 +112,36 @@ require('./php/register.php');
                         <br><br>
                     </div>
 
-                    <!-- SENHA COM VIZUALIZAÇÃO-->
                     <div class="input-box">
-                        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha*"
-                            required>
-                        <span class="toggle-password" toggle="#userPassword" title="Mostrar/ocultar senha">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                    </div>
-
-
-                    <div class="input-box">
-                        <input type="password" id="userPasswordRepeat" name="userPasswordRepeat"
-                            placeholder="Repita sua senha*" required>
-                        <span class="toggle-password" toggle="#userPasswordRepeat">
-                            <i class="fas fa-eye"></i>
-                        </span>
+                        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha*" required>
                         <br><br>
                     </div>
 
-                    <div id="passwordMatchMessage" class="error-message" style="display: none;"></div>
-
-
                     <div class="input-box">
-                        <input type="password" id="dicaSenha" name="dicaSenha"
-                            placeholder="Digite uma dica para a senha*" required>
-                        <span class="toggle-password" toggle="#dicaSenha" title="Mostrar/ocultar senha">
-                            <i class="fas fa-eye"></i>
-                        </span>
+                        <input type="password" id="userPasswordRepeat" name="userPasswordRepeat" placeholder="Repita sua senha*" required>
                         <br><br>
                     </div>
 
+                    <div class="input-box">
+                        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Digite uma dica para a senha" require>
+                        <br><br>
+                    </div>
+
+                    <div id="passwordMatchMessage" class="error-message"></div>
 
                     <div class="register-link">
                         <p>Já possui uma conta?</p>
                         <a href="login.php">Login</a>
                     </div>
+
+                    <?php
+                    if (!empty($errorMessage)) {
+                        echo "<p class='message.error'>$errorMessage</p>";
+                    }
+                    if (!empty($successMessage)) {
+                        echo "<p class='message.success'>$successMessage</p>";
+                    }
+                    ?>
 
                     <button type="submit" class="btn">Registrar</button>
                 </form>
@@ -208,7 +193,7 @@ require('./php/register.php');
                     <li><a href="#">Photography</a></li>
                     <li><a href="#">Photoshop</a></li>
                 </ul>
-                <ul class="box input-box-fot">
+                <ul class="box input-box">
                     <li class="link_name">Subscribe</li>
                     <li><input type="text" placeholder="Enter your email"></li>
                     <li><input type="button" value="Subscribe"></li>
@@ -227,6 +212,28 @@ require('./php/register.php');
     </footer>
 
     <script src="./script/script2.js"></script>
+
+    <script>
+        // Função para verificar se as senhas coincidem
+        function checkPasswordMatch() {
+            const password = document.getElementById('userPassword').value;
+            const passwordRepeat = document.getElementById('userPasswordRepeat').value;
+            const messageDiv = document.getElementById('passwordMatchMessage');
+
+            if (password === passwordRepeat) {
+                messageDiv.textContent = 'As senhas coincidem.';
+                messageDiv.className = 'success-message';
+            } else {
+                messageDiv.textContent = 'As senhas não coincidem.';
+                messageDiv.className = 'error-message';
+            }
+        }
+
+        // Adicionar event listeners aos campos de senha
+        document.getElementById('userPassword').addEventListener('input', checkPasswordMatch);
+        document.getElementById('userPasswordRepeat').addEventListener('input', checkPasswordMatch);
+    </script>
+  
 </body>
 
 </html>
