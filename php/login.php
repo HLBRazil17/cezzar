@@ -1,6 +1,6 @@
 <?php
 require('conectar.php');
-require("functions.php"); 
+require('functions.php'); 
 
 // Inicializar variáveis para mensagens de erro e sucesso
 $errorMessage = '';
