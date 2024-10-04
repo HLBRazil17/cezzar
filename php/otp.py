@@ -1,53 +1,35 @@
 import pyotp
 import qrcode
 import time
-import sys
-import sqlite3
-
-def sql():
-   conn = sqlite3.connect('gerenciadorsenha.db') 
-   
-   cursor = conn.cursor()
-   cursor.execute('''ALTER TABLE users
-                     ADD COLUMN codVerify and twofactorSecret
-                   ''')
-   
-   cursor.execute('''INSERT INTO  ''')
+import os
 
 def main():
- nomeUsuario = "Helton"
+    # Gerar uma chave mestra aleatória
+    chave_mestra = pyotp.random_base32()
+    print(f"Chave mestra gerada: {chave_mestra}")
 
- #print(pyotp.random_base32())
- chave_mestra="5JHSKDDJNBQEBCOUBF34MLFXGPWZVUCT"
+    codigo = pyotp.TOTP(chave_mestra)
+    agora = codigo.now()
+    # Código atual do autenticador
+    print(f"Código OTP atual: {agora}")
 
- codigo = pyotp.TOTP(chave_mestra)
- agora = codigo.now()
- #Codigo atual do autenticador
- print(codigo.now())
+    link = codigo.provisioning_uri( issuer_name='ProtectKey')   
+    print(f"URI de provisionamento: {link}")
 
+    img = qrcode.make(link)
+    img.save("./img/qrcode.png")
 
- link = pyotp.TOTP(chave_mestra).provisioning_uri(name= nomeUsuario, issuer_name= "ProtectKey")
- print(link)
+    # Verificar OTP, substitua a variável "agora", pelo input do usuário
+    validade = codigo.verify(otp=agora, for_time=int(time.time()))
 
- img = qrcode.make(link)
- type(img)
- img.save("qrcode.png")
+    # Formata a saída como texto delimitado
+    resultado = f"{agora}|{link}|{'valid' if validade else 'invalid'}"
+    print(resultado)
 
- # Verificar OTP, substituir a variavel "agora", pelo input do usuario. 
-
- validade = codigo.verify(otp=agora, for_time=int(time.time()))
- print(agora)
- time.sleep(30)
- print(agora)
-  # Formata a saída como texto delimitado
- resultado = f"{agora}|{link}|{'valid' if validade else 'invalid'}"
- print(resultado)
-
-
- if validade: 
-    print("Código OTP válido!")
- else:
-     print("Código OTP inválido!")
+    if validade:
+        print("Código OTP válido!")
+    else:
+        print("Código OTP inválido!")
 
 if __name__ == "__main__":
-   main()
+    main()

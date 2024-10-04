@@ -264,7 +264,7 @@ main {
   align-items: center;
   justify-content: space-between;
   width: 80%;
-  margin: 5vh;
+  margin: 9vh 5vw;
 }
 
 .hero img {
@@ -296,12 +296,8 @@ main {
 
 
 .blue-background {
-  background-color: #F0F4F8;
-  /* Azul similar ao da imagem */
   border-radius: 15px;
   /* Cantos arredondados */
-  padding: 20px;
-  /* Espaçamento interno */
   color: white;
   /* Texto branco para contraste */
   display: grid;
@@ -310,6 +306,7 @@ main {
   /* Define três colunas de largura igual */
   gap: 20px;
   /* Define o espaçamento entre os itens */
+  padding: 40px 190px;
 }
 
 /* Título da seção hero */
@@ -378,7 +375,7 @@ main {
 /* Estilo para a seção de funcionalidades principais */
 .features {
   text-align: center;
-  padding: 20px 100px;
+  padding-bottom: 40px;
 }
 
 .second-section {
@@ -420,30 +417,31 @@ main {
   z-index: 2;
   display: block;
   position: relative;
-  margin: 40px auto 0 auto;
+  margin: 0px auto 20px auto;
+  padding-top: 70px;
 }
 
 /* Define a lista de funcionalidades como um contêiner flexível */
 .feature-list {
-  display: grid;
-  /* Torna a lista um contêiner em grid */
-  grid-template-columns: repeat(3, 1fr);
-  /* Define três colunas de largura igual */
-  gap: 20px;
-  /* Define o espaçamento entre os itens */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaçamento entre os itens */
 }
 
 /* Estiliza cada item de funcionalidade individual */
 .feature-item {
+  --blur-amount: 10px;
+  --card-width: calc(var(--width) / 1.3);
+  --card-height: calc(var(--height) / 1.3);
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.432);
-  border: 1px solid rgba(0, 0, 0, 0.322) !important;
+  box-shadow: 0 0 calc(var(--card-width) / 6) #ffffff44;
+  border: 2px solid rgba(255, 255, 255, 0.322) !important;
   /* Borda semitransparente */
   transition: all 0.3s ease ;
   border-radius: 20px;
-  backdrop-filter: blur(30px) !important;
-  background-color: rgb(242, 247, 252);
+  backdrop-filter: blur(var(--blur-amount));
+  z-index: 10;
 }
 
 /* Adiciona efeito de hover para cada item de funcionalidade */
@@ -470,7 +468,7 @@ main {
   /* Define o tamanho da fonte */
   font-weight: 700;
   /* Define a espessura da fonte */
-  color: #1267ad;
+  color: #ffffff;
   /* Define a cor do título */
   margin-bottom: 15px;
   /* Adiciona espaçamento inferior ao título */
@@ -480,7 +478,7 @@ main {
 .feature-item p {
   font-size: 1.2em;
   /* Define o tamanho da fonte */
-  color: #1267ad;
+  color: #ffffff;
   /* Define a cor do texto */
   margin-bottom: 15px;
   /* Adiciona espaçamento inferior ao parágrafo */
@@ -492,7 +490,7 @@ main {
   /* Remove os marcadores de lista */
   padding: 0;
   /* Remove o preenchimento padrão */
-  color: #1267ad;
+  color: #ffffff;
   /* Define a cor do texto */
   margin: 35px 0;
   /* Adiciona espaçamento inferior à lista */
@@ -516,7 +514,6 @@ main {
 
 /* Títulos das seções adicionais */
 .testimonials h2,
-.pricing h2,
 .faq h2,
 .contact h2 {
   font-size: 3.5em;
@@ -528,7 +525,7 @@ main {
 
 .recursos-principais {
   font-size: 3.5em;
-  margin: 40px 0 60px;
+  margin: 0px 0 60px;
   padding: 50px 0;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.24);
   color: #ebf0f3;
@@ -553,14 +550,13 @@ main {
 }
 
 /* Lista de itens nas seções adicionais */
-.feature-list,
 .testimonial-list,
 .pricing-list,
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  /* Espaçamento entre os itens */
+  gap: 20px; /* Espaçamento entre os itens */
+  margin-bottom: 90px;
 }
 
 /* Itens individuais nas seções adicionais */
@@ -669,7 +665,7 @@ main {
 
 footer {
   font-family: "Poppins", sans-serif;
-  background: #140B5C;
+  background: #2b2585 !important;
   width: 100%;
   bottom: 0;
   left: 0;
@@ -850,7 +846,7 @@ footer .content .link-boxes .box {
 
 footer .bottom-details {
   width: 100%;
-  background: #0F0844;
+  background: #140b5c;
 }
 
 footer .bottom-details .bottom_text {
@@ -1056,7 +1052,7 @@ footer .bottom-details .bottom_text {
 
 /* Estilização da Seção de Planos e Preços */
 .pricing {
-  background-color: #d3e1ee;
+  background-color: #d0dbe5;
   padding: 60px 20px;
   text-align: center;
 }
@@ -1064,7 +1060,8 @@ footer .bottom-details .bottom_text {
 .pricing h2 {
   font-size: 3.5em;
   color: #2187da;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
+  margin-top: 30px;
 }
 
 .pricing-list {
@@ -1139,12 +1136,9 @@ footer .bottom-details .bottom_text {
 }
 
 .faq-item {
-  max-width: 700px;
+  max-width: 600px;
   width: 100%;
   text-align: left;
-  background-color: #dde7f0;
-  padding: 20px;
-  border-radius: 10px;
 }
 
 .faq-item h3 {
@@ -1167,14 +1161,16 @@ footer .bottom-details .bottom_text {
 }
 
 .contact h2 {
-  font-size: 2.5em;
-  color: #333;
+  font-size: 3em;
+  color: #ffffff;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 10px #00000091;
 }
 
 .contact p {
-  font-size: 1.2em;
-  color: #555;
+  font-size: 1.5em;
+  color: #ffffff;
+  margin-bottom: 10vh;
 }
 
 /*   CARDS PREÇOS E PLANOS        */
@@ -1245,3 +1241,16 @@ footer .bottom-details .bottom_text {
   color: rgba(255, 255, 255, 1);
   background-color: transparent;
 }
+
+
+/* ESTILO DE TRIANGULO */
+
+.seta-img{
+  width: 1900px;
+  position: absolute;
+  z-index: 2;
+  left: 2px;
+  top: 87vh;
+  opacity: 85%;
+}
+

@@ -10,6 +10,7 @@ $userToEdit = null;
 $canEdit = false;
 $userData = [];
 $searchTerm = '';
+$actionType = '';
 
 session_start();
 
@@ -145,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errorMessage = 'Este e-mail já está em uso por outro usuário.';
                 logAction($conn, $userID, 'Falha Atualização de Usuario', 'Tentou cadastrar com um email ja existente: ' . $userEmail . ' pelo admin: ' . $adminNome . ' (ID: ' . $admID . ')');
             } else {
-                // Atualiza os dados da tabela 'users', incluindo o campo 'plano'
+                // Atualiza os dados da tabela 'users'
                 $updateUserQuery = $conn->prepare("UPDATE users SET userNome = ?, userEmail = ?, userCpf = ?, userTel = ?, userEstato = ?, role = ?, plano = ? WHERE userID = ?");
                 $updateUserQuery->bind_param("sssssssi", $userNome, $userEmail, $userCpf, $userTel, $userEstato, $role, $plano, $userID);
                 $updateUserQuery->execute();
@@ -188,4 +189,50 @@ if ($searchTerm) {
         FROM users");
     $users = $result->fetch_all(MYSQLI_ASSOC);
 }
+
+if ($actionType === 'sendUniqueCode') {
+    $userID = $_POST['userID'];
+
+    // Buscar o e-mail do usuário
+    $emailQuery = $conn->prepare("SELECT userEmail FROM users WHERE userID = ?");
+    $emailQuery->bind_param("i", $userID);
+    $emailQuery->execute();
+    $emailQuery->bind_result($userEmail);
+    $emailQuery->fetch();
+    $emailQuery->close();
+
+    if ($userEmail) {
+        // Deletar qualquer código antigo antes de inserir um novo
+        $deleteOldCodes = $conn->prepare("DELETE FROM verification_codes WHERE user_id = ?");
+        $deleteOldCodes->bind_param("i", $userID);
+        $deleteOldCodes->execute();
+        $deleteOldCodes->close();
+
+        // Gerar código de 10 dígitos
+        $codigo = generateUniqueCode();
+
+        // Consulta para inserir o código
+        $sql = "INSERT INTO verification_codes (user_id, codigo, expiry_date) VALUES (?, ?, ?)";
+        if ($stmt = $conn->prepare($sql)) {
+            $expiryDate = date('Y-m-d H:i:s', strtotime('+1 hour')); // Define a data de expiração
+
+            $stmt->bind_param("iss", $userID, $codigo, $expiryDate);
+            $stmt->execute();
+            $stmt->close();
+        } else {
+            $errorMessage = 'Erro ao preparar a consulta de inserção de código.';
+        }
+
+        // Enviar o código para o e-mail usando a função sendCodigoEmail
+        $mailResult = sendEntradaEmail($userEmail, $codigo);
+        if ($mailResult === '') {
+            $successMessage = 'Código enviado com sucesso para o e-mail do usuário.';
+        } else {
+            $errorMessage = 'Falha ao enviar o código: ' . $mailResult;
+        }
+    } else {
+        $errorMessage = 'E-mail do usuário não encontrado.';
+    }
+}
+
 ?>

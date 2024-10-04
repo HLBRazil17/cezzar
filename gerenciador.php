@@ -127,11 +127,14 @@ require('./php/gerenciador.php');
                     <option value="premium" <?= ($userData['premium'] ?? '') === 'premium' ? 'selected' : '' ?>>premium</option> 
                 </select>
                 <br>
+                <!-- Botão para enviar código de uso único -->
+                <button type="submit" name="actionType" value="sendUniqueCode">Enviar código de uso único</button>
+                <br>
                 <button type="submit" name="actionType" value="saveChanges">Salvar Alterações</button>
             </form>
         </div>
     <?php endif; ?>
 
-    <script src="../Front/script2.js"></script>
+    <script src="../script/script2.js"></script>
 </body>
 </html>

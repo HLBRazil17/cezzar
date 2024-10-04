@@ -63,7 +63,7 @@ require('./php/logs.php');
                         <a href="store_password.php" class="navbar-item">Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
                      <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="#" class="navbar-item">Contate-nos</a>
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
                         <?php if (checkAdminRole($conn, $userID)) { ?>
                             <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
                             <a href="logs.php" class="navbar-item">Logs</a>
@@ -81,7 +81,7 @@ require('./php/logs.php');
                             <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
                                 <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php">Detalhes da Conta</a>
+                                <a href="conta.php">Detalhes da Conta</a>
                                 <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>

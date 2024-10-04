@@ -34,6 +34,8 @@ if (isset($_SESSION['userID'])) {
 
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
+    <link rel="stylesheet" href="./style/styles-faq.css">
+    <link rel="stylesheet" href="./style/styles-background.css">
 
     <title>Protect Key</title>
 </head>
@@ -71,8 +73,6 @@ if (isset($_SESSION['userID'])) {
                             <?php } ?>
 
                         <?php endif; ?>
-
-
                     </div>
                 </div>
 
@@ -90,8 +90,8 @@ if (isset($_SESSION['userID'])) {
                                 $primeiroNome = strtok($_SESSION['userNome'], ' ');
                                 ?>
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
-                                <a href="account.php"> Detalhes da Conta</a>
-                                <a href="./php/logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
@@ -135,14 +135,14 @@ if (isset($_SESSION['userID'])) {
                 </div>
             </div>
         </section>
+        <div><img src="./img/triangulo.png" alt="seta" class="seta-img"></div>
 
 
 
         <!-- Seção de Recursos -->
-        <section class="features second-section">
-
+        <section class="features area">
             <div>
-                <a href="#"><img src="./img/recursos-principais.png" alt="Recursos Principais" class="recursos-img"></a>
+                <img src="./img/recursos-principais.png" alt="Recursos Principais" class="recursos-img">
             </div>
 
             <!-- Div para o fundo azul com cantos arredondados -->
@@ -159,7 +159,7 @@ if (isset($_SESSION['userID'])) {
                         <ul>
                             <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                     viewBox="0,0,256,256">
-                                    <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                         stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                         stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                         font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -172,7 +172,7 @@ if (isset($_SESSION['userID'])) {
                                 </svg> Criptografia AES-256</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                     viewBox="0,0,256,256">
-                                    <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                         stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                         stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                         font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -185,7 +185,7 @@ if (isset($_SESSION['userID'])) {
                                 </svg> Autenticação multifator (MFA)</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                     viewBox="0,0,256,256">
-                                    <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                         stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                         stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                         font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -197,7 +197,8 @@ if (isset($_SESSION['userID'])) {
                                     </g>
                                 </svg> Proteção contra ataques de força bruta</li>
                         </ul>
-                        <p>• Com a Segurança de Alto Nível, você pode ter Certeza de que suas Senhas estão Protegidas
+                        <p>• Com a Segurança de Alto Nível, você pode ter Certeza de que suas Senhas estão
+                            Protegidas
                             Contra qualquer Ameaça.</p>
                     </div>
                 </div>
@@ -210,7 +211,7 @@ if (isset($_SESSION['userID'])) {
                     <ul>
                         <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0,0,256,256">
-                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                     stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                     stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                     font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -223,7 +224,7 @@ if (isset($_SESSION['userID'])) {
                             </svg> Acesso Ilimitado</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0,0,256,256">
-                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                     stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                     stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                     font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -236,7 +237,7 @@ if (isset($_SESSION['userID'])) {
                             </svg> Sincronização em Tempo Real</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0,0,256,256">
-                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                     stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                     stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                     font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -259,7 +260,7 @@ if (isset($_SESSION['userID'])) {
                     <ul>
                         <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0,0,256,256">
-                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                     stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                     stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                     font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -272,7 +273,7 @@ if (isset($_SESSION['userID'])) {
                             </svg> Geração de Senhas</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0,0,256,256">
-                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                     stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                     stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                     font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -285,7 +286,7 @@ if (isset($_SESSION['userID'])) {
                             </svg> Armazenamento Criptografado</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0,0,256,256">
-                                <g fill="#3297eb" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                <g fill="#FFFFFF" fill-rule="nonzero" stroke="none" stroke-width="1"
                                     stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                     stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
                                     font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -302,6 +303,22 @@ if (isset($_SESSION['userID'])) {
                     </p>
                 </div>
             </div>
+
+
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+
         </section>
 
 
@@ -418,7 +435,8 @@ if (isset($_SESSION['userID'])) {
                         </li>
                     </ul>
                     <?php if ($userPlan === 'pro'): ?>
-                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este plano</span>
+                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este
+                            plano</span>
                     <?php else: ?>
                         <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="action">Escolher Pro</a>
                     <?php endif; ?>
@@ -456,7 +474,8 @@ if (isset($_SESSION['userID'])) {
                         </li>
                     </ul>
                     <?php if ($userPlan === 'premium'): ?>
-                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este plano</span>
+                        <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este
+                            plano</span>
                     <?php else: ?>
                         <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="action">Escolher Premium</a>
                     <?php endif; ?>
@@ -466,26 +485,90 @@ if (isset($_SESSION['userID'])) {
 
 
         <!-- Seção de FAQ -->
-        <section class="faq">
-            <h2>Perguntas Frequentes</h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <h3>Como o Protect Key protege minhas senhas?</h3>
-                    <p>Utilizamos criptografia de ponta a ponta para garantir que apenas você tenha acesso às suas
-                        senhas.</p>
+        <section class="faq-section">
+            <div class="faq-background-wrapper">
+                <div class="faq-background-box">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
-                <div class="faq-item">
-                    <h3>Posso compartilhar minhas senhas com outras pessoas?</h3>
-                    <p>Sim, você pode compartilhar senhas de forma segura com amigos e familiares.</p>
-                </div>
-            </div>
+                <div class="faq-container">
+                    <div class="container">
+                        <article>
+                            <div class="faq-content">
+                                <h2>Perguntas Frequentes</h2>
+                                <!-- Seus itens de FAQ existentes -->
+                                <div class="faq-item">
+                                    <div class="question">
+                                        <h3 tabindex="0">Como o Protect Key protege minhas senhas?</h3>
+                                        <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
+                                                fill-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <p hidden>O Protect Key utiliza criptografia AES-256 para proteger todas as suas
+                                        senhas. Além disso, oferecemos autenticação multifator (MFA) para adicionar uma
+                                        camada extra de segurança. Isso significa que apenas você tem acesso às suas
+                                        senhas, garantindo total privacidade e proteção contra ameaças externas.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="question">
+                                        <h3 tabindex="0">O que acontece se eu esquecer minha senha mestre?</h3>
+                                        <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
+                                                fill-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <p hidden>Por razões de segurança, o Protect Key não armazena sua senha mestre em nossos servidores. Isso significa que, se você esquecer sua senha mestre, não poderemos recuperá-la. Recomendamos que você mantenha sua senha mestre em um local seguro para evitar perder o acesso às suas contas.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="question">
+                                        <h3 tabindex="0">Como faço backup e recupero minhas senhas?</h3>
+                                        <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
+                                                fill-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <p hidden>Os usuários do plano Premium têm acesso a recursos avançados de backup e recuperação de dados. Você pode facilmente fazer backup de todas as suas senhas e restaurá-las quando necessário, garantindo que você nunca perca acesso às suas informações importantes.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="question">
+                                        <h3 tabindex="0">O Protect Key oferece suporte para geração automática de senhas fortes?</h3>
+                                        <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
+                                                fill-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <p hidden>Sim, o Protect Key inclui um gerador de senhas integrado que cria automaticamente senhas fortes e únicas para todas as suas contas. Você pode personalizar o comprimento da senha e escolher incluir diferentes tipos de caracteres, como letras maiúsculas, minúsculas, números e símbolos especiais. Isso garante que suas senhas sejam altamente seguras e reduz o risco de acesso não autorizado às suas contas.
+                                    </p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="question">
+                                        <h3 tabindex="0">Como o Protect Key lida com tentativas de login suspeitas?</h3>
+                                        <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
+                                                fill-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <p hidden>O Protect Key monitora continuamente todas as tentativas de login e aplica medidas de segurança avançadas para proteger sua conta. Caso seja detectada uma tentativa de login suspeita, como a partir de um novo dispositivo ou localização não reconhecida, você será imediatamente notificado via e-mail ou notificação push. Além disso, o acesso será bloqueado temporariamente até que a tentativa seja confirmada como segura por você, garantindo total controle sobre a segurança da sua conta.</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
         </section>
 
-        <!-- Seção de Contato -->
-        <section class="contact">
-            <h2>Entre em Contato</h2>
-            <p>Tem alguma dúvida? Entre em contato conosco através do e-mail: contato@protectkey.com</p>
-        </section>
+
     </main>
 
 
@@ -649,6 +732,51 @@ if (isset($_SESSION['userID'])) {
             origin: 'bottom',
             distance: '30px',
             interval: 100
+        });
+
+        // JavaScript para a funcionalidade de transição suave nas respostas do FAQ
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach((item) => {
+            const question = item.querySelector('.question');
+            const answer = item.querySelector('p');
+
+            question.addEventListener('click', () => {
+                // Fechar outros itens abertos
+                faqItems.forEach((el) => {
+                    if (el !== item) {
+                        el.classList.remove('active');
+                        el.querySelector('p').style.maxHeight = null;
+                    }
+                });
+
+                // Alternar o item clicado
+                item.classList.toggle('active');
+
+                if (item.classList.contains('active')) {
+                    // Expande a resposta
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    // Recolhe a resposta
+                    answer.style.maxHeight = null;
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-scroll]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('data-scroll');
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 

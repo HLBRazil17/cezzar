@@ -11,17 +11,17 @@ require('./php/login.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!--import favicon-->
+    <!-- Import favicon -->
     <link rel="icon" href="./img/ICON-prokey.ico">
 
-    <!--import googleFonts-->
+    <!-- Import Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
-    <!--import font awesome-->
+    <!-- Import Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <!--import css/scroll-->
+    <!-- Import CSS/Scroll -->
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-loginReg.css">
 
@@ -45,18 +45,29 @@ require('./php/login.php');
 
                     <button class="hamburger" id="hamburger">&#9776;</button>
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Senhas</a>
-                        <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="#" class="navbar-item">Contate-nos</a>
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php else: ?>
+                            <a href="store_password.php" class="navbar-item">Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php endif; ?>
+
+                        
+
+
                     </div>
                 </div>
 
-                <!--PROFILE ICON-->
+                <!-- PROFILE ICON -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
@@ -65,15 +76,14 @@ require('./php/login.php');
                                 $primeiroNome = strtok($_SESSION['userNome'], ' ');
                                 ?>
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
-                                <a href="account.php"> Detalhes da Conta</a>
-                                <a href="logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
                                 <a href="login.php"
                                     style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
                             <?php endif; ?>
-
                         </div>
                     </details>
                 </div>
@@ -81,26 +91,23 @@ require('./php/login.php');
         </nav>
     </header>
 
-
     <main class="main-content">
         <section class="hero" style="height: 100vh;">
             <div class="wrapper">
                 <form action="" method="post" style="margin-bottom: 40px;">
                     <h1>Login</h1>
 
-                    <?php
-                    if (!empty($errorMessage)) {
-                        echo "
-    <div class='message-overlay'>
-        <div class='message-box' style='background-color: #ff000091; border-radius: 7px; margin: 10px 0; font-size: 18px;'>
-            <span class='close-icon' onclick=\"this.parentElement.parentElement.style.display='none';\">
-                <i class='fas fa-times'></i>
-            </span>
-            $errorMessage
-        </div>
-    </div>";
-                    }
-                    ?>
+                    <?php if (!empty($errorMessage)): ?>
+                        <div class='message-overlay'>
+                            <div class='message-box'
+                                style='background-color: #ff000091; border-radius: 7px; margin: 10px 0; font-size: 18px;'>
+                                <span class='close-icon' onclick="this.parentElement.parentElement.style.display='none';">
+                                    <i class='fas fa-times'></i>
+                                </span>
+                                <?php echo htmlspecialchars($errorMessage); ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if (isset($_SESSION['success_message'])): ?>
                         <div class='message-overlay'>
@@ -122,12 +129,11 @@ require('./php/login.php');
                     <div class="input-box">
                         <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha"
                             required>
-                        <span class="toggle-password" toggle="#userPassword" title="Mostrar/ocultar senha">
+                        <span class="toggle-password" data-toggle="#userPassword" title="Mostrar/ocultar senha">
                             <i class="fas fa-eye"></i>
                         </span>
                         <br><br>
                     </div>
-
 
                     <div class="register-link">
                         <p class="register-link-esqueceu">Não possui uma conta?<br> <a
@@ -141,7 +147,7 @@ require('./php/login.php');
         </section>
     </main>
 
-    <!--FOOTER-->
+    <!-- FOOTER -->
     <footer>
         <div class="content">
             <div class="top">
@@ -165,39 +171,41 @@ require('./php/login.php');
                     <li><a href="#">Começar Agora</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Services</li>
+                    <li class="link_name">Serviços</li>
                     <li><a href="#">App design</a></li>
                     <li><a href="#">Web design</a></li>
                     <li><a href="#">Logo design</a></li>
                     <li><a href="#">Banner design</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Account</li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li><a href="#">Prefrences</a></li>
-                    <li><a href="#">Purchase</a></li>
+                    <li class="link_name">Conta</li>
+                    <li><a href="#">Perfil</a></li>
+                    <li><a href="#">Minha conta</a></li>
+                    <li><a href="#">Preferências</a></li>
+                    <li><a href="#">Compras</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Courses</li>
+                    <li class="link_name">Cursos</li>
                     <li><a href="#">HTML & CSS</a></li>
                     <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">Photography</a></li>
+                    <li><a href="#">Fotografia</a></li>
                     <li><a href="#">Photoshop</a></li>
                 </ul>
                 <ul class="box input-box-fot">
-                    <li class="link_name">Subscribe</li>
-                    <li><input type="text" placeholder="Enter your email"></li>
-                    <li><input type="button" value="Subscribe"></li>
+                    <li class="link_name">Assine</li>
+                    <li><input type="email" placeholder="Digite seu email" required></li>
+                    <li><input type="submit" value="Assinar"></li>
                 </ul>
             </div>
         </div>
         <div class="bottom-details">
             <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2021 <a href="#">CodingLab.</a>All rights reserved</span>
+                <span class="copyright_text">
+                    &copy; <?php echo date("Y"); ?> <a href="#">ProtectKey.</a> Todos os direitos reservados
+                </span>
                 <span class="policy_terms">
-                    <a href="#">Privacy policy</a>
-                    <a href="#">Terms & condition</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos & Condições</a>
                 </span>
             </div>
         </div>
@@ -206,23 +214,23 @@ require('./php/login.php');
     <script src="./script/script2.js"></script>
 
     <script>
-    document.querySelectorAll('.toggle-password').forEach(item => {
-        item.addEventListener('click', function() {
-            const input = document.querySelector(this.getAttribute('toggle'));
-            const icon = this.querySelector('i');
-            
-            if (input.getAttribute('type') === 'password') {
-                input.setAttribute('type', 'text');
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.setAttribute('type', 'password');
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+        document.querySelectorAll('.toggle-password').forEach(item => {
+            item.addEventListener('click', function () {
+                const input = document.querySelector(this.getAttribute('data-toggle'));
+                const icon = this.querySelector('i');
+
+                if (input.getAttribute('type') === 'password') {
+                    input.setAttribute('type', 'text');
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.setAttribute('type', 'password');
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 

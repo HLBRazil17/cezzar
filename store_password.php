@@ -1,6 +1,8 @@
 <?php
-require('./php/store_password.php');
+session_start();
+require('php/store_password.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -34,7 +36,7 @@ require('./php/store_password.php');
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-                    <!-- Logo -->
+
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
@@ -42,27 +44,37 @@ require('./php/store_password.php');
                                 class="logo-hover"></a>
                     </div>
 
-                    <!-- Botão de menu hambúrguer -->
                     <button class="hamburger" id="hamburger">&#9776;</button>
-
-                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Senhas</a>
-                        <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="#" class="navbar-item">Contate-nos</a>
-                        <?php if (checkAdminRole($conn, $userID)) { ?>
-                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                            <a href="logs.php" class="navbar-item">Logs</a>
-                        <?php } ?>
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php else: ?>
+                            <a href="store_password.php" class="navbar-item">Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php endif; ?>
+
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <?php if (checkAdminRole($conn, $userId)) { ?>
+                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                                <a href="logs.php" class="navbar-item">Logs</a>
+                            <?php } ?>
+
+                        <?php endif; ?>
+
+
                     </div>
                 </div>
 
-                <!--PROFILE ICON-->
+                <!-- PROFILE ICON -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
@@ -71,14 +83,14 @@ require('./php/store_password.php');
                                 $primeiroNome = strtok($_SESSION['userNome'], ' ');
                                 ?>
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
-                                <a href="account.php"> Detalhes da Conta</a>
-                                <a href="logout-back.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
                             <?php endif; ?>
-
                         </div>
                     </details>
                 </div>
@@ -270,7 +282,7 @@ require('./php/store_password.php');
                     <li><a href="#">Photography</a></li>
                     <li><a href="#">Photoshop</a></li>
                 </ul>
-                <ul class="box input-box-fot">
+                <ul class="box input-box">
                     <li class="link_name">Subscribe</li>
                     <li><input type="text" placeholder="Enter your email"></li>
                     <li><input type="button" value="Subscribe"></li>
