@@ -24,6 +24,7 @@ require('php/store_password.php');
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-store.css">
+    <link rel="stylesheet" href="./style/styles-form.css">
 
     <script src="https://unpkg.com/scrollreveal"></script>
 
@@ -99,28 +100,40 @@ require('php/store_password.php');
     </header>
 
     <main>
-        <!-- Formulário de adição/atualização de senha -->
-        <section class="form-container" id="formContainer">
-            <form id="passwordForm" action="" method="post">
-                <!-- Campos ocultos para identificar ação e ID da senha -->
-                <input type="hidden" id="actionType" name="actionType" value="add">
-                <input type="hidden" id="passwordId" name="passwordId" value="">
+        <!-- Contêiner do formulário -->
+        <div id="formContainer" class="form-container" style="display: none;">
+            <div class="container">
+                <div class="heading">Adicionar Senha</div>
+                <form action="/backend_url" method="POST" class="form">
+                    <span class="forgot-password"><a href="#">Nome do Site:</a></span>
+                    <input required class="input" type="text" name="site_name" id="site_name"
+                        placeholder="Insira o Nome do Site">
 
-                <!-- Inputs do formulário -->
-                <label for="siteName">Nome do Site:</label>
-                <input type="text" id="siteName" name="siteName" placeholder="Nome do site" required>
+                    <span class="forgot-password"><a href="#">URL do Site:</a></span>
+                    <input required class="input" type="text" name="site_url" id="site_url"
+                        placeholder="Insira a URL do Site">
 
-                <label for="url">URL do Site:</label>
-                <input type="text" id="url" name="url" placeholder="URL do site">
+                    <span class="forgot-password"><a href="#">Nome de Login:</a></span>
+                    <input required class="input" type="text" name="login_name" id="login_name"
+                        placeholder="Insira o Nome de Login">
 
-                <label for="loginName">Nome de Login:</label>
-                <input type="text" id="loginName" name="loginName" placeholder="Nome de login">
+                    <span class="forgot-password"><a href="#">E-mail:</a></span>
+                    <input required class="input" type="email" name="email" id="email" placeholder="Insira o E-mail">
 
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" placeholder="E-mail">
+                    <span class="forgot-password"><a href="#">Senha:</a></span>
+                    <input required class="input" type="password" name="password" id="password"
+                        placeholder="Insira a Senha">
 
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" placeholder="Senha" required>
+                    <input class="login-button" type="submit" value="Adicionar">
+
+                    <!-- Botões do formulário -->
+                    <button type="submit" class="save-btn">Salvar</button>
+                    <button type="button" class="cancel-btn" onclick="cancelForm()">Cancelar</button>
+                </form>
+                </section>
+                </form>
+
+                <span class="agreement"><a href="#">Protect Key</a></span>
 
                 <!-- Mensagens de erro e sucesso -->
                 <?php
@@ -131,12 +144,8 @@ require('php/store_password.php');
                     echo "<p class='message success'>$successMessage</p>";
                 }
                 ?>
-
-                <!-- Botões do formulário -->
-                <button type="submit" class="save-btn">Salvar</button>
-                <button type="button" class="cancel-btn" onclick="cancelForm()">Cancelar</button>
-            </form>
-        </section>
+            </div>
+        </div>
 
         <!-- Tabela com senhas salvas -->
         <?php if (!empty($savedPasswords)): ?>
@@ -300,28 +309,29 @@ require('php/store_password.php');
         </div>
     </footer>
 
-    <!-- Funções JavaScript para manipular formulário e senhas -->
+    <!-- Funções JavaScript para manipular formulário e senhas-->
     <script>
         // Função para exibir/esconder o formulário com transição suave
         function toggleForm() {
             var formContainer = document.getElementById('formContainer');
-            if (formContainer.classList.contains('show')) {
-                formContainer.classList.remove('show');
+            // Alterna a exibição do formulário
+            if (formContainer.style.display === 'none') {
+                formContainer.style.display = 'block'; // Mostra o formulário
             } else {
-                formContainer.classList.add('show');
+                formContainer.style.display = 'none'; // Esconde o formulário
             }
         }
 
         // Função para esconder o formulário
         function cancelForm() {
             var formContainer = document.getElementById('formContainer');
-            formContainer.classList.remove('show');
+            formContainer.style.display = 'none'; // Esconde o formulário
         }
 
         // Função para editar a senha e exibir o formulário
         function editPassword(id, siteName, url, loginName, email, password) {
             var formContainer = document.getElementById('formContainer');
-            formContainer.classList.add('show');
+            formContainer.style.display = 'block'; // Mostra o formulário
 
             document.getElementById('actionType').value = 'update';
             document.getElementById('passwordId').value = id;
@@ -347,11 +357,8 @@ require('php/store_password.php');
 
         window.onload = function () {
             const addPasswordBtn = document.getElementById('addPasswordBtn');
-            const formContainer = document.getElementById('formContainer');
 
-            addPasswordBtn.addEventListener('click', () => {
-                toggleForm();
-            });
+            addPasswordBtn.addEventListener('click', toggleForm); // Associa o evento de clique ao botão
         }
 
         // Cria o MutationObserver para observar mudanças no DOM
@@ -375,6 +382,7 @@ require('php/store_password.php');
         // Verifica no carregamento inicial
         document.addEventListener("DOMContentLoaded", verificarTabela);
     </script>
+
 </body>
 
 </html>

@@ -52,8 +52,6 @@ if (isset($_SESSION['userID'])) {
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
-
-                    <button class="hamburger" id="hamburger">&#9776;</button>
                     <div class="navbar-menu" id="navbarMenu">
                         <?php if (isset($_SESSION['userNome'])): ?>
                             <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
@@ -92,11 +90,12 @@ if (isset($_SESSION['userID'])) {
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
                                 <a href="conta.php"> Detalhes da Conta</a>
                                 <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+                                
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
                                 <a href="login.php"
-                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;" class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -527,7 +526,10 @@ if (isset($_SESSION['userID'])) {
                                                 fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p hidden>Por razões de segurança, o Protect Key não armazena sua senha mestre em nossos servidores. Isso significa que, se você esquecer sua senha mestre, não poderemos recuperá-la. Recomendamos que você mantenha sua senha mestre em um local seguro para evitar perder o acesso às suas contas.</p>
+                                    <p hidden>Por razões de segurança, o Protect Key não armazena sua senha mestre em
+                                        nossos servidores. Isso significa que, se você esquecer sua senha mestre, não
+                                        poderemos recuperá-la. Recomendamos que você mantenha sua senha mestre em um
+                                        local seguro para evitar perder o acesso às suas contas.</p>
                                 </div>
 
                                 <div class="faq-item">
@@ -538,18 +540,27 @@ if (isset($_SESSION['userID'])) {
                                                 fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p hidden>Os usuários do plano Premium têm acesso a recursos avançados de backup e recuperação de dados. Você pode facilmente fazer backup de todas as suas senhas e restaurá-las quando necessário, garantindo que você nunca perca acesso às suas informações importantes.</p>
+                                    <p hidden>Os usuários do plano Premium têm acesso a recursos avançados de backup e
+                                        recuperação de dados. Você pode facilmente fazer backup de todas as suas senhas
+                                        e restaurá-las quando necessário, garantindo que você nunca perca acesso às suas
+                                        informações importantes.</p>
                                 </div>
 
                                 <div class="faq-item">
                                     <div class="question">
-                                        <h3 tabindex="0">O Protect Key oferece suporte para geração automática de senhas fortes?</h3>
+                                        <h3 tabindex="0">O Protect Key oferece suporte para geração automática de senhas
+                                            fortes?</h3>
                                         <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
                                                 fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p hidden>Sim, o Protect Key inclui um gerador de senhas integrado que cria automaticamente senhas fortes e únicas para todas as suas contas. Você pode personalizar o comprimento da senha e escolher incluir diferentes tipos de caracteres, como letras maiúsculas, minúsculas, números e símbolos especiais. Isso garante que suas senhas sejam altamente seguras e reduz o risco de acesso não autorizado às suas contas.
+                                    <p hidden>Sim, o Protect Key inclui um gerador de senhas integrado que cria
+                                        automaticamente senhas fortes e únicas para todas as suas contas. Você pode
+                                        personalizar o comprimento da senha e escolher incluir diferentes tipos de
+                                        caracteres, como letras maiúsculas, minúsculas, números e símbolos especiais.
+                                        Isso garante que suas senhas sejam altamente seguras e reduz o risco de acesso
+                                        não autorizado às suas contas.
                                     </p>
                                 </div>
 
@@ -561,7 +572,13 @@ if (isset($_SESSION['userID'])) {
                                                 fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p hidden>O Protect Key monitora continuamente todas as tentativas de login e aplica medidas de segurança avançadas para proteger sua conta. Caso seja detectada uma tentativa de login suspeita, como a partir de um novo dispositivo ou localização não reconhecida, você será imediatamente notificado via e-mail ou notificação push. Além disso, o acesso será bloqueado temporariamente até que a tentativa seja confirmada como segura por você, garantindo total controle sobre a segurança da sua conta.</p>
+                                    <p hidden>O Protect Key monitora continuamente todas as tentativas de login e aplica
+                                        medidas de segurança avançadas para proteger sua conta. Caso seja detectada uma
+                                        tentativa de login suspeita, como a partir de um novo dispositivo ou localização
+                                        não reconhecida, você será imediatamente notificado via e-mail ou notificação
+                                        push. Além disso, o acesso será bloqueado temporariamente até que a tentativa
+                                        seja confirmada como segura por você, garantindo total controle sobre a
+                                        segurança da sua conta.</p>
                                 </div>
                             </div>
                         </article>
@@ -695,10 +712,24 @@ if (isset($_SESSION['userID'])) {
             interval: 100
         });
 
+        sr.reveal('.seta-img', {
+            duration: 1000,
+            easing: 'ease-in-out',
+            reset: 'true',
+            origin: 'bottom'
+        })
+
         // Animações para Recursos Principais
         sr.reveal('.recursos-img', {
             origin: 'bottom',
-            distance: '50px'
+            distance: '50px',
+            opacity: 0,        // Começa com opacidade 0 (invisível)
+            duration: 2000,     // Duração da animação (em milissegundos)
+            easing: 'ease-in-out',
+            reset: true,            // Não anima novamente ao rolar para fora e voltar
+            afterReveal: function (el) {
+                el.style.opacity = 1; // Define a opacidade para 1 após a revelação
+            }
         });
 
         sr.reveal('.feature-item', {
@@ -707,21 +738,20 @@ if (isset($_SESSION['userID'])) {
         });
 
         // Animações para Testemunhos
-        sr.reveal('.testimonial-item', {
-            origin: 'left',
+        sr.reveal('.testimonial-item, .testimonials h2' , {
+            origin: 'bottom',
             distance: '50px',
-            interval: 200
         });
 
         // Animações para Cards de Planos e Preços
-        sr.reveal('.card-price', {
+        sr.reveal('.card-price, .pricing h2', {
             origin: 'right',
             distance: '50px',
             interval: 200
         });
 
-        // Animações para Perguntas Frequentes
-        sr.reveal('.faq-item', {
+        // Animações para Perguntas Frequentes/ titulo de testemunho
+        sr.reveal('.faq-item, .faq-content h2', {
             origin: 'bottom',
             distance: '30px',
             interval: 100
