@@ -1,114 +1,95 @@
 <?php
 require("./php/planos.php")
-?>
+    ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Planos e Preços para nossos serviços">
+    <meta name="description" content="">
     <meta name="author" content="">
-    <title>Planos e Preços</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+    <!--import favicon-->
+    <link rel="icon" href="./img/ICON-prokey.ico">
 
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
+    <!--import googleFonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
-        .header h1 {
-            margin: 0;
-        }
+    <!--import font awesome-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-        .pricing {
-            text-align: center;
-            padding: 50px 20px;
-        }
+    <!--import css/scroll-->
+    <link rel="stylesheet" href="./style/styles.css">
 
-        .pricing h2 {
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            color: #333;
-        }
-
-        .pricing-list {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .pricing-item {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .pricing-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .pricing-item h3 {
-            margin: 0 0 10px;
-            font-size: 2em;
-            color: #333;
-        }
-
-        .pricing-item p {
-            font-size: 1.2em;
-            color: #666;
-            margin: 0 0 20px;
-        }
-
-        .pricing-item ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 20px;
-            text-align: left;
-        }
-
-        .pricing-item ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .pricing-item ul li:last-child {
-            border-bottom: none;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        </style>
+    <title>Protect Key</title>
 </head>
 
 <body>
     <header class="header">
-        <h1>Planos e Preços</h1>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-left">
+
+                    <div class="logo-container">
+                        <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
+                                class="logo"></a>
+                        <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
+                                class="logo-hover"></a>
+                    </div>
+
+                    <button class="hamburger" id="hamburger">&#9776;</button>
+                    <div class="navbar-menu" id="navbarMenu">
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php else: ?>
+                            <a href="store_password.php" class="navbar-item">Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php endif; ?>
+
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <?php if (checkAdminRole($conn, $userId)) { ?>
+                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                                <a href="logs.php" class="navbar-item">Logs</a>
+                            <?php } ?>
+
+                        <?php endif; ?>
+
+
+                    </div>
+                </div>
+
+                <!-- PROFILE ICON -->
+                <div class="navbar-right">
+                    <details class="dropdown">
+                        <summary class="profile-icon">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
+                        </summary>
+                        <div class="dropdown-content">
+                            <?php if (isset($_SESSION['userNome'])): ?>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+                            <?php else: ?>
+                                <p>Bem-vindo!</p>
+                                <a href="register.php">Registrar</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                            <?php endif; ?>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <section class="pricing" id="planos">
@@ -124,9 +105,9 @@ require("./php/planos.php")
                     <li>Acesso em um dispositivo</li>
                     <li>Suporte básico</li>
                 </ul>
-                <?php if ($userPlan === 'básico') : ?>
+                <?php if ($userPlan === 'básico'): ?>
                     <span class="btn">Você já possui um plano</span>
-                <?php else : ?>
+                <?php else: ?>
                     <a href="" class="btn">Escolher Plano</a>
                 <?php endif; ?>
             </div>
@@ -142,10 +123,11 @@ require("./php/planos.php")
                     <li>Suporte prioritário</li>
                     <li>Relatórios de segurança</li>
                 </ul>
-                <?php if ($userPlan === 'pro') : ?>
+                <?php if ($userPlan === 'pro'): ?>
                     <span class="btn">Você já possui este plano</span>
-                <?php else : ?>
-                     <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="btn btn-primary" target="_blank">Escolher Plano Pro</a>
+                <?php else: ?>
+                    <a href="<?php echo htmlspecialchars($paymentUrlPro); ?>" class="btn btn-primary"
+                        target="_blank">Escolher Plano Pro</a>
                 <?php endif; ?>
             </div>
 
@@ -161,10 +143,11 @@ require("./php/planos.php")
                     <li>Relatórios avançados</li>
                     <li>Backup e recuperação de dados</li>
                 </ul>
-                <?php if ($userPlan === 'premium') : ?>
+                <?php if ($userPlan === 'premium'): ?>
                     <span class="btn">Você já possui este plano</span>
-                <?php else : ?>
-                    <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="btn btn-primary" target="_blank">Escolher Plano Premium</a>
+                <?php else: ?>
+                    <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="btn btn-primary"
+                        target="_blank">Escolher Plano Premium</a>
                 <?php endif; ?>
             </div>
         </div>
