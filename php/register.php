@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userTel = $_POST['userTel'] ?? null;
     $userPassword = $_POST['userPassword'];
     $userPasswordRepeat = $_POST['userPasswordRepeat'];
-    $dicaSenha = $_POST['dicaSenha'] ?? null; 
+    $dicaSenha = $_POST['dicaSenha'] ?? null; // Recuperar a dica da senha
 
     // Validar os dados
     if (empty($userNome) || empty($userEmail) || empty($userPassword) || empty($userPasswordRepeat)) {
@@ -28,10 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
                 $errorMessage = 'O e-mail fornecido é inválido.';
             } else {
-                // Verificar se a senha é válida
-                if (!isPasswordValid($userPassword)) {
-                    $errorMessage = 'A senha deve ter pelo menos 12 caracteres, conter uma letra maiúscula e pelo menos um caractere especial.';
-                } else {
                     // Verificar se o CPF é válido (se foi informado)
                     if (!empty($userCpf) && !validarCPF($userCpf)) {
                         $errorMessage = 'CPF inválido. Tente novamente.';
@@ -40,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (isAlreadyRegistered($conn, 'userEmail', $userEmail)) {
                             $errorMessage = 'O e-mail informado já está cadastrado.';
                         } elseif (!empty($userCpf) && isAlreadyRegistered($conn, 'userCpf', $userCpf)) {
-                            $errorMessage = 'Os dados informados já estão cadastrados.';
+                            $errorMessage = 'O CPF informado já está cadastrado.';
                         } elseif(!empty($userTel) && isAlreadyRegistered($conn, 'userTel', $userTel)) {
                             $errorMessage = 'O Telefone informado já está cadastrado.';
                         }else {
@@ -48,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $userPassword, $dicaSenha);
                         }
                     }
-                }
             }
         }
     }
@@ -97,27 +92,6 @@ function cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $use
         $conn->rollback();
         $errorMessage = 'Ocorreu um erro ao registrar o usuário. Por favor, tente novamente.';
     }
-}
-
-// Função para validar a senha
-function isPasswordValid($password) {
-    // Verifica se a senha tem pelo menos 12 caracteres
-    if (strlen($password) < 12) {
-        return false; // A senha deve ter pelo menos 12 caracteres
-    }
-
-    // Verifica se a senha contém pelo menos uma letra maiúscula
-    if (!preg_match('/[A-Z]/', $password)) {
-        return false; // A senha deve conter pelo menos uma letra maiúscula
-    }
-
-    // Verifica se a senha contém pelo menos um caractere especial
-    if (!preg_match('/[\W_]/', $password)) {
-        return false; // A senha deve conter pelo menos um caractere especial
-    }
-
-    // Se passar todas as verificações, retorna verdadeiro
-    return true;
 }
 
 // Fechar a conexão

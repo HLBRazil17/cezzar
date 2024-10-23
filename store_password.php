@@ -1,8 +1,6 @@
 <?php
-session_start();
-require('php/store_password.php');
+require('./php/store_password.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -24,7 +22,6 @@ require('php/store_password.php');
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-store.css">
-    <link rel="stylesheet" href="./style/styles-form.css">
 
     <script src="https://unpkg.com/scrollreveal"></script>
 
@@ -37,7 +34,7 @@ require('php/store_password.php');
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-
+                    <!-- Logo -->
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
@@ -45,52 +42,38 @@ require('php/store_password.php');
                                 class="logo-hover"></a>
                     </div>
 
+                    <!-- Botão de menu hambúrguer -->
                     <button class="hamburger" id="hamburger">&#9776;</button>
+
+                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <?php if (isset($_SESSION['userNome'])): ?>
-                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                            <a href="planos.php" class="navbar-item">Planos</a>
-                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-
-                        <?php else: ?>
-                            <a href="store_password.php" class="navbar-item">Senhas</a>
-                            <a href="planos.php" class="navbar-item">Planos</a>
-                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-                        <?php endif; ?>
-
-                        <?php if (isset($_SESSION['userNome'])): ?>
-                            <?php if (checkAdminRole($conn, $userId)) { ?>
-                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                                <a href="logs.php" class="navbar-item">Logs</a>
+                        <a href="store_password.php" class="navbar-item">Senhas</a>
+                        <a href="planos.php" class="navbar-item">Planos</a>
+                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php if (checkAdminRole($conn, $userID)) { ?>
+                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                            <a href="logs.php" class="navbar-item">Logs</a>
                             <?php } ?>
-
-                        <?php endif; ?>
-
-
                     </div>
                 </div>
 
-                <!-- PROFILE ICON -->
+                <!-- Ícone de perfil com dropdown -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile" class="user">
-                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
+                            <img src="./img/user.png" alt="Profile">
                         </summary>
                         <div class="dropdown-content">
+                            <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <?php
-                                // Utiliza strtok para obter a primeira parte antes do espaço
-                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
-                                ?>
-                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
-                                <a href="conta.php"> Detalhes da Conta</a>
-                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
+                                <a href="conta.php">Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php"
-                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                                <a href="login.php" style="border-bottom: none;">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -100,40 +83,28 @@ require('php/store_password.php');
     </header>
 
     <main>
-        <!-- Contêiner do formulário -->
-        <div id="formContainer" class="form-container" style="display: none;">
-            <div class="container">
-                <div class="heading">Adicionar Senha</div>
-                <form action="/backend_url" method="POST" class="form">
-                    <span class="forgot-password"><a href="#">Nome do Site:</a></span>
-                    <input required class="input" type="text" name="site_name" id="site_name"
-                        placeholder="Insira o Nome do Site">
+        <!-- Formulário de adição/atualização de senha -->
+        <section class="form-container" id="formContainer">
+            <form id="passwordForm" action="" method="post">
+                <!-- Campos ocultos para identificar ação e ID da senha -->
+                <input type="hidden" id="actionType" name="actionType" value="add">
+                <input type="hidden" id="passwordId" name="passwordId" value="">
 
-                    <span class="forgot-password"><a href="#">URL do Site:</a></span>
-                    <input required class="input" type="text" name="site_url" id="site_url"
-                        placeholder="Insira a URL do Site">
+                <!-- Inputs do formulário -->
+                <label for="siteName">Nome do Site:</label>
+                <input type="text" id="siteName" name="siteName" placeholder="Nome do site" required>
 
-                    <span class="forgot-password"><a href="#">Nome de Login:</a></span>
-                    <input required class="input" type="text" name="login_name" id="login_name"
-                        placeholder="Insira o Nome de Login">
+                <label for="url">URL do Site:</label>
+                <input type="text" id="url" name="url" placeholder="URL do site">
 
-                    <span class="forgot-password"><a href="#">E-mail:</a></span>
-                    <input required class="input" type="email" name="email" id="email" placeholder="Insira o E-mail">
+                <label for="loginName">Nome de Login:</label>
+                <input type="text" id="loginName" name="loginName" placeholder="Nome de login">
 
-                    <span class="forgot-password"><a href="#">Senha:</a></span>
-                    <input required class="input" type="password" name="password" id="password"
-                        placeholder="Insira a Senha">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" placeholder="E-mail">
 
-                    <input class="login-button" type="submit" value="Adicionar">
-
-                    <!-- Botões do formulário -->
-                    <button type="submit" class="save-btn">Salvar</button>
-                    <button type="button" class="cancel-btn" onclick="cancelForm()">Cancelar</button>
-                </form>
-                </section>
-                </form>
-
-                <span class="agreement"><a href="#">Protect Key</a></span>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" placeholder="Senha" required>
 
                 <!-- Mensagens de erro e sucesso -->
                 <?php
@@ -144,8 +115,12 @@ require('php/store_password.php');
                     echo "<p class='message success'>$successMessage</p>";
                 }
                 ?>
-            </div>
-        </div>
+
+                <!-- Botões do formulário -->
+                <button type="submit" class="save-btn">Salvar</button>
+                <button type="button" class="cancel-btn" onclick="cancelForm()">Cancelar</button>
+            </form>
+        </section>
 
         <!-- Tabela com senhas salvas -->
         <?php if (!empty($savedPasswords)): ?>
@@ -168,8 +143,7 @@ require('php/store_password.php');
                                         target="_blank"><?php echo htmlspecialchars($password['site_name']); ?></a></td>
                                 <td><?php echo htmlspecialchars($password['name']); ?></td>
                                 <td><?php echo htmlspecialchars($password['email']); ?></td>
-                                <td><span class="toggle-password"
-                                        onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
+                                <td><span class="toggle-password" onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
                                 </td>
                                 <td class="buttons">
                                     <!-- Botão de atualização de senha estilizado com imagem -->
@@ -309,29 +283,28 @@ require('php/store_password.php');
         </div>
     </footer>
 
-    <!-- Funções JavaScript para manipular formulário e senhas-->
+    <!-- Funções JavaScript para manipular formulário e senhas -->
     <script>
         // Função para exibir/esconder o formulário com transição suave
         function toggleForm() {
             var formContainer = document.getElementById('formContainer');
-            // Alterna a exibição do formulário
-            if (formContainer.style.display === 'none') {
-                formContainer.style.display = 'block'; // Mostra o formulário
+            if (formContainer.classList.contains('show')) {
+                formContainer.classList.remove('show');
             } else {
-                formContainer.style.display = 'none'; // Esconde o formulário
+                formContainer.classList.add('show');
             }
         }
 
         // Função para esconder o formulário
         function cancelForm() {
             var formContainer = document.getElementById('formContainer');
-            formContainer.style.display = 'none'; // Esconde o formulário
+            formContainer.classList.remove('show');
         }
 
         // Função para editar a senha e exibir o formulário
         function editPassword(id, siteName, url, loginName, email, password) {
             var formContainer = document.getElementById('formContainer');
-            formContainer.style.display = 'block'; // Mostra o formulário
+            formContainer.classList.add('show');
 
             document.getElementById('actionType').value = 'update';
             document.getElementById('passwordId').value = id;
@@ -357,8 +330,11 @@ require('php/store_password.php');
 
         window.onload = function () {
             const addPasswordBtn = document.getElementById('addPasswordBtn');
+            const formContainer = document.getElementById('formContainer');
 
-            addPasswordBtn.addEventListener('click', toggleForm); // Associa o evento de clique ao botão
+            addPasswordBtn.addEventListener('click', () => {
+                toggleForm();
+            });
         }
 
         // Cria o MutationObserver para observar mudanças no DOM
@@ -382,7 +358,6 @@ require('php/store_password.php');
         // Verifica no carregamento inicial
         document.addEventListener("DOMContentLoaded", verificarTabela);
     </script>
-
 </body>
 
 </html>

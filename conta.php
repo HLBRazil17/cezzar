@@ -46,11 +46,11 @@ require('./php/conta.php');
         <input type="password" id="userPassword" name="userPassword" placeholder="Deixe em branco para manter a mesma">
         <br>
         <label for="dicaSenha">Dica da Senha:</label>
-        <input type="text" id="dicaSenha" name="dicaSenha" value="<?php echo htmlspecialchars($dicaSenha ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+        <input type="password" id="dicaSenha" name="dicaSenha" value="<?php echo htmlspecialchars($dicaSenha ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <br>
         <?php if ($hasSecurityWord): ?>
             <label for="oldSecurityWord">Palavra de Segurança Atual:</label>
-            <input type="text" id="oldSecurityWord" name="oldSecurityWord">
+            <input type="password" id="oldSecurityWord" name="oldSecurityWord">
             <br>
         <?php endif; ?>
         <input type="checkbox" id="addSecurityWord" name="addSecurityWord" <?php echo $hasSecurityWord ? '' : ''; ?>>
@@ -58,7 +58,7 @@ require('./php/conta.php');
         <br>
         <div id="securityWordContainer">
             <label for="newSecurityWord">Nova Palavra de Segurança:</label>
-            <input type="text" id="newSecurityWord" name="newSecurityWord">
+            <input type="password" id="newSecurityWord" name="newSecurityWord">
         </div>
 
         <input type="checkbox" id="enableTwoFactor" name="enableTwoFactor" <?php echo $enableTwoFactor ? 'checked' : ''; ?>>

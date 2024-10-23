@@ -141,6 +141,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $emailCheckQuery->fetch();
             $emailCheckQuery->close();
 
+            // Verificar se o CPF é válido (se foi informado)
+            if (!empty($userCpf) && !validarCPF($userCpf)) {
+                $errorMessage = 'CPF inválido. Tente novamente.';
+            } else {
+
             if ($existingUserID) {
                 // O e-mail já está em uso por outro usuário
                 $errorMessage = 'Este e-mail já está em uso por outro usuário.';
@@ -162,6 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $updateUserQuery->close();
             }
         }
+    }
     } elseif ($actionType === 'search') {
         $searchTerm = $_POST['searchTerm'];
     }
