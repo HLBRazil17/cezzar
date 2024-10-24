@@ -3,7 +3,7 @@
 //VARIÁVEIS PARA CONECTAR AO BANCO DE DADOS
 $servername = "localhost:3308";
 $username = "root";
-$password = "etec2024";
+$password = "etec2023";
 $dbname = "gerenciadorsenhas";
 
 try {

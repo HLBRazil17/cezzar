@@ -85,6 +85,7 @@ require('./php/conta.php');
         <button type="submit">Confirmar Informações</button>
     </form>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         document.getElementById('addSecurityWord').addEventListener('change', function() {
             document.getElementById('securityWordContainer').style.display = this.checked ? 'block' : 'none';
@@ -116,6 +117,19 @@ require('./php/conta.php');
             document.getElementById('addSecurityWord').dispatchEvent(new Event('change'));
             document.getElementById('enableTwoFactor').dispatchEvent(new Event('change'));
         });
+        $(document).ready(function() {
+        // Máscara para CPF
+        $('#userCpf').on('input', function() {
+            $(this).val($(this).val().replace(/\D/g, '').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{3})(\d)/, '$1.$2-$3'));
+        });
+
+        // Máscara para Telefone
+        $('#userTel').on('input', function() {
+            $(this).val($(this).val().replace(/\D/g, '').replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2'));
+        });
+    });
+</script>
+
     </script>
     <script src="../script/script2.js"></script>
 </body>

@@ -58,9 +58,16 @@ $enableTwoFactor = $userInfo['enableTwoFactor'] ?? false;
 $dicaSenha = $userInfo['dicaSenha'] ?? '';
 $secret = $userInfo['secret'] ?? ''; // Obter o segredo do banco de dados
 
-// Verificar se o segredo já existe, caso contrário, gerá-lo
+// Verificar se o segredo já existe, caso contrário, gerá-lo e salvá-lo
 if (empty($secret)) {
     $secret = generateSecret();
+    // Atualizar o segredo no banco de dados
+    $updateSecretSql = "UPDATE users SET secret = ? WHERE userID = ?";
+    if ($stmt = $conn->prepare($updateSecretSql)) {
+        $stmt->bind_param("si", $secret, $userID);
+        $stmt->execute();
+        $stmt->close();
+    }
 }
 
 // Gere a URL do QR code para o Google Authenticator
@@ -131,13 +138,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                     // Hash da palavra de segurança, se fornecida
-if (!empty($newSecurityWord)) {
-    $hashedSecurityWord = password_hash($newSecurityWord, PASSWORD_DEFAULT);
-} else {
-    // Se não houver nova palavra de segurança, mantenha a existente
-    $hashedSecurityWord = $securityWord; // Mantenha a palavra de segurança atual
-}
-                    
+                    if (!empty($newSecurityWord)) {
+                        $hashedSecurityWord = password_hash($newSecurityWord, PASSWORD_DEFAULT);
+                    } else {
+                        // Se não houver nova palavra de segurança, mantenha a existente
+                        $hashedSecurityWord = $securityWord; // Mantenha a palavra de segurança atual
+                    }
+
                     // Atualização do banco de dados
                     $updateSql = "UPDATE users SET userNome = ?, userEmail = ?, userCpf = ?, userTel = ?, userPassword = ?, securityWord = ?, dicaSenha = ?, enableTwoFactor = ?, secret = ? WHERE userID = ?";
                     if ($stmt = $conn->prepare($updateSql)) {

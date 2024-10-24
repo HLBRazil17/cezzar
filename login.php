@@ -78,25 +78,47 @@ require('./php/login.php');
     <main class="main-content">
         <section class="hero" style="height: 100vh;">
             <div class="wrapper" style="height: 70%;">
+
             <form action="" method="post">
     <h1>Login</h1>
 
     <div class="input-box">
-        <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token" required>
+        <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token" 
+            required 
+            value="<?php 
+                // Se o formulário foi submetido e o 2FA está ativado, preserva o CPF/Token
+                echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST') 
+                    ? htmlspecialchars($userIdent) 
+                    : ''; 
+            ?>">
         <br><br>
     </div>
 
     <div class="input-box">
-        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha" required>
+        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha" 
+            required 
+            value="<?php 
+                // Se o formulário foi submetido e o 2FA está ativado, preserva a senha
+                echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST') 
+                    ? htmlspecialchars($userPassword) 
+                    : ''; 
+            ?>">
         <br><br>
     </div>
 
     <?php if (isset($enableTwoFactor) && $enableTwoFactor == 1): ?>
-        <div class="input-box">
-            <input type="text" id="userTwoFactorCode" name="userTwoFactorCode" placeholder="Digite seu código 2FA" required>
-            <br><br>
-        </div>
-    <?php endif; ?>
+    <div class="input-box">
+        <input type="text" id="userTwoFactorCode" name="userTwoFactorCode" placeholder="Digite seu código 2FA" 
+               required 
+               pattern="[0-9]{1,6}" 
+               maxlength="6" 
+               title="O código deve ter até 6 dígitos e não deve conter espaços ou letras" 
+               oninput="this.value = this.value.replace(/\D/g, '').substring(0, 6);">
+        <br><br>
+    </div>
+<?php endif; ?>
+
+
 
     <div class="register-link">
         <p>Não possui uma conta?<br> <a href="./register.php">Registre-se</a></p>
@@ -181,6 +203,16 @@ require('./php/login.php');
     </footer>
     
   <script src="./script/script2.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var twoFactorInput = document.getElementById('userTwoFactorCode');
+        if (twoFactorInput) {
+            twoFactorInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\s/g, ''); // Remove todos os espaços
+            });
+        }
+    });
+</script>
 </body>
 
 </html>

@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $errorMessage = 'Código 2FA inválido.';
                             }
                         } else {
-                            $errorMessage = 'Código 2FA é necessário.';
+                            $errorMessage = 'Por favor digite o codigo de autentificação.';
                         }
                     } else {
                         // Login sem 2FA
