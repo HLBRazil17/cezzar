@@ -65,33 +65,21 @@ require('./php/conta.php');
         <label for="enableTwoFactor">Ativar Autenticação de Dois Fatores</label>
         <br>
 
+        <?php if ($enableTwoFactor == 0): // Verifica se o enableTwoFactor é 0 ?>
         <!-- Botão para mostrar o QR Code -->
-        <button type="button" id="showQRCodeButton" style="display: none;">Mostrar QR Code</button>
+        <button type="button" id="showQRCodeButton">Mostrar QR Code</button>
+        <?php endif; ?>
         
         <!-- Contêiner para o QR Code -->
         <div id="qrCodeContainer">
-            <?php
-            // caminho python (Mudar isso para como está o seu)
-            $pythonCaminho = 'C:\Users\mathe\Downloads\gerenciador2\php\otp.py';
+        <p>Por segurança so mostramos o QR code uma vez</p>
+        <p>Escaneie o QR code abaixo com o Google Authenticator:</p>
 
-            // monta o comando para executar o script Python
-            $command = escapeshellcmd("python \"$pythonCaminho\"");
+<img src="<?php echo $qrCodeUrl; ?>" alt="QR Code Google Authenticator">
 
-            // coloca o python pra trabalhar, e pega o resultado da saída
-            $output = shell_exec($command);
+<p>Ou, se preferir, insira esta chave manualmente no aplicativo:</p>
+<strong><?php echo $secret; ?></strong>
 
-            // dividir cada resultado com uma "|"
-            list($codigo_otp, $link, $validade) = explode('|', $output);
-
-            // verifica se foi gerado o arquivo
-            if (file_exists('./img/qrcode.png')) {
-                // exibir imagem qrcode
-                echo '<h2>QR Code:</h2>';
-                echo '<img src="./img/qrcode.png" alt="QR Code">';
-            } else {
-                echo 'O QR code não foi gerado.';
-            }
-            ?>
         </div>
 
         <button type="submit">Confirmar Informações</button>
@@ -121,7 +109,7 @@ require('./php/conta.php');
             
             setTimeout(() => {
                 qrCodeContainer.style.display = 'none';
-            }, 3000); // Hide QR code after 3 seconds
+            }, 5000); // Hide QR code after 5 seconds
         });
 
         document.addEventListener('DOMContentLoaded', function() {

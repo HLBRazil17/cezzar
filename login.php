@@ -78,29 +78,32 @@ require('./php/login.php');
     <main class="main-content">
         <section class="hero" style="height: 100vh;">
             <div class="wrapper" style="height: 70%;">
-                <form action="" method="post">
-                    <h1>Login</h1>
+            <form action="" method="post">
+    <h1>Login</h1>
 
-                    <div class="input-box">
-                        <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token"
-                            required>
-                        <br><br>
-                    </div>
+    <div class="input-box">
+        <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token" required>
+        <br><br>
+    </div>
 
-                    <div class="input-box">
-                        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha"
-                            required>
-                        <br><br>
-                    </div>
+    <div class="input-box">
+        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha" required>
+        <br><br>
+    </div>
 
-                    <div class="register-link">
-                        <p>Não possui uma conta?<br> <a href="./register.php">Registre-se</a></p>
-                        <p>Esqueceu a senha?<br> <a href="esqueceu_senha.php">Obter Dica</a></p>
-                    </div>
+    <?php if (isset($enableTwoFactor) && $enableTwoFactor == 1): ?>
+        <div class="input-box">
+            <input type="text" id="userTwoFactorCode" name="userTwoFactorCode" placeholder="Digite seu código 2FA" required>
+            <br><br>
+        </div>
+    <?php endif; ?>
 
-                    
+    <div class="register-link">
+        <p>Não possui uma conta?<br> <a href="./register.php">Registre-se</a></p>
+        <p>Esqueceu a senha?<br> <a href="esqueceu_senha.php">Obter Dica</a></p>
+    </div>
 
-                    <?php if (!empty($errorMessage)) : ?>
+    <?php if (!empty($errorMessage)) : ?>
         <div style="color: red;"><?php echo $errorMessage; ?></div>
     <?php endif; ?>
 
@@ -108,9 +111,9 @@ require('./php/login.php');
         <div style="color: green;"><?php echo $successMessage; ?></div>
     <?php endif; ?>
 
-                    <button type="submit" class="btn">Login</button>
-                    
-                </form>
+    <button type="submit" class="btn">Login</button>
+</form>
+
             </div>
         </section>
     </main>

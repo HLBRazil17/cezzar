@@ -7,16 +7,32 @@ namespace Composer\Autoload;
 class ComposerStaticInit0393830ad13082bb726d7f225d4a3f36
 {
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Sonata\\GoogleAuthenticator\\' => 27,
+        ),
         'M' => 
         array (
             'MercadoPago\\' => 12,
         ),
+        'G' => 
+        array (
+            'Google\\Authenticator\\' => 21,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Sonata\\GoogleAuthenticator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
+        ),
         'MercadoPago\\' => 
         array (
             0 => __DIR__ . '/..' . '/mercadopago/dx-php/src/MercadoPago',
+        ),
+        'Google\\Authenticator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
         ),
     );
 

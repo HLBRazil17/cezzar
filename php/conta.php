@@ -1,7 +1,10 @@
 <?php
 require('conectar.php'); // Conexão com o banco de dados
 require("functions.php"); 
-require ('./lib/vendor/autoload.php');
+require('./lib/vendor/autoload.php');
+
+use Sonata\GoogleAuthenticator\GoogleAuthenticator;
+use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
 session_start();
 
@@ -20,10 +23,17 @@ $hasSecurityWord = false;
 $errorMessage = '';
 $successMessage = '';
 $enableTwoFactor = false;
+$secret = '';
+
+// Função para gerar um segredo
+function generateSecret() {
+    $g = new GoogleAuthenticator();
+    return $g->generateSecret();
+}
 
 // Função para obter as informações do usuário
 function getUserInfo($conn, $userID) {
-    $sql = "SELECT userNome, userEmail, userCpf, userTel, securityWord, enableTwoFactor, dicaSenha FROM users WHERE userID = ?";
+    $sql = "SELECT userNome, userEmail, userCpf, userTel, securityWord, enableTwoFactor, dicaSenha, secret FROM users WHERE userID = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $userID);
         $stmt->execute();
@@ -46,6 +56,16 @@ $securityWord = $userInfo['securityWord'];
 $hasSecurityWord = !empty($securityWord);
 $enableTwoFactor = $userInfo['enableTwoFactor'] ?? false;
 $dicaSenha = $userInfo['dicaSenha'] ?? '';
+$secret = $userInfo['secret'] ?? ''; // Obter o segredo do banco de dados
+
+// Verificar se o segredo já existe, caso contrário, gerá-lo
+if (empty($secret)) {
+    $secret = generateSecret();
+}
+
+// Gere a URL do QR code para o Google Authenticator
+$siteName = 'Protect Key'; // Nome que aparecerá no Google Authenticator
+$qrCodeUrl = GoogleQrUrl::generate($siteName, $secret, 'SuaEmpresa');
 
 // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -111,12 +131,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                     // Hash da palavra de segurança, se fornecida
-                    $hashedSecurityWord = password_hash($newSecurityWord, PASSWORD_DEFAULT);
+if (!empty($newSecurityWord)) {
+    $hashedSecurityWord = password_hash($newSecurityWord, PASSWORD_DEFAULT);
+} else {
+    // Se não houver nova palavra de segurança, mantenha a existente
+    $hashedSecurityWord = $securityWord; // Mantenha a palavra de segurança atual
+}
                     
                     // Atualização do banco de dados
-                    $updateSql = "UPDATE users SET userNome = ?, userEmail = ?, userCpf = ?, userTel = ?, userPassword = ?, securityWord = ?, dicaSenha = ?, enableTwoFactor = ? WHERE userID = ?";
+                    $updateSql = "UPDATE users SET userNome = ?, userEmail = ?, userCpf = ?, userTel = ?, userPassword = ?, securityWord = ?, dicaSenha = ?, enableTwoFactor = ?, secret = ? WHERE userID = ?";
                     if ($stmt = $conn->prepare($updateSql)) {
-                        $stmt->bind_param("ssssssssi", $newUserNome, $newUserEmail, $newUserCpf, $newUserTel, $hashedPassword, $hashedSecurityWord, $newDicaSenha, $enableTwoFactor, $userID);
+                        $stmt->bind_param("sssssssssi", $newUserNome, $newUserEmail, $newUserCpf, $newUserTel, $hashedPassword, $hashedSecurityWord, $newDicaSenha, $enableTwoFactor, $secret, $userID);
                         $stmt->execute();
 
                         if ($stmt->affected_rows > 0) {
@@ -134,6 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $hasSecurityWord = !empty($securityWord);
                             $enableTwoFactor = $userInfo['enableTwoFactor'] ?? false;
                             $dicaSenha = $userInfo['dicaSenha'] ?? '';
+                            $secret = $userInfo['secret'] ?? ''; // Atualiza o segredo
                         } else {
                             $errorMessage = 'Nenhuma mudança foi feita.';
                         }
