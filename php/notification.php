@@ -73,32 +73,3 @@ if (isset($body->data->id)) {
 }
 
 http_response_code(200); // Retorna 200 OK para o Mercado Pago
-
-function logAction($conn, $userID, $actionType, $description) {
-    $userIp = getUserIP(); // Captura o IP do usuário
-    $sql = "INSERT INTO gerenciadorsenhas.logs (user_id, action_type, description, ip_address, created_at) VALUES (?, ?, ?, ?, NOW())";
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("isss", $userID, $actionType, $description, $userIp);
-        $stmt->execute();
-        if ($stmt->error) {
-            error_log("Erro ao inserir log: " . $stmt->error);
-        }
-        $stmt->close();
-    } else {
-        error_log("Erro ao preparar a declaração SQL: " . $conn->error);
-    }
-}
-
-function getUserIP() {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        return $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        // Pode haver vários IPs aqui
-        $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        return trim($ipList[0]); // Retorna o primeiro IP da lista
-    } else {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        // Verifica se é o localhost e altera se necessário
-        return ($ip === '::1' || $ip === '127.0.0.1') ? 'Localhost' : $ip;
-    }
-}

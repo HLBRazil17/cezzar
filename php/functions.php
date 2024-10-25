@@ -51,6 +51,21 @@ function getUserPlan($userID, $conn) {
     }
 }
 
+// Função para obter a quantidade de senhas salvas pelo usuário
+function getPasswordCount($userID, $conn) {
+    $stmt = $conn->prepare("SELECT COUNT(*) as total FROM gerenciadorsenhas.passwords WHERE user_id = ?");
+    
+    if ($stmt === false) {
+        die('Erro na preparação da consulta: ' . $conn->error);
+    }
+
+    $stmt->bind_param('i', $userID);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+
+    return $result['total'] ?? 0;
+}
+
 // Função para gerar um token de 6 dígitos
 function generateToken($conn) {
     do {

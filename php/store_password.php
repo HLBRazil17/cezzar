@@ -154,4 +154,18 @@ if (file_exists($image_path)) {
     // Se a imagem existir, altera o estilo do botão
     $button_style; // Exemplo de alteração
 }
+
+// Recuperar a quantidade de senhas salvas
+$totalPasswords = getPasswordCount($userID, $conn);
+
+// Recuperar o plano do usuário
+$userPlan = getUserPlan($userID, $conn);
+
+
+// Verifica se o usuário atingiu o limite de senhas, caso o plano seja 'básico'
+$showAddButton = true;
+if ($userPlan == 'básico' && $totalPasswords >= 10) {
+    $showAddButton = false;
+}
+
 ?>
