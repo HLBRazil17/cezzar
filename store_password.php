@@ -119,6 +119,13 @@ require('./php/store_password.php');
                 <!-- Botões do formulário -->
                 <button type="submit" class="save-btn">Salvar</button>
                 <button type="button" class="cancel-btn" onclick="cancelForm()">Cancelar</button>
+                <button type="button" class="rndpass-btn" onclick="gerarSenha()">
+                <img src="./img/gerar.png" alt="Ícone de gerar senha"></button>
+                <button type="button" id="togglePassword" class="toggle-password-btn" onclick="verSenha()">
+                <img id="togglePasswordImage" src="./img/olho.png" alt="Toggle Password Visibility">
+                <!--<img id="rndpass-img" src="./img/gerar.png" alt="Gerar senha">
+                 Imagem de olho -->
+            </button>
             </form>
         </section>
 
@@ -291,6 +298,38 @@ require('./php/store_password.php');
 
     <!-- Funções JavaScript para manipular formulário e senhas -->
     <script>
+        
+        function gerarSenha(tamanho = 16) {
+
+            const passwordField = document.getElementById("password");
+            // Verifica se o campo já está preenchido
+            if (passwordField.value !== "") {
+                const confirmar = confirm("Tem certeza que deseja substituir a senha?");
+                if (!confirmar) {
+                    return; // Sai da função se o usuário não confirmar
+                }
+            }        
+            const caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
+            let senha = '';
+            for (let i = 0; i < tamanho; i++) {
+                senha += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+            }
+            document.getElementById("password").value = senha;
+        }
+
+        function verSenha() {
+            const passwordField = document.getElementById("password");
+            const toggleButton = document.getElementById("togglePassword");
+            const toggleButtonImage = document.getElementById("togglePasswordImage");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButtonImage.src = "./img/olhofechado.png";
+            } else {
+                passwordField.type = "password"; 
+                toggleButtonImage.src = "./img/olho.png";
+            }
+        }
+    
         // Função para exibir/esconder o formulário com transição suave
         function toggleForm() {
             var formContainer = document.getElementById('formContainer');
