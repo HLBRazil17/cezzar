@@ -16,7 +16,7 @@ main {
 /* Estilo da imagem que não possui senhas */
 .img-no-itens {
   display: block;
-  margin: 26vh auto 50px auto;
+  margin: 26vh auto 5% auto;
   width: 320px;
 }
 
@@ -28,8 +28,8 @@ table {
 .button {
   --main-focus: #2d8cf0;
   --font-color: #dedede;
-  --bg-color-sub: #161f2a;
-  --bg-color: #2b3649;
+  --bg-color-sub: #140B5C;
+  --bg-color: #2B2585;
   --main-color: #dedede;
   position: relative;
   width: 170px;
