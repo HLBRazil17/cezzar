@@ -135,10 +135,9 @@ require('./php/register.php');
                     </div>
 
                     <div class="input-box">
-                        <input type="password" id="dicaSenha" name="dicaSenha"
+                        <input type="text" id="dicaSenha" name="dicaSenha"
                             placeholder="Digite uma dica para a senha*" required>
                         <span class="toggle-password" toggle="#dicaSenha" title="Mostrar/ocultar senha">
-                            <i class="fas fa-eye"></i>
                         </span>
                         <br><br>
                     </div>
