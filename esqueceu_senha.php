@@ -37,7 +37,6 @@ require("./php/esqueceu_senha.php");
                         <a href="planos.php" class="navbar-item">Planos</a>
                         <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="#" class="navbar-item">Contate-nos</a>
-
                     </div>
                 </div>
 

@@ -136,10 +136,10 @@ require('./php/register.php');
                         <br><br>
                     </div>
 
-                        <div id="lengthMessage" class="error-message"></div>
-                        <div id="uppercaseMessage" class="error-message"></div>
-                        <div id="specialCharMessage" class="error-message"></div>
-                        <div id="passwordMatchMessage" class="error-message"></div>
+                    <div id="lengthMessage" class="error-message" style="display: none;"></div>
+<div id="uppercaseMessage" class="error-message" style="display: none;"></div>
+<div id="specialCharMessage" class="error-message" style="display: none;"></div>
+<div id="passwordMatchMessage" class="error-message" style="display: none;"></div>
 
                     <div class="register-link">
                         <p>Já possui uma conta?</p>
@@ -236,6 +236,8 @@ require('./php/register.php');
         const passwordRepeat = document.getElementById('userPasswordRepeat').value;
         const matchMessage = document.getElementById('passwordMatchMessage');
 
+
+
         if (password === passwordRepeat && password !== "") {
             matchMessage.textContent = 'As senhas coincidem.';
             matchMessage.className = 'success-message';
@@ -253,6 +255,11 @@ require('./php/register.php');
         const lengthMessage = document.getElementById('lengthMessage');
         const uppercaseMessage = document.getElementById('uppercaseMessage');
         const specialCharMessage = document.getElementById('specialCharMessage');
+
+        // Exibir as mensagens ao começar a digitar
+        lengthMessage.style.display = 'block';
+        uppercaseMessage.style.display = 'block';
+        specialCharMessage.style.display = 'block';
 
         // Verificar o comprimento da senha
         if (password.length >= 12) {

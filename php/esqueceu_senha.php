@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $message = 'Erro ao enviar a dica de senha. Tente novamente.';
         }
     } else {
-        $message = 'Email não encontrado.(essa msm é so para debug, ela mudara para "Dica de senha enviada para o seu email")';
+        $message = 'Dica de senha enviada para o seu email!';
     }
     $stmt->close();
 } else {

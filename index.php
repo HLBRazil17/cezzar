@@ -134,8 +134,6 @@ if (isset($_SESSION['userID'])) {
                 </div>
             </div>
         </section>
-        <div><img src="./img/triangulo.png" alt="seta" class="seta-img"></div>
-
 
 
         <!-- Seção de Recursos -->

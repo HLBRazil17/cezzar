@@ -15,7 +15,8 @@ require('./php/login.php');
     <link rel="icon" href="./img/ICON-prokey.ico">
 
     <!--import googleFonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <!--import font awesome-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -46,11 +47,11 @@ require('./php/login.php');
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
                     </div>
                 </div>
-                    
+
                 <!--PROFILE ICON-->
                 <div class="navbar-right">
                     <details class="dropdown">
@@ -77,64 +78,62 @@ require('./php/login.php');
 
     <main class="main-content">
         <section class="hero" style="height: 100vh;">
-            <div class="wrapper" style="height: 70%;">
+            <div class="wrapper">
 
-            <form action="" method="post">
-    <h1>Login</h1>
+                <form action="" method="post">
+                    <h1>Login</h1>
 
-    <div class="input-box">
-        <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token" 
-            required 
-            value="<?php 
-                // Se o formulário foi submetido e o 2FA está ativado, preserva o CPF/Token
-                echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST') 
-                    ? htmlspecialchars($userIdent) 
-                    : ''; 
-            ?>">
-        <br><br>
-    </div>
+                    <div class="input-box">
+                        <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token" required
+                            value="<?php
+                            // Se o formulário foi submetido e o 2FA está ativado, preserva o CPF/Token
+                            echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST')
+                                ? htmlspecialchars($userIdent)
+                                : '';
+                            ?>">
+                        <br><br>
+                    </div>
 
-    <div class="input-box">
-        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha" 
-            required 
-            value="<?php 
-                // Se o formulário foi submetido e o 2FA está ativado, preserva a senha
-                echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST') 
-                    ? htmlspecialchars($userPassword) 
-                    : ''; 
-            ?>">
-        <br><br>
-    </div>
+                    <div class="input-box">
+                        <input type="password" id="userPassword" name="userPassword" placeholder="Digite sua senha"
+                            required value="<?php
+                            // Se o formulário foi submetido e o 2FA está ativado, preserva a senha
+                            echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST')
+                                ? htmlspecialchars($userPassword)
+                                : '';
+                            ?>">
+                        <br><br>
+                    </div>
 
-    <?php if (isset($enableTwoFactor) && $enableTwoFactor == 1): ?>
-    <div class="input-box">
-        <input type="text" id="userTwoFactorCode" name="userTwoFactorCode" placeholder="Digite seu código 2FA" 
-               required 
-               pattern="[0-9]{1,6}" 
-               maxlength="6" 
-               title="O código deve ter até 6 dígitos e não deve conter espaços ou letras" 
-               oninput="this.value = this.value.replace(/\D/g, '').substring(0, 6);">
-        <br><br>
-    </div>
-<?php endif; ?>
+                    <?php if (isset($enableTwoFactor) && $enableTwoFactor == 1): ?>
+                        <div class="input-box">
+                            <input type="text" id="userTwoFactorCode" name="userTwoFactorCode"
+                                placeholder="Digite seu código 2FA" required pattern="[0-9]{1,6}" maxlength="6"
+                                title="O código deve ter até 6 dígitos e não deve conter espaços ou letras"
+                                oninput="this.value = this.value.replace(/\D/g, '').substring(0, 6);">
+                            <br><br>
+                        </div>
+                    <?php endif; ?>
 
 
 
-    <div class="register-link">
-        <p>Não possui uma conta?<br> <a href="./register.php">Registre-se</a></p>
-        <p>Esqueceu a senha?<br> <a href="esqueceu_senha.php">Obter Dica</a></p>
-    </div>
+                    <div class="register-link">
+                        <p>Não possui uma conta?<br> <a href="./register.php">Registre-se</a></p>
+                        <p>Esqueceu a senha?<br> <a href="esqueceu_senha.php">Obter Dica</a></p>
+                    </div>
 
-    <?php if (!empty($errorMessage)) : ?>
-        <div style="color: red;"><?php echo $errorMessage; ?></div>
-    <?php endif; ?>
+                    <?php if (!empty($errorMessage)): ?>
+                        <div
+                            style="padding: 10px; color: red; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;">
+                            <?php echo $errorMessage; ?></div>
+                    <?php endif; ?>
 
-    <?php if (!empty($successMessage)) : ?>
-        <div style="color: green;"><?php echo $successMessage; ?></div>
-    <?php endif; ?>
+                    <?php if (!empty($successMessage)): ?>
+                        <div style="padding: 10px; color: green; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;"><?php echo $successMessage; ?></div>
+                    <?php endif; ?>
 
-    <button type="submit" class="btn">Login</button>
-</form>
+                    <button type="submit" class="btn">Login</button>
+                </form>
 
             </div>
         </section>
@@ -201,18 +200,18 @@ require('./php/login.php');
             </div>
         </div>
     </footer>
-    
-  <script src="./script/script2.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var twoFactorInput = document.getElementById('userTwoFactorCode');
-        if (twoFactorInput) {
-            twoFactorInput.addEventListener('input', function () {
-                this.value = this.value.replace(/\s/g, ''); // Remove todos os espaços
-            });
-        }
-    });
-</script>
+
+    <script src="./script/script2.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var twoFactorInput = document.getElementById('userTwoFactorCode');
+            if (twoFactorInput) {
+                twoFactorInput.addEventListener('input', function () {
+                    this.value = this.value.replace(/\s/g, ''); // Remove todos os espaços
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
