@@ -22,6 +22,7 @@ require('./php/store_password.php');
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-store.css">
+    <link rel="stylesheet" href="./style/styles-buttons.css">
 
     <script src="https://unpkg.com/scrollreveal"></script>
 
@@ -49,12 +50,12 @@ require('./php/store_password.php');
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
                         <?php if (checkAdminRole($conn, $userID)) { ?>
                             <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
                             <a href="logs.php" class="navbar-item">Logs</a>
-                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -92,16 +93,16 @@ require('./php/store_password.php');
 
                 <!-- Inputs do formulário -->
                 <label for="siteName">Nome do Site:</label>
-                <input type="text" id="siteName" name="siteName" placeholder="Nome do site" required>
+                <input type="text" id="siteName" name="siteName" placeholder="Nome do site" maxlength="255" required>
 
                 <label for="url">URL do Site:</label>
-                <input type="text" id="url" name="url" placeholder="URL do site">
+                <input type="text" id="url" name="url" placeholder="URL do site" axlength="255">
 
                 <label for="loginName">Nome de Login:</label>
-                <input type="text" id="loginName" name="loginName" placeholder="Nome de login">
+                <input type="text" id="loginName" name="loginName" placeholder="Nome de login" axlength="100">
 
                 <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" placeholder="E-mail">
+                <input type="email" id="email" name="email" placeholder="E-mail" axlength="100">
 
                 <label for="password">Senha:</label>
                 <input type="password" id="password" name="password" placeholder="Senha" required>
@@ -116,16 +117,54 @@ require('./php/store_password.php');
                 }
                 ?>
 
+
+
                 <!-- Botões do formulário -->
-                <button type="submit" class="save-btn">Salvar</button>
-                <button type="button" class="cancel-btn" onclick="cancelForm()">Cancelar</button>
-                <button type="button" class="rndpass-btn" onclick="gerarSenha()">
-                <img src="./img/gerar.png" alt="Ícone de gerar senha"></button>
+
+                <!--Botão salvar-->
+                <button type="submit" class="csb-button">
+                    <div class="csb-svg-wrapper-1">
+                        <div class="csb-svg-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"
+                                class="csb-icon">
+                                <path
+                                    d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="csb-text">Salvar</span>
+                </button>
+
+                <!--Botão cancelar-->
+                <button type="button" class="db-button db-noselect" onclick="cancelForm()">
+                    <span class="db-text">Delete</span>
+                    <span class="db-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path
+                                d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
+                            </path>
+                        </svg>
+                    </span>
+                </button>
+
+                <!--Botão gerar senha-->
+                <button type="button" onclick="gerarSenha()" class="btn">
+                    <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1"
+                        class="sparkle">
+                        <path
+                            d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z">
+                        </path>
+                    </svg>
+
+                    <span class="text">Gerar Senha</span>
+                </button>
+
                 <button type="button" id="togglePassword" class="toggle-password-btn" onclick="verSenha()">
-                <img id="togglePasswordImage" src="./img/olho.png" alt="Toggle Password Visibility">
-                <!--<img id="rndpass-img" src="./img/gerar.png" alt="Gerar senha">
+                    <img id="togglePasswordImage" src="./img/olho.png" alt="Toggle Password Visibility">
+                    <!--<img id="rndpass-img" src="./img/gerar.png" alt="Gerar senha">
                  Imagem de olho -->
-            </button>
+                </button>
             </form>
         </section>
 
@@ -150,7 +189,8 @@ require('./php/store_password.php');
                                         target="_blank"><?php echo htmlspecialchars($password['site_name']); ?></a></td>
                                 <td><?php echo htmlspecialchars($password['name']); ?></td>
                                 <td><?php echo htmlspecialchars($password['email']); ?></td>
-                                <td><span class="toggle-password" onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
+                                <td><span class="toggle-password"
+                                        onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
                                 </td>
                                 <td class="buttons">
                                     <!-- Botão de atualização de senha estilizado com imagem -->
@@ -214,22 +254,22 @@ require('./php/store_password.php');
 
 
 
-<!-- Botão para adicionar senha ou mensagem de limite atingido -->
-<?php if ($showAddButton): ?>
-    <button type="button" class="button" <?php echo $button_style; ?> onclick="toggleForm()">
-        <span class="button__text">Adicionar</span>
-        <span class="button__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2"
-                stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="44" fill="none"
-                class="svg">
-                <line y2="19" y1="5" x2="12" x1="12"></line>
-                <line y2="12" y1="12" x2="19" x1="5"></line>
-            </svg>
-        </span>
-    </button>
-<?php else: ?>
-    <p style="color: red; font-weight: bold;">Limite de senhas salvas pelo plano básico atingidas</p>
-<?php endif; ?>
+        <!-- Botão para adicionar senha ou mensagem de limite atingido -->
+        <?php if ($showAddButton): ?>
+            <button type="button" class="button" <?php echo $button_style; ?> onclick="toggleForm()">
+                <span class="button__text">Adicionar</span>
+                <span class="button__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2"
+                        stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="44" fill="none"
+                        class="svg">
+                        <line y2="19" y1="5" x2="12" x1="12"></line>
+                        <line y2="12" y1="12" x2="19" x1="5"></line>
+                    </svg>
+                </span>
+            </button>
+        <?php else: ?>
+            <p style="color: red; font-weight: bold;">Limite de senhas salvas pelo plano básico atingidas</p>
+        <?php endif; ?>
 
 
     </main>
@@ -298,7 +338,7 @@ require('./php/store_password.php');
 
     <!-- Funções JavaScript para manipular formulário e senhas -->
     <script>
-        
+
         function gerarSenha(tamanho = 16) {
 
             const passwordField = document.getElementById("password");
@@ -308,7 +348,7 @@ require('./php/store_password.php');
                 if (!confirmar) {
                     return; // Sai da função se o usuário não confirmar
                 }
-            }        
+            }
             const caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
             let senha = '';
             for (let i = 0; i < tamanho; i++) {
@@ -325,11 +365,11 @@ require('./php/store_password.php');
                 passwordField.type = "text";
                 toggleButtonImage.src = "./img/olhofechado.png";
             } else {
-                passwordField.type = "password"; 
+                passwordField.type = "password";
                 toggleButtonImage.src = "./img/olho.png";
             }
         }
-    
+
         // Função para exibir/esconder o formulário com transição suave
         function toggleForm() {
             var formContainer = document.getElementById('formContainer');

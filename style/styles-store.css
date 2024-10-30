@@ -200,8 +200,8 @@ table {
 .form-container {
   position: absolute;
   /* Fixo na tela */
-  top: 40vh;
-  left: 50%;
+  top: 50;
+  left: 50;
   transform: translate(-50%, -50%);
   /* Centraliza na tela */
   z-index: 1000;
@@ -215,7 +215,6 @@ table {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 60%;
   transition: opacity 1s ease, visibility 0s linear 1s;
 }
 
@@ -233,7 +232,7 @@ table {
   font-size: 18px;
   font-weight: 500;
   color: #ffffff;
-  /* Texto branco */
+  
 }
 
 .form-container input {
@@ -275,7 +274,8 @@ table {
 }
 
 .toggle-password-btn img {
-  width: 13px; /* Tamanho do ícone */
+  width: 13px;
+  /* Tamanho do ícone */
   height: 13px;
 }
 
@@ -289,9 +289,11 @@ table {
 }
 
 .rndpass-btn img {
-  width: 13px; /* Ajuste o tamanho da imagem conforme necessário */
+  width: 13px;
+  /* Ajuste o tamanho da imagem conforme necessário */
   height: 13px;
 }
+
 .save-btn {
   background-color: #1c91ff;
   color: #ffffff;
@@ -382,4 +384,226 @@ table {
 .update-btn:hover,
 .delete-btn:hover {
   background-color: #0b5ab7;
+}
+
+/*    ESTILIZAÇÃO FORM         */
+
+/* Variáveis de cores */
+:root {
+  --primary-blue: #1a4b8c;
+  --secondary-blue: #2673dd;
+  --dark-blue: #0d2851;
+  --light-blue: #4a90e2;
+  --hover-blue: #1557b0;
+  --input-bg: #f5f8ff;
+  --white: #ffffff;
+}
+
+/* Estilo do container do formulário */
+.form-container {
+  position: absolute;
+  top: 55vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  background: linear-gradient(145deg, var(--primary-blue), var(--dark-blue));
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  max-width: 600px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-container.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Estilo dos labels */
+.form-container label {
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 3%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  /* Centraliza o texto do label */
+}
+
+/* Estilo dos inputs */
+.form-container input {
+  width: 70%;
+  /* Define largura máxima de 70% */
+  padding: 12px 15px;
+  margin-bottom: 6%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--dark-blue);
+  font-size: 15px;
+  transition: all 0.3s ease;
+  display: block;
+  /* Garante que o input ocupe sua própria linha */
+  margin-left: auto;
+  /* Centraliza o input */
+  margin-right: auto;
+  /* Centraliza o input */
+}
+
+.form-container input:focus {
+  outline: none;
+  border-color: var(--secondary-blue);
+  box-shadow: 0 0 0 3px rgba(38, 115, 221, 0.2);
+  background-color: var(--white);
+}
+
+/* Estilo dos botões */
+.save-btn,
+.cancel-btn,
+.toggle-password-btn,
+.rndpass-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.save-btn {
+  background-color: var(--secondary-blue);
+  color: var(--white);
+}
+
+.save-btn:hover {
+  background-color: var(--hover-blue);
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: var(--white);
+}
+
+.cancel-btn:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+.toggle-password-btn,
+.rndpass-btn {
+  background-color: var(--light-blue);
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.toggle-password-btn:hover,
+.rndpass-btn:hover {
+  background-color: var(--hover-blue);
+  transform: translateY(-2px);
+}
+
+.toggle-password-btn img,
+.rndpass-btn img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+/* Container para os botões */
+.form-container form {
+  text-align: center;
+  /* Centraliza os botões */
+}
+
+/* Mensagens de erro e sucesso */
+.message {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  text-align: center;
+  /* Centraliza as mensagens */
+  width: 70%;
+  /* Mantém a mesma largura dos inputs */
+}
+
+.message.error {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.message.success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+/* Animação de entrada do formulário */
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.form-container.show {
+  animation: formFadeIn 0.4s ease forwards;
+}
+
+.button-save {
+  background-color: #f3f7fe;
+  color: #3b82f6;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100px;
+  height: 45px;
+  transition: 0.3s;
+  font-weight: 700;
+  margin: 0 3% 0 0;
+}
+
+.button-save:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.button-remove {
+  background-color: #f3f7fe;
+  color: #C82333;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100px;
+  height: 45px;
+  transition: 0.3s;
+  font-weight: 700;
+  margin: 0 3% 0 0;
+}
+
+.button-remove:hover {
+  background-color: #C82333;
+  box-shadow: 0 0 0 5px #882933;
+  color: #fff;
+  transform: translateY(-2px);
 }
