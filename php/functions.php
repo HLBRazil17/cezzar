@@ -281,7 +281,7 @@ function validarCPF($userCpf) {
     return true;
 }
 
-
+//função para gerar codigo unico
 function generateUniqueCode($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);

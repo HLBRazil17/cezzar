@@ -10,6 +10,18 @@ require("./php/esqueceu_senha.php");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Esqueceu a Senha</title>
+
+    <!--import favicon-->
+    <link rel="icon" href="./img/ICON-prokey.ico">
+
+    <!--import googleFonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!--import font awesome-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!--import CSS-->
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-loginReg.css">
 </head>
@@ -33,11 +45,10 @@ require("./php/esqueceu_senha.php");
 
                     <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Senhas</a>
+                        <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
                         <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="#" class="navbar-item">Contate-nos</a>
-
                     </div>
                 </div>
 
@@ -74,7 +85,7 @@ require("./php/esqueceu_senha.php");
                         <input type="email" name="userEmail" placeholder="Digite seu email" required>
                     </div>
 
-                    
+
                     <div class="button-container" style="width: 225px; margin: 0 auto;">
                         <button type="submit" class="btn"
                             style="margin: 20px 0 30px; width: fit-content; padding: 0 30px;">Enviar Dica de

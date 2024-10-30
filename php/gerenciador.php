@@ -141,6 +141,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $emailCheckQuery->fetch();
             $emailCheckQuery->close();
 
+                        // Verificar se o CPF já está em uso por outro usuário
+                        if (!empty($userCpf)) {
+                            $cpfCheckQuery = $conn->prepare("SELECT userID FROM users WHERE userCpf = ? AND userID != ?");
+                            $cpfCheckQuery->bind_param("si", $userCpf, $userID);
+                            $cpfCheckQuery->execute();
+                            $cpfCheckQuery->bind_result($existingCpfUserID);
+                            $cpfCheckQuery->fetch();
+                            $cpfCheckQuery->close();
+                            
+                            if ($existingCpfUserID) {
+                                $errorMessage = 'Este CPF já está em uso por outro usuário.';
+                            }
+                        }
+            
+                        // Verificar se o telefone já está em uso por outro usuário
+                        if (!empty($userTel)) {
+                            $telCheckQuery = $conn->prepare("SELECT userID FROM users WHERE userTel = ? AND userID != ?");
+                            $telCheckQuery->bind_param("si", $userTel, $userID);
+                            $telCheckQuery->execute();
+                            $telCheckQuery->bind_result($existingTelUserID);
+                            $telCheckQuery->fetch();
+                            $telCheckQuery->close();
+            
+                            if ($existingTelUserID) {
+                                $errorMessage = 'Este telefone já está em uso por outro usuário.';
+                            }
+                        }
+
             // Verificar se o CPF é válido (se foi informado)
             if (!empty($userCpf) && !validarCPF($userCpf)) {
                 $errorMessage = 'CPF inválido. Tente novamente.';
@@ -151,6 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errorMessage = 'Este e-mail já está em uso por outro usuário.';
                 logAction($conn, $userID, 'Falha Atualização de Usuario', 'Tentou cadastrar com um email ja existente: ' . $userEmail . ' pelo admin: ' . $adminNome . ' (ID: ' . $admID . ')');
             } else {
+
+                if (empty($errorMessage)) {
                 // Atualiza os dados da tabela 'users'
                 $updateUserQuery = $conn->prepare("UPDATE users SET userNome = ?, userEmail = ?, userCpf = ?, userTel = ?, userEstato = ?, role = ?, plano = ? WHERE userID = ?");
                 $updateUserQuery->bind_param("sssssssi", $userNome, $userEmail, $userCpf, $userTel, $userEstato, $role, $plano, $userID);
@@ -165,6 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 $updateUserQuery->close();
+            }
             }
         }
     }

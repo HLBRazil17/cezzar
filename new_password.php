@@ -132,7 +132,7 @@ logAction($conn, $userID, 'Redefinição de Senha', 'Redefiniu a senha:' . $_SES
                     </div>
                     <button class="hamburger" id="hamburger">&#9776;</button>
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Senhas</a>
+                        <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
                         <a href="#" class="navbar-item">Contate-nos</a>
                     </div>

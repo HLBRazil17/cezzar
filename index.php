@@ -59,7 +59,7 @@ if (isset($_SESSION['userID'])) {
                             <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
 
                         <?php else: ?>
-                            <a href="store_password.php" class="navbar-item">Senhas</a>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                             <a href="planos.php" class="navbar-item">Planos</a>
                             <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
                         <?php endif; ?>
@@ -134,7 +134,6 @@ if (isset($_SESSION['userID'])) {
                 </div>
             </div>
         </section>
-        <div><img src="./img/triangulo.png" alt="seta" class="seta-img"></div>
 
 
 
