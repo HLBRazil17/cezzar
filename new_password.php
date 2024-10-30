@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errorMessage = 'As senhas não correspondem.';
     } else {
         // Hash da nova senha
-        $hashedPassword = md5($newPassword);
+        $hashedPassword = hash('sha256',$newPassword);
 
         // Atualizar a senha e a dica no banco de dados
         $sql = "UPDATE gerenciadorsenhas.users SET userPassword = ?, dicaSenha = ? WHERE userID = ?";

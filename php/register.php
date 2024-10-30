@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 function cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $userPassword, $dicaSenha) {
     global $errorMessage, $successMessage;
 
-    // Criptografar a senha com MD5 (considere usar password_hash para maior segurança)
-    $md5Password = md5($userPassword);
+    // Criptografar a senha com SHA256 (considere usar password_hash para maior segurança)
+    $hashPassword = hash('sha256',$userPassword);
 
     // Gerar um token de 6 dígitos
     $userToken = generateToken($conn);
@@ -65,7 +65,7 @@ function cadastrarUsuario($conn, $userNome, $userEmail, $userCpf, $userTel, $use
         $sql = "INSERT INTO gerenciadorsenhas.users (userNome, userEmail, userCpf, userTel, userPassword, userToken, dicaSenha, data_fim) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         if ($stmt = $conn->prepare($sql)) {
             $data_fim = date("Y-m-d", strtotime("+1 month")); // Data de um mês depois
-            $stmt->bind_param("ssssssss", $userNome, $userEmail, $userCpf, $userTel, $md5Password, $userToken, $dicaSenha, $data_fim);
+            $stmt->bind_param("ssssssss", $userNome, $userEmail, $userCpf, $userTel, $hashPassword, $userToken, $dicaSenha, $data_fim);
 
             if ($stmt->execute()) {
                 $userID = $stmt->insert_id;

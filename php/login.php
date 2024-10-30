@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_result($userID, $userNome, $userCpf, $storedHash, $userEmail, $enableTwoFactor, $secret);
                 $stmt->fetch();
 
-                // Verificar a senha fornecida pelo usuário com o hash MD5 armazenado
-                if (md5($userPassword) === $storedHash) {
+                // Verificar a senha fornecida pelo usuário com o hash SHA256 armazenado
+                if (hash('sha256', $userPassword) === $storedHash) {
                     // Se a autenticação de dois fatores estiver habilitada
                     if ($enableTwoFactor == 1) {
                         // Verificar se o código 2FA foi fornecido

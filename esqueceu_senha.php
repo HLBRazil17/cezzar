@@ -68,7 +68,7 @@ require("./php/esqueceu_senha.php");
     <main class="main-content">
         <section class="hero">
             <div class="wrapper">
-                <h1 style="font-size: 46px; color:">Esqueceu a Senha?</h1>
+                <h1 style="font-size: 46px;">Esqueceu a Senha?</h1>
                 <form action="" method="post">
                     <div class="input-box" style="margin-top:50px;">
                         <input type="email" name="userEmail" placeholder="Digite seu email" required>

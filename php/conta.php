@@ -120,9 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Continuar a atualização se não houver erros
                 if (empty($errorMessage)) {
-                    // Hash da senha, se fornecida
+                    // Hash da senha, se fornecida SHA256
                     if (!empty($newUserPassword)) {
-                        $hashedPassword = md5($newUserPassword);
+                        $hashedPassword = hash('sha256',$newUserPassword);
                     } else {
                         // Senha permanece a mesma
                         $passwordCheckSql = "SELECT userPassword FROM users WHERE userID = ?";
