@@ -1,0 +1,269 @@
+[33mcommit 7f25622de8cb5447d516b3577fcb6826ca8b501d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfront[m[33m, [m[1;31morigin/front[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Tue Nov 5 22:19:09 2024 -0300
+
+    a
+
+[33mcommit 72b510ddb698c16ee7c6c691fb37e216d0ab9fb2[m
+Merge: cc65ec5 db4914c
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Tue Oct 29 22:34:24 2024 -0300
+
+    Merge branch 'front' of https://github.com/HLBRazil17/TCC-2024 into front
+
+[33mcommit cc65ec52cf38fe98b457170119c2b8e1e8e35167[m
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Tue Oct 29 22:34:14 2024 -0300
+
+    Mudança de criptografia para SHA256
+
+[33mcommit db4914c0c15c10a9a255a37a19500f33f8fb7f67[m
+Merge: 90d9f0e 50171f7
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Tue Oct 29 22:31:23 2024 -0300
+
+    teste
+
+[33mcommit 90d9f0eb65ef6f583ec83b04660d1020182c860f[m
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Tue Oct 29 22:26:18 2024 -0300
+
+    algumas coisas
+
+[33mcommit 50171f73ae8dfe62e2c5e6d582cf192d09a639a5[m
+Author: Cauan <cauancremon@outlook.com>
+Date:   Tue Oct 29 22:12:32 2024 -0300
+
+    estilizações store
+
+[33mcommit b89a51296ccb4060a2fbd9e687c63335809823c3[m
+Merge: 4939dbd 4f86e32
+Author: Cauan <cauancremon@outlook.com>
+Date:   Tue Oct 29 20:24:35 2024 -0300
+
+    Merge branch 'front' of https://github.com/HLBRazil17/TCC-2024 into front
+
+[33mcommit 4939dbd73751f764a123b59409f2a8ddd5fb60bd[m
+Author: Cauan <cauancremon@outlook.com>
+Date:   Tue Oct 29 20:21:05 2024 -0300
+
+    pequenas estilizações
+
+[33mcommit 4f86e3258d14079245f0c6970c2e0cf01123167c[m
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Tue Oct 29 19:32:59 2024 -0300
+
+    Controle de Senhas
+
+[33mcommit fc817c7fb2ff1b6242049b7a84da168900283675[m
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Mon Oct 28 01:24:49 2024 -0300
+
+    UPDATE-GERADOR
+
+[33mcommit c6c5721d934943e851335652eb57ebf38de53274[m
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Thu Oct 24 22:31:21 2024 -0300
+
+    aula hj
+
+[33mcommit 005d3f18b75d9c27dfc3ba73dd69b0c63523655e[m
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Thu Oct 24 01:01:43 2024 -0300
+
+    corrigir bugs 2FA
+
+[33mcommit 6352bda1812a798b5aa0db9c4ae964ade7e9e9e0[m
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Wed Oct 23 22:48:46 2024 -0300
+
+    2FA-PHP
+
+[33mcommit f9b3d18837af5a5a2bdf14af57b4aff8ea19db2c[m
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Tue Oct 22 21:05:27 2024 -0300
+
+    talvez o tcc acabe agr
+
+[33mcommit a184cfc3edd1a885a1991b8e7fd4a07cb7adea24[m
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Sun Oct 20 23:28:22 2024 -0300
+
+    2FA-COMPLETO
+
+[33mcommit 389b1c36f3d183f0c4746b7b7243dc5aa9295d23[m
+Merge: bfd408b 906086b
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Wed Oct 16 01:38:06 2024 -0300
+
+    Merge branch 'front' of https://github.com/HLBRazil17/TCC-2024 into front
+
+[33mcommit bfd408b00f43b76770801e66c4b1016b267b9107[m
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Wed Oct 16 01:37:52 2024 -0300
+
+    gerador-connectUpdate-add.htaccess
+
+[33mcommit 906086bb245002e620b16c45bf6bca6e92a01907[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Mon Oct 14 10:09:05 2024 -0300
+
+    estilizações
+
+[33mcommit 9e8b88fbf771946a1dd56e1f91aec6931bff522f[m
+Merge: 61809c4 9413926
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Fri Oct 4 01:36:23 2024 -0300
+
+    Merge branch 'front' of https://github.com/HLBRazil17/TCC-2024 into front
+
+[33mcommit 61809c40ee10bbaaa27263e72eadc2f27f7b9c4a[m
+Merge: 9f566c6 bc31980
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Fri Oct 4 01:36:22 2024 -0300
+
+    index 90% pronto
+
+[33mcommit 9413926fb584abbd93388aaa05a3e9e76dd371c2[m
+Merge: f9ea633 bc31980
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Tue Oct 1 22:44:29 2024 -0300
+
+    Merge branch 'front' of https://github.com/HLBRazil17/TCC-2024 into front
+
+[33mcommit f9ea6337a3835471d9a20cdc1f34a420f9a3dc76[m
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Tue Oct 1 22:44:19 2024 -0300
+
+    Rlx pessoal, negocio dando certo db.py🙏
+
+[33mcommit bc31980064861f1ec0a55ee2fc8aa7f056ae22be[m
+Author: MatheusRodrigues-DS <matheusridrigues02@gmail.com>
+Date:   Tue Oct 1 20:30:24 2024 -0300
+
+    qualquer fita
+
+[33mcommit 9f566c6b4af431f9509d64f47163658dda3f4cd0[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Tue Oct 1 20:29:57 2024 -0300
+
+    aa
+
+[33mcommit 3a43dba5a231dcac662929c1a8e3d3aed5cab436[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Mon Sep 30 01:40:48 2024 -0300
+
+    estilização 70% do index feita
+
+[33mcommit 7d9c1f58b15aff80506db77104e197ce56c41b4b[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Sat Sep 28 02:04:56 2024 -0300
+
+    desenvolvimento do index (finalmente)
+
+[33mcommit 972bf9fb2034d2db51d51f73c4c67ace494c9491[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Fri Sep 27 23:29:18 2024 -0300
+
+    register/login/esqueceu-senha 100% estilizados
+
+[33mcommit 09018da17c02287d86f31e785cc12ff14bbf4fbd[m
+Author: Cauan <cauancremon@outlook.com>
+Date:   Tue Sep 24 20:17:24 2024 -0300
+
+    porratoda
+
+[33mcommit c91879c33051927dea1c3a2a205df84eefc646ba[m
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Mon Sep 16 22:42:13 2024 -0300
+
+    Integração python e sql, codigo de verificação
+
+[33mcommit 4a3bc70466b370fb196c044d71171e19cac3c7ff[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Mon Sep 16 21:08:24 2024 -0300
+
+    img
+
+[33mcommit 7f39c2c785d317a8c0d0f6fb7c4785ddf89e5fff[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Mon Sep 16 20:05:57 2024 -0300
+
+    sla mano
+
+[33mcommit b690e79861796738db62e61e52a9b0e27b0fc006[m
+Merge: ae5f48d fd6d122
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Tue Sep 10 02:25:45 2024 -0300
+
+    Merge branch 'front' of https://github.com/HLBRazil17/TCC-2024 into front
+
+[33mcommit ae5f48d84f7c3d6c6ce683239dfee53a130254b4[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Tue Sep 10 02:25:38 2024 -0300
+
+    boa parte da store completa, fera demais
+
+[33mcommit fd6d122d722dfd64d467b315f7dd0a921e4ddbfe[m
+Author: HLBRazil17 <bolinhopaulino@gmail.com>
+Date:   Mon Sep 9 22:31:45 2024 -0300
+
+    integração python e php 🙌
+
+[33mcommit 3ecf8f9c2f4fe3e54e89aae367fac7c186d2d8f3[m
+Author: HLBRazil17 <53919062+HLBRazil17@users.noreply.github.com>
+Date:   Mon Sep 9 00:55:19 2024 -0300
+
+    OTP(2FA), Add verificador
+
+[33mcommit 7a20ed718189781b2c333825a60c0d7df3ab242d[m
+Author: HLBRazil17 <53919062+HLBRazil17@users.noreply.github.com>
+Date:   Mon Sep 9 00:25:11 2024 -0300
+
+    OTP(2FA), ainda está só o básico
+
+[33mcommit 79ca6c97da96cd0f53e72b87372192f9eb8c9540[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Fri Sep 6 05:33:22 2024 -0300
+
+    fera demais mauriciao
+
+[33mcommit e73f36495005f4cfb5186aab44357a3f44f451ae[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Fri Sep 6 05:05:48 2024 -0300
+
+    coisa pra caramba, store_password em desenvolvimento
+
+[33mcommit 05f6e7e228f5032aa40f64c23be4b725c75e3d86[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Thu Aug 15 20:59:06 2024 -0300
+
+    alterações de todas as páginas e estilização, store em desenvolvimento
+
+[33mcommit 8ab54acc669089d3260390dc6cb5c96e31f30255[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Wed Aug 14 22:18:43 2024 -0300
+
+    novas paginas adicionadas, organização de arquivos feita
+
+[33mcommit 82d661fe360d83fad3b280b2ad93a5fd88ed4015[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Mon Aug 12 19:48:30 2024 -0300
+
+    pasta gerenciador(inutil) eliminada
+
+[33mcommit 4d67fe3ef5af614d11411041cf66d237c834bf19[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Mon Aug 12 19:46:40 2024 -0300
+
+    arquivos com melhor legibilidade
+
+[33mcommit 3634ffb993ce95dcec971b6b19593127278dbfc1[m
+Author: Cauan <cauancremon@outlook.com>
+Date:   Tue Aug 6 22:48:27 2024 -0300
+
+    ADD
+
+[33mcommit b03b4ebff98f85e2b0d48ce65c4b0baf7af72424[m
+Author: Cauan <bolachasensei2028@gmail.com>
+Date:   Fr
