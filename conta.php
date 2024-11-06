@@ -192,4 +192,3 @@ document.getElementById("enableTwoFactor").addEventListener("change", function()
     <script src="../script/script2.js"></script>
 </body>
 </html>
-
