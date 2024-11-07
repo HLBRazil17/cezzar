@@ -222,67 +222,74 @@ require('./php/register.php');
     <script src="./script/script2.js"></script>
 
     <script>
-        // Função para verificar se as senhas coincidem
-        function checkPasswordMatch() {
-            const password = document.getElementById('userPassword').value;
-            const passwordRepeat = document.getElementById('userPasswordRepeat').value;
-            const matchMessage = document.getElementById('passwordMatchMessage');
+   // Função para verificar se as senhas coincidem
+function checkPasswordMatch() {
+    const password = document.getElementById('userPassword').value;
+    const passwordRepeat = document.getElementById('userPasswordRepeat').value;
+    const matchMessage = document.getElementById('passwordMatchMessage');
 
-            if (password === passwordRepeat && password !== "") {
-                matchMessage.textContent = 'As senhas coincidem.';
-                matchMessage.className = 'success-message';
-            } else {
-                matchMessage.textContent = 'As senhas não coincidem.';
-                matchMessage.className = 'error-message';
-            }
-        }
+    if (password === passwordRepeat && password !== "") {
+        matchMessage.textContent = 'As senhas coincidem.';
+        matchMessage.className = 'success-message';
+        matchMessage.style.display = 'block';  // Torna visível
+    } else {
+        matchMessage.textContent = 'As senhas não coincidem.';
+        matchMessage.className = 'error-message';
+        matchMessage.style.display = 'block';  // Torna visível
+    }
+}
 
-        // Função para verificar os critérios da senha
-        function checkPasswordCriteria() {
-            const password = document.getElementById('userPassword').value;
+// Função para verificar os critérios da senha
+function checkPasswordCriteria() {
+    const password = document.getElementById('userPassword').value;
 
-            // Selecionar as divs de mensagens para cada critério
-            const lengthMessage = document.getElementById('lengthMessage');
-            const uppercaseMessage = document.getElementById('uppercaseMessage');
-            const specialCharMessage = document.getElementById('specialCharMessage');
+    // Selecionar as divs de mensagens para cada critério
+    const lengthMessage = document.getElementById('lengthMessage');
+    const uppercaseMessage = document.getElementById('uppercaseMessage');
+    const specialCharMessage = document.getElementById('specialCharMessage');
 
-            // Verificar o comprimento da senha
-            if (password.length >= 12) {
-                lengthMessage.textContent = 'A senha tem pelo menos 12 caracteres.';
-                lengthMessage.className = 'success-message';
-            } else {
-                lengthMessage.textContent = 'A senha deve ter pelo menos 12 caracteres.';
-                lengthMessage.className = 'error-message';
-            }
+    // Verificar o comprimento da senha
+    if (password.length >= 12) {
+        lengthMessage.textContent = 'A senha tem pelo menos 12 caracteres.';
+        lengthMessage.className = 'success-message';
+        lengthMessage.style.display = 'block';  // Torna visível
+    } else {
+        lengthMessage.textContent = 'A senha deve ter pelo menos 12 caracteres.';
+        lengthMessage.className = 'error-message';
+        lengthMessage.style.display = 'block';  // Torna visível
+    }
 
-            // Verificar se a senha contém pelo menos uma letra maiúscula
-            if (/[A-Z]/.test(password)) {
-                uppercaseMessage.textContent = 'A senha contém pelo menos uma letra maiúscula.';
-                uppercaseMessage.className = 'success-message';
-            } else {
-                uppercaseMessage.textContent = 'A senha deve conter pelo menos uma letra maiúscula.';
-                uppercaseMessage.className = 'error-message';
-            }
+    // Verificar se a senha contém pelo menos uma letra maiúscula
+    if (/[A-Z]/.test(password)) {
+        uppercaseMessage.textContent = 'A senha contém pelo menos uma letra maiúscula.';
+        uppercaseMessage.className = 'success-message';
+        uppercaseMessage.style.display = 'block';  // Torna visível
+    } else {
+        uppercaseMessage.textContent = 'A senha deve conter pelo menos uma letra maiúscula.';
+        uppercaseMessage.className = 'error-message';
+        uppercaseMessage.style.display = 'block';  // Torna visível
+    }
 
-            // Verificar se a senha contém pelo menos um caractere especial
-            if (/[\W_]/.test(password)) {
-                specialCharMessage.textContent = 'A senha contém pelo menos um caractere especial.';
-                specialCharMessage.className = 'success-message';
-            } else {
-                specialCharMessage.textContent = 'A senha deve conter pelo menos um caractere especial.';
-                specialCharMessage.className = 'error-message';
-            }
-        }
+    // Verificar se a senha contém pelo menos um caractere especial
+    if (/[\W_]/.test(password)) {
+        specialCharMessage.textContent = 'A senha contém pelo menos um caractere especial.';
+        specialCharMessage.className = 'success-message';
+        specialCharMessage.style.display = 'block';  // Torna visível
+    } else {
+        specialCharMessage.textContent = 'A senha deve conter pelo menos um caractere especial.';
+        specialCharMessage.className = 'error-message';
+        specialCharMessage.style.display = 'block';  // Torna visível
+    }
+}
 
-        // Adicionar event listener aos campos de senha
-        document.getElementById('userPassword').addEventListener('input', function () {
-            checkPasswordCriteria();  // Verifica os critérios da senha
-            checkPasswordMatch();     // Verifica se as senhas coincidem
-        });
+// Adicionar event listener aos campos de senha
+document.getElementById('userPassword').addEventListener('input', function () {
+    checkPasswordCriteria();  // Verifica os critérios da senha
+    checkPasswordMatch();     // Verifica se as senhas coincidem
+});
 
-        document.getElementById('userPasswordRepeat').addEventListener('input', checkPasswordMatch);
+document.getElementById('userPasswordRepeat').addEventListener('input', checkPasswordMatch);
     </script>
-
 </body>
 
 </html>
