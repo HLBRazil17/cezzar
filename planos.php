@@ -22,7 +22,7 @@ require("./php/planos.php")
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
 
-    <title>Protect Key</title>
+    <title>Planos</title>
 </head>
 
 <body>
@@ -46,7 +46,7 @@ require("./php/planos.php")
                             <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
 
                         <?php else: ?>
-                            <a href="store_password.php" class="navbar-item">Senhas</a>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                             <a href="planos.php" class="navbar-item">Planos</a>
                             <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
                         <?php endif; ?>
@@ -96,7 +96,7 @@ require("./php/planos.php")
         <!-- Seção de Planos e Preços -->
         <section class="pricing" id="planos"
             style="background: linear-gradient(160deg, #090c30 0%, #1e2a91 50%, #3d84d6c7 100%) !important;">
-            <h2 style="color: white;">Planos e Preços</h2>
+            <h2 style="color: white; text-shadow: 0px 0px 6px #ffffffc5;">Planos e Preços</h2>
             <div class="pricing-list">
                 <!-- Card do Plano Básico -->
                 <div class="card-price">

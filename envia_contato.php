@@ -80,102 +80,9 @@ if (isset($_GET['success'])) {
 
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
+    <link rel="stylesheet" href="./style/styles-contact.css">
 
-    <title>Protect Key</title>
-
-    <style>
-        main {
-            background: linear-gradient(160deg, #090c30 0%, #1e2a91 50%, #3d84d6c7 100%);
-        }
-
-        .form {
-            display: flex;
-            flex-direction: column;
-            align-self: center;
-            font-family: inherit;
-            gap: 10px;
-            padding-inline: 2em;
-            padding-bottom: 0.4em;
-            background-color: #171717;
-            //background-color: #0a192f;
-            border-radius: 20px;
-        }
-
-        .form-heading {
-            text-align: center;
-            margin: 2em;
-            color: #64ffda;
-            font-size: 1.2em;
-            background-color: transparent;
-            align-self: center;
-        }
-
-        .form-field {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5em;
-            border-radius: 10px;
-            padding: 0.6em;
-            border: none;
-            outline: none;
-            color: white;
-            background-color: #171717;
-            box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-        }
-
-        .input-field {
-            background: none;
-            border: none;
-            outline: none;
-            width: 100%;
-            color: #ccd6f6;
-            padding-inline: 1em;
-        }
-
-        .sendMessage-btn {
-            cursor: pointer;
-            margin-bottom: 3em;
-            padding: 1em;
-            border-radius: 10px;
-            border: none;
-            outline: none;
-            background-color: transparent;
-            color: #64ffda;
-            font-weight: bold;
-            outline: 1px solid #64ffda;
-            transition: all ease-in-out 0.3s;
-        }
-
-        .sendMessage-btn:hover {
-            transition: all ease-in-out 0.3s;
-            background-color: #64ffda;
-            color: #000;
-            cursor: pointer;
-            box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-        }
-
-        .form-card1 {
-            background-image: linear-gradient(163deg, #64ffda 0%, #64ffda 100%);
-            border-radius: 22px;
-            transition: all 0.3s;
-            margin: 10vh 25vw;
-        }
-
-        .form-card1:hover {
-            box-shadow: 0px 0px 30px 1px rgba(100, 255, 218, 0.3);
-        }
-
-        .form-card2 {
-            border-radius: 0;
-            transition: all 0.2s;
-        }
-
-        .form-card2:hover {
-            transform: scale(0.98);
-            border-radius: 20px;
-        }
-    </style>
+    <title>Entrar em Contato</title>
 </head>
 
 <body>
@@ -249,7 +156,7 @@ if (isset($_GET['success'])) {
             <div class="form-card2">
                 <!-- Formulário de contato com PHP -->
                 <form class="form" action="envia_contato.php" method="POST">
-                    <p class="form-heading">Get In Touch</p>
+                    <p class="form-heading">Entrar em Contato</p>
 
                     <!-- Exibe mensagens de sucesso ou erro -->
                     <div class="message">
@@ -262,30 +169,30 @@ if (isset($_GET['success'])) {
 
                     <!-- Campo Nome -->
                     <div class="form-field">
-                        <input type="text" id="name" name="name" class="input-field" placeholder="Name"
+                        <input type="text" id="name" name="name" class="input-field" placeholder="Nome"
                             value="<?php echo htmlspecialchars($userNome); ?>" <?php echo $userNome ? 'readonly' : 'required'; ?> />
                     </div>
 
                     <!-- Campo E-mail -->
                     <div class="form-field">
-                        <input type="email" id="email" name="email" class="input-field" placeholder="Email"
+                        <input type="email" id="email" name="email" class="input-field" placeholder="E-mail"
                             value="<?php echo htmlspecialchars($userEmail); ?>" <?php echo $userEmail ? 'readonly' : 'required'; ?> />
                     </div>
 
                     <!-- Campo Assunto -->
                     <div class="form-field">
-                        <input type="text" id="subject" name="subject" class="input-field" placeholder="Subject"
+                        <input type="text" id="subject" name="subject" class="input-field" placeholder="Sobre"
                             required />
                     </div>
 
                     <!-- Campo Mensagem -->
                     <div class="form-field">
-                        <textarea id="message" name="message" rows="3" class="input-field" placeholder="Message"
+                        <textarea id="message" name="message" rows="10" class="input-field" placeholder="Mensagem"
                             required></textarea>
                     </div>
 
                     <!-- Botão de envio -->
-                    <button type="submit" class="sendMessage-btn">Send Message</button>
+                    <button type="submit" class="sendMessage-btn">Enviar Mensagem</button>
                 </form>
             </div>
         </div>
