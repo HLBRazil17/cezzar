@@ -27,7 +27,7 @@ require('./php/store_password.php');
 
     <script src="https://unpkg.com/scrollreveal"></script>
 
-    <title>Senhas</title>
+    <title>Controle de Senhas</title>
 </head>
 
 <body>
