@@ -17,6 +17,7 @@ if (isset($_SESSION['userNome']) && isset($_SESSION['userEmail'])) {
     $userID = $_SESSION['userID'];
 }
 
+
 // Verifica se o formulário foi submetido
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? '';
@@ -191,25 +192,17 @@ if (isset($_GET['success'])) {
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
+ <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <?php if (isset($_SESSION['userNome'])): ?>
-                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                            <a href="planos.php" class="navbar-item">Planos</a>
-                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-
-                        <?php else: ?>
-                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                            <a href="planos.php" class="navbar-item">Planos</a>
-                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-                        <?php endif; ?>
-
-                        <?php if (isset($_SESSION['userNome'])): ?>
-                            <?php if (checkAdminRole($conn, $userId)) { ?>
-                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                                <a href="logs.php" class="navbar-item">Logs</a>
-                            <?php } ?>
-
-                        <?php endif; ?>
+                        <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                        <a href="planos.php" class="navbar-item">Planos</a>
+                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php if (checkAdminRole($conn, $userID)) { ?>
+                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                            <a href="logs.php" class="navbar-item">Logs</a>
+                        <?php } ?>
+                    
                     </div>
                 </div>
 
