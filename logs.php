@@ -4,6 +4,7 @@ require('./php/logs.php');
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +14,8 @@ require('./php/logs.php');
     <link rel="icon" href="./img/ICON-prokey.ico">
 
     <!--import googleFonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <!--import font awesome-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -29,18 +31,23 @@ require('./php/logs.php');
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
         }
+
         th {
             background-color: #f4f4f4;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
     </style>
 </head>
+
 <body>
     <!-- Cabeçalho -->
     <header class="header">
@@ -62,12 +69,12 @@ require('./php/logs.php');
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                     <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
                         <?php if (checkAdminRole($conn, $userID)) { ?>
                             <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
                             <a href="logs.php" class="navbar-item">Logs</a>
-                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -125,5 +132,50 @@ require('./php/logs.php');
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <!--FOOTER-->
+    <footer>
+        <div class="content">
+            <div class="top">
+                <div class="logo-details">
+                    <a href="#"><img class="logo-footer" src="./img/ProtectKey-LOGOW.png" alt="logo icon"></a>
+                </div>
+            </div>
+            <div class="link-boxes">
+                <ul class="box">
+                    <li class="link_name">Companhia</li>
+                    <li><a href="#">Página Inicial</a></li>
+                    <li><a href="./register.php">Começar Agora</a></li>
+                    <li><a href="./planos.php">Planos</a></li>
+                    <li><a href="./envia_contato.php">Entrar em Contato</a></li>
+                </ul>
+                <ul class="box">
+                    <li class="link_name">Serviços</li>
+                    <li><a href="./store_password.php">Gerenciar Senhas</a></li>
+                    <li><a href="./store_password.php">Gerar uma Senha</a></li>
+                    <li><a href="./store_password.php">Criar uma Senha</a></li>
+                    <li><a href="./store_password.php">Inserir um Documento</a></li>
+                </ul>
+                <ul class="box">
+                    <li class="link_name">Conta</li>
+                    <li><a href="./conta.php">Configurações Gerais</a></li>
+                    <li><a href="./esqueceu_senha.php">Esqueci Minha Senha</a></li>
+                    <li><a href="./conta.php">Alterar Senha</a></li>
+                </ul>
+                <ul class="box input-box-fot">
+                    <li class="link_name">Registre-se</li>
+                    <li><input type="text" placeholder="Insira seu E-mail"></li>
+                    <li><input type="button" value="Registrar"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom-details">
+            <div class="bottom_text">
+                <span class="copyright_text">Copyright © 2024 <a href="#">Protect Key</a>Todos os direitos
+                    reservados.</span>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>

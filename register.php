@@ -135,17 +135,17 @@ require('./php/register.php');
                     </div>
 
                     <div class="input-box">
-                        <input type="text" id="dicaSenha" name="dicaSenha"
-                            placeholder="Digite uma dica para a senha*" required>
+                        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Digite uma dica para a senha*"
+                            required>
                         <span class="toggle-password" toggle="#dicaSenha" title="Mostrar/ocultar senha">
                         </span>
                         <br><br>
                     </div>
 
                     <div id="lengthMessage" class="error-message" style="display: none;"></div>
-<div id="uppercaseMessage" class="error-message" style="display: none;"></div>
-<div id="specialCharMessage" class="error-message" style="display: none;"></div>
-<div id="passwordMatchMessage" class="error-message" style="display: none;"></div>
+                    <div id="uppercaseMessage" class="error-message" style="display: none;"></div>
+                    <div id="specialCharMessage" class="error-message" style="display: none;"></div>
+                    <div id="passwordMatchMessage" class="error-message" style="display: none;"></div>
 
                     <div class="register-link">
                         <p>Já possui uma conta?</p>
@@ -158,11 +158,15 @@ require('./php/register.php');
                     <?php endif; ?>
 
                     <?php if (!empty($errorMessage)): ?>
-                        <div style="padding: 10px; color: red; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;"><?php echo $errorMessage; ?></div>
+                        <div
+                            style="padding: 10px; color: red; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;">
+                            <?php echo $errorMessage; ?></div>
                     <?php endif; ?>
 
                     <?php if (!empty($successMessage)): ?>
-                        <div style="padding: 10px; color: green; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;"><?php echo $successMessage; ?></div>
+                        <div
+                            style="padding: 10px; color: green; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;">
+                            <?php echo $successMessage; ?></div>
                     <?php endif; ?>
 
                     <button type="submit" class="btn">Registrar</button>
@@ -178,57 +182,39 @@ require('./php/register.php');
                 <div class="logo-details">
                     <a href="#"><img class="logo-footer" src="./img/ProtectKey-LOGOW.png" alt="logo icon"></a>
                 </div>
-                <div class="media-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
             </div>
             <div class="link-boxes">
                 <ul class="box">
                     <li class="link_name">Companhia</li>
                     <li><a href="#">Página Inicial</a></li>
-                    <li><a href="#">Entre em Contato</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Começar Agora</a></li>
+                    <li><a href="./register.php">Começar Agora</a></li>
+                    <li><a href="./planos.php">Planos</a></li>
+                    <li><a href="./envia_contato.php">Entrar em Contato</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Services</li>
-                    <li><a href="#">App design</a></li>
-                    <li><a href="#">Web design</a></li>
-                    <li><a href="#">Logo design</a></li>
-                    <li><a href="#">Banner design</a></li>
+                    <li class="link_name">Serviços</li>
+                    <li><a href="./store_password.php">Gerenciar Senhas</a></li>
+                    <li><a href="./store_password.php">Gerar uma Senha</a></li>
+                    <li><a href="./store_password.php">Criar uma Senha</a></li>
+                    <li><a href="./store_password.php">Inserir um Documento</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Account</li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li><a href="#">Prefrences</a></li>
-                    <li><a href="#">Purchase</a></li>
+                    <li class="link_name">Conta</li>
+                    <li><a href="./conta.php">Configurações Gerais</a></li>
+                    <li><a href="./esqueceu_senha.php">Esqueci Minha Senha</a></li>
+                    <li><a href="./conta.php">Alterar Senha</a></li>
                 </ul>
-                <ul class="box">
-                    <li class="link_name">Courses</li>
-                    <li><a href="#">HTML & CSS</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">Photography</a></li>
-                    <li><a href="#">Photoshop</a></li>
-                </ul>
-                <ul class="box input-box">
-                    <li class="link_name">Subscribe</li>
-                    <li><input type="text" placeholder="Enter your email"></li>
-                    <li><input type="button" value="Subscribe"></li>
+                <ul class="box input-box-fot">
+                    <li class="link_name">Registre-se</li>
+                    <li><input type="text" placeholder="Insira seu E-mail"></li>
+                    <li><input type="button" value="Registrar"></li>
                 </ul>
             </div>
         </div>
         <div class="bottom-details">
             <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2021 <a href="#">CodingLab.</a>All rights reserved</span>
-                <span class="policy_terms">
-                    <a href="#">Privacy policy</a>
-                    <a href="#">Terms & condition</a>
-                </span>
+                <span class="copyright_text">Copyright © 2024 <a href="#">Protect Key</a>Todos os direitos
+                    reservados.</span>
             </div>
         </div>
     </footer>
@@ -236,11 +222,11 @@ require('./php/register.php');
     <script src="./script/script2.js"></script>
 
     <script>
-    // Função para verificar se as senhas coincidem
-    function checkPasswordMatch() {
-        const password = document.getElementById('userPassword').value;
-        const passwordRepeat = document.getElementById('userPasswordRepeat').value;
-        const matchMessage = document.getElementById('passwordMatchMessage');
+        // Função para verificar se as senhas coincidem
+        function checkPasswordMatch() {
+            const password = document.getElementById('userPassword').value;
+            const passwordRepeat = document.getElementById('userPasswordRepeat').value;
+            const matchMessage = document.getElementById('passwordMatchMessage');
 
             if (password === passwordRepeat && password !== "") {
                 matchMessage.textContent = 'As senhas coincidem.';
@@ -255,10 +241,10 @@ require('./php/register.php');
         function checkPasswordCriteria() {
             const password = document.getElementById('userPassword').value;
 
-        // Selecionar as divs de mensagens para cada critério
-        const lengthMessage = document.getElementById('lengthMessage');
-        const uppercaseMessage = document.getElementById('uppercaseMessage');
-        const specialCharMessage = document.getElementById('specialCharMessage');
+            // Selecionar as divs de mensagens para cada critério
+            const lengthMessage = document.getElementById('lengthMessage');
+            const uppercaseMessage = document.getElementById('uppercaseMessage');
+            const specialCharMessage = document.getElementById('specialCharMessage');
 
             // Verificar o comprimento da senha
             if (password.length >= 12) {

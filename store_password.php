@@ -22,6 +22,7 @@ require('./php/store_password.php');
     <!--import css/scroll-->
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-store.css">
+    <link rel="stylesheet" href="./style/styles-store-form.css">
     <link rel="stylesheet" href="./style/styles-buttons.css">
 
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -65,7 +66,7 @@ require('./php/store_password.php');
                         <summary class="profile-icon">
                             <img src="./img/user.png" alt="Profile">
                         </summary>
-                        <div class="dropdown-content">
+                        <div class="dropdown-content" style="z-index:2;">
                             <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
                                 <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
@@ -118,35 +119,37 @@ require('./php/store_password.php');
                 ?>
 
 
+                <div class="form-buttons">
+                    <!-- Botões do formulário -->
 
-                <!-- Botões do formulário -->
+                    <!--Botão salvar-->
+                    <button type="submit" class="csb-button">
+                        <div class="csb-svg-wrapper-1">
+                            <div class="csb-svg-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"
+                                    class="csb-icon">
+                                    <path
+                                        d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="csb-text">Salvar</span>
+                    </button>
 
-                <!--Botão salvar-->
-                <button type="submit" class="csb-button">
-                    <div class="csb-svg-wrapper-1">
-                        <div class="csb-svg-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"
-                                class="csb-icon">
+                    <!--Botão excluir-->
+                    <button type="button" class="db-button db-noselect" onclick="cancelForm()">
+                        <span class="db-text">Excluir</span>
+                        <span class="db-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path
-                                    d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z">
+                                    d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
                                 </path>
                             </svg>
-                        </div>
-                    </div>
-                    <span class="csb-text">Salvar</span>
-                </button>
+                        </span>
+                    </button>
 
-                <!--Botão cancelar-->
-                <button type="button" class="db-button db-noselect" onclick="cancelForm()">
-                    <span class="db-text">Delete</span>
-                    <span class="db-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path
-                                d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
-                            </path>
-                        </svg>
-                    </span>
-                </button>
+                </div>
 
                 <!--Botão gerar senha-->
                 <button type="button" onclick="gerarSenha()" class="btn">
@@ -169,8 +172,8 @@ require('./php/store_password.php');
         </section>
 
         <!-- Tabela com senhas salvas -->
-        <?php if (!empty($savedPasswords)): ?>
-            <section class="saved-table" id="savedTable">
+        <section id="savedTable" style="padding: 80px 150px 0 150px;">
+            <?php if (!empty($savedPasswords)): ?>
                 <table>
                     <thead>
                         <tr>
@@ -178,41 +181,52 @@ require('./php/store_password.php');
                             <th>Login</th>
                             <th>E-mail</th>
                             <th>Senha</th>
-                            <th>Ações</th>
+                            <th style="width: 100px;">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Laço para exibir senhas salvas -->
                         <?php foreach ($savedPasswords as $password): ?>
                             <tr>
-                                <td><a href="<?php echo htmlspecialchars($password['url']); ?>"
-                                        target="_blank"><?php echo htmlspecialchars($password['site_name']); ?></a></td>
-                                <td><?php echo htmlspecialchars($password['name']); ?></td>
-                                <td><?php echo htmlspecialchars($password['email']); ?></td>
-                                <td><span class="toggle-password"
-                                        onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">Mostrar</span>
+                                <td data-label="Site">
+                                    <a href="<?php echo htmlspecialchars($password['url']); ?>" target="_blank">
+                                        <?php echo htmlspecialchars($password['site_name']); ?>
+                                    </a>
                                 </td>
-                                <td class="buttons">
-                                    <!-- Botão de atualização de senha estilizado com imagem -->
-                                    <button class="Btn" onclick="editPassword(<?php echo htmlspecialchars($password['senhaId']); ?>, 
-    '<?php echo htmlspecialchars($password['site_name']); ?>', 
-    '<?php echo htmlspecialchars($password['url']); ?>', 
-    '<?php echo htmlspecialchars($password['name']); ?>', 
-    '<?php echo htmlspecialchars($password['email']); ?>', 
-    '<?php echo htmlspecialchars($password['password']); ?>')">
+                                <td data-label="Login">
+                                    <?php echo htmlspecialchars($password['name']); ?>
+                                </td>
+                                <td data-label="E-mail"><?php echo htmlspecialchars($password['email']); ?></td>
+                                <td data-label="Senha">
+                                    <span class="toggle-password"
+                                        onclick="showPassword(this, '<?php echo htmlspecialchars($password['password']); ?>')">
+                                        Mostrar
+                                    </span>
+                                </td>
+                                <td data-label="Ações" class="buttons" style="display:flex; justify-content:center;">
 
-                                        <!-- Imagem personalizada dentro do botão -->
-                                        <img src="./img/update.png" alt="Atualizar"
-                                            style="height: 21px; width: 21px; z-index:2;">
-
-                                        <span class="BG"></span>
+                                    <!-- Botão de atualização de senha com backend integrado e estilo atualizado -->
+                                    <button style="margin-right: 20px;" type="button" class="button" onclick="editPassword(<?php echo htmlspecialchars($password['senhaId']); ?>,
+                        '<?php echo htmlspecialchars($password['site_name']); ?>', 
+                        '<?php echo htmlspecialchars($password['url']); ?>', 
+                        '<?php echo htmlspecialchars($password['name']); ?>', 
+                        '<?php echo htmlspecialchars($password['email']); ?>', 
+                        '<?php echo htmlspecialchars($password['password']); ?>')">
+                                        <span class="button__text">Atualizar</span>
+                                        <span class="button__icon">
+                                            <svg class="svg" height="48" viewBox="0 0 48 48" width="48"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M35.3 12.7c-2.89-2.9-6.88-4.7-11.3-4.7-8.84 0-15.98 7.16-15.98 16s7.14 16 15.98 16c7.45 0 13.69-5.1 15.46-12h-4.16c-1.65 4.66-6.07 8-11.3 8-6.63 0-12-5.37-12-12s5.37-12 12-12c3.31 0 6.28 1.38 8.45 3.55l-6.45 6.45h14v-14l-4.7 4.7z">
+                                                </path>
+                                                <path d="M0 0h48v48h-48z" fill="none"></path>
+                                            </svg>
+                                        </span>
                                     </button>
 
 
-
-
-                                    <!-- Formulário para exclusão de senha com botão estilizado -->
-                                    <form action="" method="post" style="display:inline;">
+                                    <!-- Formulário para exclusão de senha -->
+                                    <form action="" method="post" style="width: fit-content;">
                                         <input type="hidden" name="passwordId"
                                             value="<?php echo htmlspecialchars($password['senhaId']); ?>">
                                         <input type="hidden" name="actionType" value="delete">
@@ -244,10 +258,11 @@ require('./php/store_password.php');
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            </section>
-        <?php else: ?>
+            <?php else: ?>
 
-        <?php endif; ?>
+            <?php endif; ?>
+        </section>
+
 
         <!-- Imagem adicionar senha -->
         <img src="./img/sem-itens.png" alt="Adicionar Senha" class="img-no-itens" id="img-senha">
@@ -281,57 +296,39 @@ require('./php/store_password.php');
                 <div class="logo-details">
                     <a href="#"><img class="logo-footer" src="./img/ProtectKey-LOGOW.png" alt="logo icon"></a>
                 </div>
-                <div class="media-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
             </div>
             <div class="link-boxes">
                 <ul class="box">
                     <li class="link_name">Companhia</li>
                     <li><a href="#">Página Inicial</a></li>
-                    <li><a href="#">Entre em Contato</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Começar Agora</a></li>
+                    <li><a href="./register.php">Começar Agora</a></li>
+                    <li><a href="./planos.php">Planos</a></li>
+                    <li><a href="./envia_contato.php">Entrar em Contato</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Services</li>
-                    <li><a href="#">App design</a></li>
-                    <li><a href="#">Web design</a></li>
-                    <li><a href="#">Logo design</a></li>
-                    <li><a href="#">Banner design</a></li>
+                    <li class="link_name">Serviços</li>
+                    <li><a href="./store_password.php">Gerenciar Senhas</a></li>
+                    <li><a href="./store_password.php">Gerar uma Senha</a></li>
+                    <li><a href="./store_password.php">Criar uma Senha</a></li>
+                    <li><a href="./store_password.php">Inserir um Documento</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Account</li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li><a href="#">Prefrences</a></li>
-                    <li><a href="#">Purchase</a></li>
+                    <li class="link_name">Conta</li>
+                    <li><a href="./conta.php">Configurações Gerais</a></li>
+                    <li><a href="./esqueceu_senha.php">Esqueci Minha Senha</a></li>
+                    <li><a href="./conta.php">Alterar Senha</a></li>
                 </ul>
-                <ul class="box">
-                    <li class="link_name">Courses</li>
-                    <li><a href="#">HTML & CSS</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">Photography</a></li>
-                    <li><a href="#">Photoshop</a></li>
-                </ul>
-                <ul class="box input-box">
-                    <li class="link_name">Subscribe</li>
-                    <li><input type="text" placeholder="Enter your email"></li>
-                    <li><input type="button" value="Subscribe"></li>
+                <ul class="box input-box-fot">
+                    <li class="link_name">Registre-se</li>
+                    <li><input type="text" placeholder="Insira seu E-mail"></li>
+                    <li><input type="button" value="Registrar"></li>
                 </ul>
             </div>
         </div>
         <div class="bottom-details">
             <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2021 <a href="#">CodingLab.</a>All rights reserved</span>
-                <span class="policy_terms">
-                    <a href="#">Privacy policy</a>
-                    <a href="#">Terms & condition</a>
-                </span>
+                <span class="copyright_text">Copyright © 2024 <a href="#">Protect Key</a>Todos os direitos
+                    reservados.</span>
             </div>
         </div>
     </footer>
@@ -428,21 +425,112 @@ require('./php/store_password.php');
         // Observa o body para mudanças no filho (no caso, a tabela pode ser removida ou adicionada)
         observer.observe(document.body, { childList: true, subtree: true });
 
-        // Função para verificar se a tabela existe e mostrar/ocultar a imagem
+        // Função para verificar se a tabela existe e mostrar/ocultar a imagem e o botão
         function verificarTabela() {
-            const tabela = document.getElementById('savedTable');
+            const tabela = document.querySelector('#savedTable table'); // Seleciona a tabela dentro da section
             const imagem = document.getElementById('img-senha');
+            const botaoAdicionar = document.querySelector('.button[onclick="toggleForm()"]');
 
             if (tabela) {
-                imagem.style.display = 'none'; // Oculta a imagem se a tabela existir
+                imagem.style.display = 'none';
+                botaoAdicionar.style.display = 'none';
             } else {
-                imagem.style.display = 'flex'; // Mostra a imagem se a tabela não existir
+                imagem.style.display = 'flex';
+                botaoAdicionar.style.display = 'block';
             }
         }
 
         // Verifica no carregamento inicial
         document.addEventListener("DOMContentLoaded", verificarTabela);
     </script>
+
+    <!-- Funções JavaScript para manipular formulário e senhas -->
+    <script>
+        function gerarSenha(tamanho = 16) {
+            const passwordField = document.getElementById("password");
+            if (passwordField.value !== "") {
+                const confirmar = confirm("Tem certeza que deseja substituir a senha?");
+                if (!confirmar) return;
+            }
+            const caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
+            let senha = '';
+            for (let i = 0; i < tamanho; i++) {
+                senha += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+            }
+            document.getElementById("password").value = senha;
+        }
+
+        function verSenha() {
+            const passwordField = document.getElementById("password");
+            const toggleButtonImage = document.getElementById("togglePasswordImage");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButtonImage.src = "./img/olhofechado.png";
+            } else {
+                passwordField.type = "password";
+                toggleButtonImage.src = "./img/olho.png";
+            }
+        }
+
+        function toggleForm() {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.classList.toggle('show');
+            toggleVisibility();
+        }
+
+        function toggleVisibility() {
+            const formContainer = document.getElementById('formContainer');
+            const savedTable = document.getElementById('savedTable');
+            if (formContainer.classList.contains('show')) {
+                savedTable.style.display = 'none';
+            } else {
+                savedTable.style.display = 'block';
+            }
+        }
+
+        function cancelForm() {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.classList.remove('show');
+            toggleVisibility();
+        }
+
+        function editPassword(id, siteName, url, loginName, email, password) {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.classList.add('show');
+            toggleVisibility();
+
+            document.getElementById('actionType').value = 'update';
+            document.getElementById('passwordId').value = id;
+            document.getElementById('siteName').value = siteName;
+            document.getElementById('url').value = url;
+            document.getElementById('loginName').value = loginName;
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = password;
+        }
+
+        function showPassword(element, password) {
+            element.textContent = password;
+            element.style.textDecoration = 'none';
+            element.style.cursor = 'default';
+            const cell = element.parentElement;
+            cell.innerHTML = password;
+
+            setTimeout(() => {
+                cell.innerHTML = '<span class="toggle-password" onclick="showPassword(this, \'' + password + '\')">Mostrar</span>';
+            }, 3000);
+        }
+
+        window.onload = function () {
+            const addPasswordBtn = document.getElementById('addPasswordBtn');
+            addPasswordBtn.addEventListener('click', () => {
+                toggleForm();
+            });
+            toggleVisibility(); // Garante que a visibilidade está correta ao carregar a página
+        }
+
+        document.addEventListener("DOMContentLoaded", toggleVisibility);
+    </script>
+
 </body>
 
 </html>

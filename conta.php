@@ -100,6 +100,19 @@ require('./php/conta.php');
             <h1 class="page-title">Configurações da Conta</h1>
 
             <div class="settings-section">
+                <!-- Mensagem de sucesso ou erro -->
+                <?php if (!empty($errorMessage)): ?>
+                    <div class="error-message"
+                        style="padding: 10px; color: red; width:fit-content; margin: 10px auto 0 auto;  font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;">
+                        <?php echo $errorMessage; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (!empty($successMessage)): ?>
+                    <div class="success-message"
+                        style="padding: 10px; color: green; width:fit-content; margin: 10px auto 0 auto; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;">
+                        <?php echo $successMessage; ?>
+                    </div>
+                <?php endif; ?>
                 <h2 class="settings-title">Informações Gerais</h2>
                 <form id="updateForm" action="" method="post" class="my-form">
 
@@ -231,15 +244,6 @@ require('./php/conta.php');
                         <button type="submit" id="initialConfirmButton" class="btn button full">Confirmar
                             Informações</button>
                     </div>
-
-                    <!-- Mensagem de sucesso ou erro -->
-                    <?php if (!empty($errorMessage)): ?>
-                        <div class="error-message" style="padding: 10px; color: red; width:fit-content; margin-left: -10px; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;"><?php echo $errorMessage; ?></div>
-                    <?php endif; ?>
-                    <?php if (!empty($successMessage)): ?>
-                        <div class="success-message" style="padding: 10px; color: green; width:fit-content; margin-left: -10px; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;"><?php echo $successMessage; ?></div>
-                    <?php endif; ?>
-
                 </form>
             </div>
         </div>
@@ -252,57 +256,39 @@ require('./php/conta.php');
                 <div class="logo-details">
                     <a href="#"><img class="logo-footer" src="./img/ProtectKey-LOGOW.png" alt="logo icon"></a>
                 </div>
-                <div class="media-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
             </div>
             <div class="link-boxes">
                 <ul class="box">
                     <li class="link_name">Companhia</li>
                     <li><a href="#">Página Inicial</a></li>
-                    <li><a href="#">Entre em Contato</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Começar Agora</a></li>
+                    <li><a href="./register.php">Começar Agora</a></li>
+                    <li><a href="./planos.php">Planos</a></li>
+                    <li><a href="./envia_contato.php">Entrar em Contato</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Services</li>
-                    <li><a href="#">App design</a></li>
-                    <li><a href="#">Web design</a></li>
-                    <li><a href="#">Logo design</a></li>
-                    <li><a href="#">Banner design</a></li>
+                    <li class="link_name">Serviços</li>
+                    <li><a href="./store_password.php">Gerenciar Senhas</a></li>
+                    <li><a href="./store_password.php">Gerar uma Senha</a></li>
+                    <li><a href="./store_password.php">Criar uma Senha</a></li>
+                    <li><a href="./store_password.php">Inserir um Documento</a></li>
                 </ul>
                 <ul class="box">
-                    <li class="link_name">Account</li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li><a href="#">Prefrences</a></li>
-                    <li><a href="#">Purchase</a></li>
-                </ul>
-                <ul class="box">
-                    <li class="link_name">Courses</li>
-                    <li><a href="#">HTML & CSS</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">Photography</a></li>
-                    <li><a href="#">Photoshop</a></li>
+                    <li class="link_name">Conta</li>
+                    <li><a href="./conta.php">Configurações Gerais</a></li>
+                    <li><a href="./esqueceu_senha.php">Esqueci Minha Senha</a></li>
+                    <li><a href="./conta.php">Alterar Senha</a></li>
                 </ul>
                 <ul class="box input-box-fot">
-                    <li class="link_name">Subscribe</li>
-                    <li><input type="text" placeholder="Enter your email"></li>
-                    <li><input type="button" value="Subscribe"></li>
+                    <li class="link_name">Registre-se</li>
+                    <li><input type="text" placeholder="Insira seu E-mail"></li>
+                    <li><input type="button" value="Registrar"></li>
                 </ul>
             </div>
         </div>
         <div class="bottom-details">
             <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2021 <a href="#">CodingLab.</a>All rights reserved</span>
-                <span class="policy_terms">
-                    <a href="#">Privacy policy</a>
-                    <a href="#">Terms & condition</a>
-                </span>
+                <span class="copyright_text">Copyright © 2024 <a href="#">Protect Key</a>Todos os direitos
+                    reservados.</span>
             </div>
         </div>
     </footer>
