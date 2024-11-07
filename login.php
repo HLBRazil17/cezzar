@@ -78,10 +78,10 @@ require('./php/login.php');
 
     <main class="main-content">
         <section class="hero" style="height: 100vh;">
-            <div class="wrapper">
+            <div class="wrapper" style="width:500px">
 
                 <form action="" method="post">
-                    <h1>Login</h1>
+                    <h1 style="margin-bottom: 8vh;">Login</h1>
 
                     <div class="input-box">
                         <input type="text" id="userCpf" name="userIdent" placeholder="Digite seu CPF ou Token" required
@@ -90,7 +90,7 @@ require('./php/login.php');
                             echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST')
                                 ? htmlspecialchars($userIdent)
                                 : '';
-                            ?>">
+                            ?>" style="margin: 0 30px 50px 30px;">
                         <br><br>
                     </div>
 
@@ -101,7 +101,10 @@ require('./php/login.php');
                             echo (isset($enableTwoFactor) && $enableTwoFactor == 1 && $_SERVER['REQUEST_METHOD'] == 'POST')
                                 ? htmlspecialchars($userPassword)
                                 : '';
-                            ?>">
+                            ?>" style="margin: 0 30px 50px 30px;">
+                        <span class="toggle-password" toggle="#userPasswordRepeat" style="left: 330px;">
+                            <i class="fas fa-eye"></i>
+                        </span>
                         <br><br>
                     </div>
 
@@ -132,10 +135,12 @@ require('./php/login.php');
                     <?php if (!empty($successMessage)): ?>
                         <div
                             style="padding: 10px; color: green; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;">
-                            <?php echo $successMessage; ?></div>
+                            <?php echo $successMessage; ?>
+                        </div>
                     <?php endif; ?>
 
-                    <button type="submit" class="btn">Login</button>
+                    <button type="submit" class="btn"
+                        style="margin: 0 0px 0 120px; width:40%; margin-bottom: 4vh;">Login</button>
                 </form>
 
             </div>
@@ -193,6 +198,27 @@ require('./php/login.php');
             if (twoFactorInput) {
                 twoFactorInput.addEventListener('input', function () {
                     this.value = this.value.replace(/\s/g, ''); // Remove todos os espaços
+                });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Seleciona o campo de senha e o ícone do olho
+            const passwordField = document.getElementById('userPassword');
+            const togglePasswordButton = document.querySelector('.toggle-password');
+
+            // Verifica se os elementos existem
+            if (passwordField && togglePasswordButton) {
+                // Adiciona o evento de clique no ícone
+                togglePasswordButton.addEventListener('click', function () {
+                    // Alterna o tipo do campo entre "password" e "text"
+                    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordField.setAttribute('type', type);
+
+                    // Alterna o ícone entre olho aberto e fechado
+                    const icon = togglePasswordButton.querySelector('i');
+                    icon.classList.toggle('fa-eye');
+                    icon.classList.toggle('fa-eye-slash');
                 });
             }
         });

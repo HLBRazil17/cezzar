@@ -181,7 +181,7 @@ if (isset($_GET['success'])) {
 
                     <!-- Campo Assunto -->
                     <div class="form-field">
-                        <input type="text" id="subject" name="subject" class="input-field" placeholder="Sobre"
+                        <input type="text" id="subject" name="subject" class="input-field" placeholder="Assunto"
                             required />
                     </div>
 

@@ -93,20 +93,23 @@ require('./php/store_password.php');
                 <input type="hidden" id="passwordId" name="passwordId" value="">
 
                 <!-- Inputs do formulário -->
-                <label for="siteName">Nome do Site:</label>
-                <input type="text" id="siteName" name="siteName" placeholder="Nome do site" maxlength="255" required>
+                <label for="siteName">Nome da Senha:</label>
+                <input type="text" id="siteName" name="siteName" placeholder="Nome da Senha" maxlength="255" required>
 
                 <label for="url">URL do Site:</label>
-                <input type="text" id="url" name="url" placeholder="URL do site" axlength="255">
+                <input type="text" id="url" name="url" placeholder="URL do Site" axlength="255">
 
                 <label for="loginName">Nome de Login:</label>
-                <input type="text" id="loginName" name="loginName" placeholder="Nome de login" axlength="100">
+                <input type="text" id="loginName" name="loginName" placeholder="Nome de Login" axlength="100">
 
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="E-mail" axlength="100">
 
                 <label for="password">Senha:</label>
                 <input type="password" id="password" name="password" placeholder="Senha" required>
+                <span class="toggle-password" toggle="#userPasswordRepeat" style="left: 330px;">
+                    <i class="fas fa-eye"></i>
+                </span>
 
                 <!-- Mensagens de erro e sucesso -->
                 <?php

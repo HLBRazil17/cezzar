@@ -27,7 +27,6 @@ a{
 }
 
 .wrapper{
-    width: 420px;
     color: white;
     border: 2px solid rgba(255, 255, 255, .2);
     backdrop-filter: blur(20px);
@@ -80,10 +79,12 @@ a{
     font-weight: 600;
     transition: all ease 1s;
     margin-bottom: 5%;
+    color: #2883d8;
 }
 
 .wrapper .btn:hover{
     background: #c1c1c1;
+    color: #7875d4;
 }
 
 .wrapper .register-link{
@@ -193,8 +194,8 @@ a{
 .input-box .toggle-password {
   cursor: pointer;    /* Adiciona um cursor de "mãozinha" ao passar sobre o ícone */
   position: absolute;
-  top: 19px;         /* Ajusta a posição para alinhar verticalmente com o campo de senha */
-  left: 280px;
+  top: -7px;
+    left: 150px;
   transition: color ease 0.5s;
   color: white;
   font-size: 20px;
@@ -202,4 +203,22 @@ a{
 
 .input-box .toggle-password:hover {
   color: #349dff;
+}
+
+/* Estilo para agrupar os campos em linha */
+.input-row {
+    display: flex;
+    gap: 20px; /* Espaçamento entre os campos */
+    margin: -20px 30px;
+    width: 400px;
+}
+
+/* Ajusta a largura dos campos para ficarem proporcionais */
+.input-row .input-box {
+    flex: 1; /* Garante que cada input ocupe o mesmo espaço */
+}
+
+/* Opcional: diminui a margem para os campos em linha */
+.input-box input {
+    margin-top: 0;
 }
