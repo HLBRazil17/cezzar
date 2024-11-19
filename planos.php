@@ -79,11 +79,13 @@ require("./php/planos.php")
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
                                 <a href="conta.php"> Detalhes da Conta</a>
                                 <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
                                 <a href="login.php"
-                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">Login</a>
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>

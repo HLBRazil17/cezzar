@@ -209,6 +209,8 @@ body {
     visibility: visible;
 
     .form-group {
+        width: fit-content;
+        margin: 20px auto;
         .input-group {
             border-radius: 0.25rem;
             overflow: hidden;
@@ -230,7 +232,8 @@ body {
     }
 
     .form-submit {
-        width: 100%;
+        width: fit-content;
+        margin: 0 auto;
         }
     }
 
@@ -436,8 +439,12 @@ button::before {
 
 button:hover {
     color: #e8e8e8;
+    background-color: transparent;
 }
 
 button:hover::before {
-    width: 100%;
+    width: 110%;
 }
+
+
+

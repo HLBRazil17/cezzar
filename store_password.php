@@ -60,22 +60,29 @@ require('./php/store_password.php');
                     </div>
                 </div>
 
-                <!-- Ícone de perfil com dropdown -->
-                <div class="navbar-right">
+                <!-- PROFILE ICON -->
+                <div class="navbar-right" style="z-index:2;">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
-                        <div class="dropdown-content" style="z-index:2;">
-                            <!-- Verifica se o usuário está logado -->
+                        <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="conta.php">Detalhes da Conta</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -92,23 +99,40 @@ require('./php/store_password.php');
                 <input type="hidden" id="actionType" name="actionType" value="add">
                 <input type="hidden" id="passwordId" name="passwordId" value="">
 
-                <!-- Inputs do formulário -->
-                <label for="siteName">Nome da Senha:</label>
-                <input type="text" id="siteName" name="siteName" placeholder="Nome da Senha" maxlength="255" required>
+                <!-- Inputs estilizados do formulário -->
+                <div class="input-group">
+                    <label class="label" for="siteName">Nome da Senha</label>
+                    <input autocomplete="off" name="siteName" id="siteName" class="input" type="text"
+                        placeholder="Ex: Conta do Gmail" maxlength="255" required>
+                </div>
 
-                <label for="url">URL do Site:</label>
-                <input type="text" id="url" name="url" placeholder="URL do Site" axlength="255">
+                <div class="input-group">
+                    <label class="label" for="url">URL do Site</label>
+                    <input autocomplete="off" name="url" id="url" class="input" type="text"
+                        placeholder="Ex: www.gmail.com" maxlength="255">
+                </div>
 
-                <label for="loginName">Nome de Login:</label>
-                <input type="text" id="loginName" name="loginName" placeholder="Nome de Login" axlength="100">
+                <div class="input-group">
+                    <label class="label" for="loginName">Nome de Login</label>
+                    <input autocomplete="off" name="loginName" id="loginName" class="input" type="text"
+                        placeholder="Ex: usuario123" maxlength="100">
+                </div>
 
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" placeholder="E-mail" axlength="100">
+                <div class="input-group">
+                    <label class="label" for="email">E-mail</label>
+                    <input autocomplete="off" name="email" id="email" class="input" type="email"
+                        placeholder="Ex: usuario@exemplo.com" maxlength="100">
+                </div>
 
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" placeholder="Senha" required>
-                <span class="toggle-password" toggle="#userPasswordRepeat" style="left: 330px;">
-                    <i class="fas fa-eye"></i>
+                <div class="input-group">
+                    <label class="label" for="password">Senha</label>
+                    <input autocomplete="off" name="password" id="password" class="input" type="password"
+                        placeholder="Digite sua senha" required>
+                </div>
+
+                <span type="button" id="togglePassword" class="toggle-password" onclick="verSenha()"
+                    style="position: absolute; right: 33%; top: 64%; cursor: pointer;">
+                    <i class="fas fa-eye" id="togglePasswordImage"></i>
                 </span>
 
                 <!-- Mensagens de erro e sucesso -->
@@ -122,7 +146,7 @@ require('./php/store_password.php');
                 ?>
 
 
-                <div class="form-buttons">
+                <div class="form-buttons" style="margin-top: 50px;">
                     <!-- Botões do formulário -->
 
                     <!--Botão salvar-->
@@ -142,7 +166,7 @@ require('./php/store_password.php');
 
                     <!--Botão excluir-->
                     <button type="button" class="db-button db-noselect" onclick="cancelForm()">
-                        <span class="db-text">Excluir</span>
+                        <span class="db-text">Cancelar</span>
                         <span class="db-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path
@@ -164,12 +188,6 @@ require('./php/store_password.php');
                     </svg>
 
                     <span class="text">Gerar Senha</span>
-                </button>
-
-                <button type="button" id="togglePassword" class="toggle-password-btn" onclick="verSenha()">
-                    <img id="togglePasswordImage" src="./img/olho.png" alt="Toggle Password Visibility">
-                    <!--<img id="rndpass-img" src="./img/gerar.png" alt="Gerar senha">
-                 Imagem de olho -->
                 </button>
             </form>
         </section>
@@ -274,19 +292,13 @@ require('./php/store_password.php');
 
         <!-- Botão para adicionar senha ou mensagem de limite atingido -->
         <?php if ($showAddButton): ?>
-            <button type="button" class="button" <?php echo $button_style; ?> onclick="toggleForm()">
-                <span class="button__text">Adicionar</span>
-                <span class="button__icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2"
-                        stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="44" fill="none"
-                        class="svg">
-                        <line y2="19" y1="5" x2="12" x1="12"></line>
-                        <line y2="12" y1="12" x2="19" x1="5"></line>
-                    </svg>
-                </span>
+            <button type="button" class="botao-adicionar" onclick="toggleForm()">
+                <span class="botao-adicionar__texto">Adicionar</span>
             </button>
         <?php else: ?>
-            <p style="color: red; font-weight: bold;">Limite de senhas salvas pelo plano básico atingidas</p>
+            <p
+                style="color: red; font-weight: bold; font-size: 18px; padding: 10px; background-color: #fdd; border-radius: 10px; width:fit-content; margin: 60px auto 0 auto;">
+                Limite de senhas salvas pelo plano básico atingidas</p>
         <?php endif; ?>
 
 
@@ -357,18 +369,6 @@ require('./php/store_password.php');
             document.getElementById("password").value = senha;
         }
 
-        function verSenha() {
-            const passwordField = document.getElementById("password");
-            const toggleButton = document.getElementById("togglePassword");
-            const toggleButtonImage = document.getElementById("togglePasswordImage");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButtonImage.src = "./img/olhofechado.png";
-            } else {
-                passwordField.type = "password";
-                toggleButtonImage.src = "./img/olho.png";
-            }
-        }
 
         // Função para exibir/esconder o formulário com transição suave
         function toggleForm() {
@@ -432,7 +432,6 @@ require('./php/store_password.php');
         function verificarTabela() {
             const tabela = document.querySelector('#savedTable table'); // Seleciona a tabela dentro da section
             const imagem = document.getElementById('img-senha');
-            const botaoAdicionar = document.querySelector('.button[onclick="toggleForm()"]');
 
             if (tabela) {
                 imagem.style.display = 'none';
@@ -461,18 +460,6 @@ require('./php/store_password.php');
                 senha += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
             }
             document.getElementById("password").value = senha;
-        }
-
-        function verSenha() {
-            const passwordField = document.getElementById("password");
-            const toggleButtonImage = document.getElementById("togglePasswordImage");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButtonImage.src = "./img/olhofechado.png";
-            } else {
-                passwordField.type = "password";
-                toggleButtonImage.src = "./img/olho.png";
-            }
         }
 
         function toggleForm() {
@@ -532,6 +519,22 @@ require('./php/store_password.php');
         }
 
         document.addEventListener("DOMContentLoaded", toggleVisibility);
+
+
+        function verSenha() {
+            const passwordInput = document.getElementById("password");
+            const togglePasswordImage = document.getElementById("togglePasswordImage");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePasswordImage.classList.remove("fa-eye");
+                togglePasswordImage.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                togglePasswordImage.classList.remove("fa-eye-slash");
+                togglePasswordImage.classList.add("fa-eye");
+            }
+        }
     </script>
 
 </body>

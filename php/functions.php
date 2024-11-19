@@ -1,6 +1,6 @@
 <?php
 require("conectar.php");
-require_once ('./lib/vendor/autoload.php'); // Load Composer's autoloader
+require_once('./lib/vendor/autoload.php'); // Load Composer's autoloader
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -11,24 +11,27 @@ $cipher = "AES-256-CBC"; // Cipher method
 $iv_length = openssl_cipher_iv_length($cipher); // Comprimento do vetor de inicialização (IV)
 
 // Função para criptografar uma senha usando AES
-function encryptPassword($password, $key, $cipher, $iv_length) {
+function encryptPassword($password, $key, $cipher, $iv_length)
+{
     $iv = openssl_random_pseudo_bytes($iv_length);
     $encrypted = openssl_encrypt($password, $cipher, $key, 0, $iv);
     return base64_encode($encrypted . '::' . $iv);
 }
 
 // Função para descriptografar uma senha usando AES
-function decryptPassword($encrypted, $key, $cipher, $iv_length) {
+function decryptPassword($encrypted, $key, $cipher, $iv_length)
+{
     list($encrypted_data, $iv) = explode('::', base64_decode($encrypted), 2);
     return openssl_decrypt($encrypted_data, $cipher, $key, 0, $iv);
 }
 
 
 // Função para obter o plano do usuário
-function getUserPlan($userID, $conn) {
+function getUserPlan($userID, $conn)
+{
     // Preparar a consulta
     $stmt = $conn->prepare("SELECT plano FROM users WHERE userID = ? LIMIT 1");
-    
+
     // Verificar se a preparação foi bem-sucedida
     if ($stmt === false) {
         die('Erro na preparação da consulta: ' . $conn->error);
@@ -36,10 +39,10 @@ function getUserPlan($userID, $conn) {
 
     // Vincular o parâmetro
     $stmt->bind_param('i', $userID);
-    
+
     // Executar a consulta
     $stmt->execute();
-    
+
     // Buscar o resultado
     $result = $stmt->get_result()->fetch_assoc();
 
@@ -51,10 +54,27 @@ function getUserPlan($userID, $conn) {
     }
 }
 
+// Função para obter as informações do usuário
+function getUserInfo($conn, $userID)
+{
+    $sql = "SELECT userNome, userEmail, userCpf, userTel, securityWord, enableTwoFactor, dicaSenha, secret FROM users WHERE userID = ?";
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            return $row;
+        }
+        $stmt->close();
+    }
+    return null;
+}
+
 // Função para obter a quantidade de senhas salvas pelo usuário
-function getPasswordCount($userID, $conn) {
+function getPasswordCount($userID, $conn)
+{
     $stmt = $conn->prepare("SELECT COUNT(*) as total FROM gerenciadorsenhas.passwords WHERE user_id = ?");
-    
+
     if ($stmt === false) {
         die('Erro na preparação da consulta: ' . $conn->error);
     }
@@ -67,7 +87,8 @@ function getPasswordCount($userID, $conn) {
 }
 
 // Função para gerar um token de 6 dígitos
-function generateToken($conn) {
+function generateToken($conn)
+{
     do {
         $token = rand(100000, 999999);
         $sql = "SELECT userID FROM gerenciadorsenhas.users WHERE userToken = ?";
@@ -82,7 +103,8 @@ function generateToken($conn) {
 }
 
 // Função principal para enviar o e-mail
-function sendEmail($toEmail, $subject, $bodyContent, $altBodyContent = '') {
+function sendEmail($toEmail, $subject, $bodyContent, $altBodyContent = '')
+{
     $mail = new PHPMailer(true);
 
     try {
@@ -103,7 +125,7 @@ function sendEmail($toEmail, $subject, $bodyContent, $altBodyContent = '') {
         // Conteúdo do e-mail
         $mail->isHTML(true); // Definir o formato do e-mail como HTML
         $mail->Subject = $subject;
-        $mail->Body    = $bodyContent;
+        $mail->Body = $bodyContent;
         $mail->AltBody = $altBodyContent ?: strip_tags($bodyContent); // Alternativo para clientes sem suporte a HTML
 
         // Envia o e-mail
@@ -115,24 +137,26 @@ function sendEmail($toEmail, $subject, $bodyContent, $altBodyContent = '') {
 }
 
 // Função para enviar o Token por e-mail
-function sendTokenEmail($toEmail, $token) {
+function sendTokenEmail($toEmail, $token)
+{
     $subject = 'Bem-vindo ao Protect Key - Seu Token de Registro';
     $bodyContent = "<h1>Bem-vindo ao Protect Key!</h1>
                     <p>Agradecemos por se registrar em nosso site. Para completar o seu cadastro, por favor, utilize o seguinte token:</p>
                     <p><strong>Seu Token de Registro:</strong> {$token}</p>
                     <p>Este token é necessário para ativar sua conta. Caso tenha alguma dúvida, não hesite em entrar em contato com nossa equipe de suporte.</p>
                     <p>Atenciosamente,<br>A Equipe Protect Key</p>";
-    
+
     $altBodyContent = "Bem-vindo ao Protect Key!\n"
-                    . "Agradecemos por se registrar em nosso site. Para completar o seu cadastro, por favor, utilize o seguinte token:\n"
-                    . "Seu Token de Registro: $token\n"
-                    . "Este token é necessário para ativar sua conta. Caso tenha alguma dúvida, não hesite em entrar em contato com nossa equipe de suporte.\n"
-                    . "Atenciosamente,\nA Equipe Protect Key";    
+        . "Agradecemos por se registrar em nosso site. Para completar o seu cadastro, por favor, utilize o seguinte token:\n"
+        . "Seu Token de Registro: $token\n"
+        . "Este token é necessário para ativar sua conta. Caso tenha alguma dúvida, não hesite em entrar em contato com nossa equipe de suporte.\n"
+        . "Atenciosamente,\nA Equipe Protect Key";
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
 // Função para enviar o Código por e-mail
-function sendCodigoEmail($toEmail, $codigo) {
+function sendCodigoEmail($toEmail, $codigo)
+{
     $subject = 'Código de Atualização de Conta - Protect Key';
     $bodyContent = "<h1>Atualização de Conta - Protect Key</h1>
                     <p>Prezado(a),</p>
@@ -141,22 +165,23 @@ function sendCodigoEmail($toEmail, $codigo) {
                     <p><strong>Código de Atualização:</strong> {$codigo}</p>
                     <p>Se você não solicitou essa atualização, por favor, entre em contato com nossa equipe de suporte imediatamente.</p>
                     <p>Atenciosamente,<br>A Equipe Protect Key</p>";
-    
+
     $altBodyContent = "Atualização de Conta - Protect Key\n"
-                    . "Prezado(a),\n"
-                    . "Você está recebendo este e-mail porque uma solicitação de atualização foi feita em sua conta.\n"
-                    . "Para prosseguir com as alterações, por favor, forneça o seguinte código de atualização ao administrador:\n"
-                    . "Código de Atualização: $codigo\n"
-                    . "Se você não solicitou essa atualização, por favor, entre em contato com nossa equipe de suporte imediatamente.\n"
-                    . "Atenciosamente,\nA Equipe Protect Key";
-    
+        . "Prezado(a),\n"
+        . "Você está recebendo este e-mail porque uma solicitação de atualização foi feita em sua conta.\n"
+        . "Para prosseguir com as alterações, por favor, forneça o seguinte código de atualização ao administrador:\n"
+        . "Código de Atualização: $codigo\n"
+        . "Se você não solicitou essa atualização, por favor, entre em contato com nossa equipe de suporte imediatamente.\n"
+        . "Atenciosamente,\nA Equipe Protect Key";
+
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
 // Função para enviar o Código de entrada por e-mail
-function sendEntradaEmail($toEmail, $codigo) {
+function sendEntradaEmail($toEmail, $codigo)
+{
     $subject = 'Código de Redefinição de Senha - Protect Key';
-$bodyContent = "<h1>Redefinição de Senha - Protect Key</h1>
+    $bodyContent = "<h1>Redefinição de Senha - Protect Key</h1>
                 <p>Prezado(a) usuário,</p>
                 <p>Você está recebendo este e-mail porque solicitou a redefinição de sua senha.</p>
                 <p>Para prosseguir, por favor, insira o seguinte código de entrada no campo designado para redefinir sua senha:</p>
@@ -164,39 +189,41 @@ $bodyContent = "<h1>Redefinição de Senha - Protect Key</h1>
                 <p>Se você não solicitou essa redefinição, entre em contato com o suporte imediatamente para garantir a segurança da sua conta.</p>
                 <p>Atenciosamente,<br>A Equipe Protect Key</p>";
 
-$altBodyContent = "Redefinição de Senha - Protect Key\n"
-                . "Prezado(a) usuário,\n"
-                . "Você está recebendo este e-mail porque solicitou a redefinição de sua senha.\n"
-                . "Para prosseguir, por favor, insira o seguinte código de entrada no campo designado para redefinir sua senha:\n"
-                . "Código de Redefinição: $codigo\n"
-                . "Se você não solicitou essa redefinição, entre em contato com o suporte imediatamente para garantir a segurança da sua conta.\n"
-                . "Atenciosamente,\nA Equipe Protect Key";
+    $altBodyContent = "Redefinição de Senha - Protect Key\n"
+        . "Prezado(a) usuário,\n"
+        . "Você está recebendo este e-mail porque solicitou a redefinição de sua senha.\n"
+        . "Para prosseguir, por favor, insira o seguinte código de entrada no campo designado para redefinir sua senha:\n"
+        . "Código de Redefinição: $codigo\n"
+        . "Se você não solicitou essa redefinição, entre em contato com o suporte imediatamente para garantir a segurança da sua conta.\n"
+        . "Atenciosamente,\nA Equipe Protect Key";
 
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
 // Função para enviar a Dica de Senha por e-mail
-function sendDicaSenhaEmail($toEmail, $dicaSenha) {
-   $subject = 'Dica de Senha - Protect Key';
-$bodyContent = "<h1>Recuperação de Dica de Senha - Protect Key</h1>
+function sendDicaSenhaEmail($toEmail, $dicaSenha)
+{
+    $subject = 'Dica de Senha - Protect Key';
+    $bodyContent = "<h1>Recuperação de Dica de Senha - Protect Key</h1>
                 <p>Prezado(a) usuário,</p>
                 <p>Você solicitou uma dica para ajudar a lembrar sua senha. A dica de sua senha é:</p>
                 <p><strong>Dica de Senha:</strong> {$dicaSenha}</p>
                 <p>Se você não solicitou essa dica ou suspeita de atividade não autorizada em sua conta, entre em contato com o suporte imediatamente.</p>
                 <p>Atenciosamente,<br>A Equipe Protect Key</p>";
 
-$altBodyContent = "Recuperação de Dica de Senha - Protect Key\n"
-                . "Prezado(a) usuário,\n"
-                . "Você solicitou uma dica para ajudar a lembrar sua senha. A dica de sua senha é:\n"
-                . "Dica de Senha: $dicaSenha\n"
-                . "Se você não solicitou essa dica ou suspeita de atividade não autorizada em sua conta, entre em contato com o suporte imediatamente.\n"
-                . "Atenciosamente,\nA Equipe Protect Key";
+    $altBodyContent = "Recuperação de Dica de Senha - Protect Key\n"
+        . "Prezado(a) usuário,\n"
+        . "Você solicitou uma dica para ajudar a lembrar sua senha. A dica de sua senha é:\n"
+        . "Dica de Senha: $dicaSenha\n"
+        . "Se você não solicitou essa dica ou suspeita de atividade não autorizada em sua conta, entre em contato com o suporte imediatamente.\n"
+        . "Atenciosamente,\nA Equipe Protect Key";
 
     return sendEmail($toEmail, $subject, $bodyContent, $altBodyContent);
 }
 
 
-function getUserIP() {
+function getUserIP()
+{
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         return $_SERVER['HTTP_CLIENT_IP'];
     } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -211,7 +238,8 @@ function getUserIP() {
 }
 
 
-function logAction($conn, $userID, $actionType, $description) {
+function logAction($conn, $userID, $actionType, $description)
+{
     $userIp = getUserIP(); // Captura o IP do usuário
     $sql = "INSERT INTO gerenciadorsenhas.logs (user_id, action_type, description, ip_address, created_at) VALUES (?, ?, ?, ?, NOW())";
     if ($stmt = $conn->prepare($sql)) {
@@ -228,12 +256,13 @@ function logAction($conn, $userID, $actionType, $description) {
 
 
 // Função para verificar se o usuário tem a role de admin
-function checkAdminRole($conn, $userID) {
+function checkAdminRole($conn, $userID)
+{
     $role = ''; // Inicializar a variável para evitar referência indefinida
 
     // Preparar a consulta SQL
     $sql = "SELECT role FROM users WHERE userID = ?";
-    
+
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $userID);
         $stmt->execute();
@@ -253,7 +282,8 @@ function checkAdminRole($conn, $userID) {
 }
 
 // Função para validar o CPF, mesmo com formatação
-function validarCPF($userCpf) {
+function validarCPF($userCpf)
+{
     // Remove caracteres especiais (pontos, traços, etc.)
     $userCpf = preg_replace('/[^0-9]/', '', $userCpf); // Remove tudo que não for número
 
@@ -282,7 +312,8 @@ function validarCPF($userCpf) {
 }
 
 //função para gerar codigo unico
-function generateUniqueCode($length = 10) {
+function generateUniqueCode($length = 10)
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -293,7 +324,8 @@ function generateUniqueCode($length = 10) {
 }
 
 // Função para verificar se o e-mail ou CPF ou o Tel já estão registrados
-function isAlreadyRegistered($conn, $field, $value) {
+function isAlreadyRegistered($conn, $field, $value)
+{
     $sql = "SELECT userID FROM gerenciadorsenhas.users WHERE $field = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("s", $value);
@@ -307,4 +339,3 @@ function isAlreadyRegistered($conn, $field, $value) {
 }
 
 ?>
-

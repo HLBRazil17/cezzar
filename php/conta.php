@@ -1,6 +1,6 @@
 <?php
 require('conectar.php'); // Conexão com o banco de dados
-require("functions.php"); 
+require("functions.php");
 require('./lib/vendor/autoload.php');
 
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
@@ -26,24 +26,10 @@ $enableTwoFactor = false;
 $secret = '';
 
 // Função para gerar um segredo
-function generateSecret() {
+function generateSecret()
+{
     $g = new GoogleAuthenticator();
     return $g->generateSecret();
-}
-
-// Função para obter as informações do usuário
-function getUserInfo($conn, $userID) {
-    $sql = "SELECT userNome, userEmail, userCpf, userTel, securityWord, enableTwoFactor, dicaSenha, secret FROM users WHERE userID = ?";
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("i", $userID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($row = $result->fetch_assoc()) {
-            return $row;
-        }
-        $stmt->close();
-    }
-    return null;
 }
 
 // Obter as informações do usuário
@@ -76,20 +62,22 @@ $qrCodeUrl = GoogleQrUrl::generate($siteName, $secret, 'SuaEmpresa');
 
 // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Se houver palavra de segurança, verificar se a antiga é correta
     if ($hasSecurityWord) {
         $submittedSecurityWord = trim($_POST['oldSecurityWord'] ?? '');
         if (!password_verify($submittedSecurityWord, $securityWord)) {
             $errorMessage = 'Palavra de segurança incorreta.';
-        } 
+        }
     }
 
     if (empty($errorMessage)) {
+        // Novos dados do usuário
         $newUserNome = $_POST['userNome'];
         $newUserEmail = $_POST['userEmail'];
         $newUserCpf = $_POST['userCpf'] ?? null; // CPF pode ser null
         $newUserTel = $_POST['userTel'] ?? null; // Tel pode ser null
         $newUserPassword = $_POST['userPassword'];
-        $newSecurityWord = trim($_POST['newSecurityWord'] ?? '') ?: $securityWord;
+        $newSecurityWord = trim($_POST['newSecurityWord'] ?? ''); // Nova palavra de segurança, se fornecida
         $newDicaSenha = trim($_POST['dicaSenha'] ?? ''); // Nova dica de senha
         $enableTwoFactor = isset($_POST['enableTwoFactor']) ? 1 : 0;
 
@@ -122,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (empty($errorMessage)) {
                     // Hash da senha, se fornecida SHA256
                     if (!empty($newUserPassword)) {
-                        $hashedPassword = hash('sha256',$newUserPassword);
+                        $hashedPassword = hash('sha256', $newUserPassword);
                     } else {
                         // Senha permanece a mesma
                         $passwordCheckSql = "SELECT userPassword FROM users WHERE userID = ?";
@@ -138,11 +126,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                     // Hash da palavra de segurança, se fornecida
+                    // Se a nova palavra de segurança for fornecida, cria-se o hash, caso contrário, mantém-se a palavra existente
                     if (!empty($newSecurityWord)) {
                         $hashedSecurityWord = password_hash($newSecurityWord, PASSWORD_DEFAULT);
                     } else {
-                        // Se não houver nova palavra de segurança, mantenha a existente
-                        $hashedSecurityWord = $securityWord; // Mantenha a palavra de segurança atual
+                        $hashedSecurityWord = $securityWord; // Mantém a palavra de segurança atual
                     }
 
                     // Atualização do banco de dados
@@ -172,13 +160,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }
                         $stmt->close();
                     } else {
-                        $errorMessage = 'Erro ao atualizar as informações do usuário.';
+                        $errorMessage = 'Erro ao atualizar informações.';
                     }
                 }
             }
-        } else {
-            $errorMessage = 'Erro ao verificar o email.';
         }
     }
 }
+
+
 ?>

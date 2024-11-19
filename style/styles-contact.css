@@ -2,6 +2,10 @@ main {
     background: linear-gradient(160deg, #090c30 0%, #1e2a91 50%, #3d84d6c7 100%);
 }
 
+body{
+    font-family: 'Rubik', sans-serif;
+  }
+
 .form {
     display: flex;
     flex-direction: column;

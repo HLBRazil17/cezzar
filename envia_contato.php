@@ -162,20 +162,14 @@ if (isset($_GET['success'])) {
 
                     <!-- Campo Nome -->
                     <div class="form-field">
-                        <input type="text" id="name" name="name" class="input-field" placeholder="Nome"
+                        <input type="text" id="name" name="name" class="input-field" placeholder="Insira seu Nome"
                             value="<?php echo htmlspecialchars($userNome); ?>" <?php echo $userNome ? 'readonly' : 'required'; ?> />
                     </div>
 
                     <!-- Campo E-mail -->
                     <div class="form-field">
-                        <input type="email" id="email" name="email" class="input-field" placeholder="E-mail"
+                        <input type="email" id="email" name="email" class="input-field" placeholder="Insira seu E-mail"
                             value="<?php echo htmlspecialchars($userEmail); ?>" <?php echo $userEmail ? 'readonly' : 'required'; ?> />
-                    </div>
-
-                    <!-- Campo Assunto -->
-                    <div class="form-field">
-                        <input type="text" id="subject" name="subject" class="input-field" placeholder="Assunto"
-                            required />
                     </div>
 
                     <!-- Campo Mensagem -->
@@ -189,6 +183,12 @@ if (isset($_GET['success'])) {
                 </form>
             </div>
         </div>
+
+        <!-- Link para WhatsApp -->
+        <div class="whatsapp-contact">
+            <p>Se preferir, você pode entrar em contato diretamente pelo WhatsApp:</p>
+            <a href="https://wa.me/5518997423619?text=Olá!%20Preciso%20de%20suporte." target="_blank">Converse comigo no WhatsApp</a>
+        </div>
     </main>
 
 

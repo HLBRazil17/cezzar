@@ -101,29 +101,31 @@ require('./php/conta.php');
             <div class="card__border"></div>
             <h1 class="page-title">Configurações da Conta</h1>
 
-            <div class="settings-section">
-                <!-- Mensagem de sucesso ou erro -->
-                <?php if (!empty($errorMessage)): ?>
-                    <div class="error-message"
-                        style="padding: 10px; color: red; width:fit-content; margin: 10px auto 0 auto;  font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;">
-                        <?php echo $errorMessage; ?>
-                    </div>
-                <?php endif; ?>
-                <?php if (!empty($successMessage)): ?>
-                    <div class="success-message"
-                        style="padding: 10px; color: green; width:fit-content; margin: 10px auto 0 auto; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;">
-                        <?php echo $successMessage; ?>
-                    </div>
-                <?php endif; ?>
-                <h2 class="settings-title">Informações Gerais</h2>
-                <form id="updateForm" action="" method="post" class="my-form">
+            <!-- Mensagem de sucesso ou erro -->
+            <?php if (!empty($errorMessage)): ?>
+                <div class="error-message"
+                    style="padding: 10px; color: red; width: fit-content; margin: 10px auto 0 auto; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;">
+                    <?php echo htmlspecialchars($errorMessage); ?>
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($successMessage)): ?>
+                <div class="success-message"
+                    style="padding: 10px; color: green; width: fit-content; margin: 10px auto 0 auto; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;">
+                    <?php echo htmlspecialchars($successMessage); ?>
+                </div>
+            <?php endif; ?>
+
+            <form id="updateForm" action="" method="post" class="my-form">
+
+                <!-- Informações Gerais -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Informações Gerais</h2>
 
                     <div class="form-group">
                         <div class="input-group">
                             <label class="label" for="userNome">Nome</label>
                             <input type="text" id="userNome" name="userNome" class="input"
                                 value="<?php echo htmlspecialchars($userNome); ?>" required autocomplete="off">
-                            <div></div>
                         </div>
                     </div>
 
@@ -132,7 +134,6 @@ require('./php/conta.php');
                             <label class="label" for="userEmail">Email</label>
                             <input type="email" id="userEmail" name="userEmail" class="input"
                                 value="<?php echo htmlspecialchars($userEmail); ?>" required autocomplete="off">
-                            <div></div>
                         </div>
                     </div>
 
@@ -142,7 +143,6 @@ require('./php/conta.php');
                             <input type="text" id="userCpf" name="userCpf" class="input"
                                 value="<?php echo htmlspecialchars($userCpf ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                 autocomplete="off">
-                            <div></div>
                         </div>
                     </div>
 
@@ -152,104 +152,121 @@ require('./php/conta.php');
                             <input type="text" id="userTel" name="userTel" class="input"
                                 value="<?php echo htmlspecialchars($userTel ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                 autocomplete="off">
-                            <div></div>
                         </div>
                     </div>
+                </div>
 
-                </form>
-            </div>
-
-            <div class="settings-section">
-                <h2 class="settings-title">Senha</h2>
-                <form id="updateForm" action="" method="post" class="my-form">
+                <!-- Seção de Senha -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Senha</h2>
 
                     <div class="form-group">
                         <div class="input-group">
-                            <label class="label" for="userPassword">Senha</label>
+                            <label class="label" for="userPassword" style="margin-left:30px;">Senha</label>
+
                             <input type="password" id="userPassword" name="userPassword" class="input"
-                                placeholder="Deixe em branco para manter a mesma">
-                            <div></div>
+                                placeholder="Deixe em branco para manter a mesma" style="margin-left:30px;">
+
+                            <!-- Botão para alternar a visualização da senha -->
+                            <span type="button" id="togglePassword" class="toggle-password" onclick="verSenha()"
+                                style="padding-left: 10px; transform: translateY(-50%); cursor: pointer;">
+                                <i class="fas fa-eye" id="togglePasswordImage"></i>
+                            </span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="input-group">
                             <label class="label" for="dicaSenha">Dica da Senha</label>
-                            <input type="password" id="dicaSenha" name="dicaSenha" class="input"
+                            <input type="text" id="dicaSenha" name="dicaSenha" class="input"
                                 value="<?php echo htmlspecialchars($dicaSenha ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                            <div></div>
                         </div>
                     </div>
 
                     <?php if ($hasSecurityWord): ?>
                         <div class="form-group">
                             <div class="input-group">
-                                <label class="label" for="oldSecurityWord">Palavra de Segurança Atual</label>
-                                <input type="password" id="oldSecurityWord" name="oldSecurityWord" class="input">
-                                <div></div>
+                                <label class="label" for="oldSecurityWord" style="margin-left:30px;">Palavra de Segurança Atual</label>
+
+                                <!-- Input da antiga palavra de segurança -->
+                                <div style="position: relative; margin-top: 20px;">
+                                    <input type="password" id="oldSecurityWord" name="oldSecurityWord" class="input"
+                                        style="padding-right: 40px; margin-left:30px;" placeholder="Palavra de Segurança Antiga">
+
+                                    <!-- Botão para alternar a visualização -->
+                                    <span type="button" id="toggleOldSecurityWord" class="toggle-password"
+                                        onclick="toggleOldSecurityWord()"
+                                        style="padding-left: 10px; transform: translateY(-50%); cursor: pointer;">
+                                        <i class="fas fa-eye" id="toggleOldSecurityWordIcon"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
+
                     <?php endif; ?>
 
-                    <label class="label" for="newSecurityWord" style="margin: 10px 0px 0px -60px;">Adicionar/Alterar
-                        Palavra de Segurança</label>
-                    <label class="container">
-                        <!-- Checkbox com PHP -->
-                        <input type="checkbox" id="addSecurityWord" name="addSecurityWord" <?php echo $hasSecurityWord ? 'checked' : ''; ?> onchange="toggleSecurityWordField()">
-                        <div class="checkmark"></div>
-                    </label>
+                    <div style="width: fit-content; margin: 0 0 50px 34%;">
+                        <label class="label" for="newSecurityWord" style="margin: 10px 0px 0px -60px;">Adicionar/Alterar
+                            Palavra de Segurança</label>
+                        <label class="container">
+                            <!-- Checkbox com PHP -->
+                            <input type="checkbox" id="addSecurityWord" name="addSecurityWord" <?php echo $hasSecurityWord ? '' : ''; ?> onchange="toggleSecurityWordField()">
+                            <div class="checkmark"></div>
+                        </label>
+                    </div>
 
-                    <!-- Div com campo de senha, inicialmente oculta -->
-                    <div class="form-group" id="newSecurityWordField" style="display: none;">
-                        <div class="input-group">
-                            <label class="label" for="newSecurityWord">Nova Palavra de Segurança</label>
-                            <input type="password" id="newSecurityWord" name="newSecurityWord" class="input">
-                            <div></div>
+                    <div id="securityWordContainer"
+                        style="display: <?php echo $hasSecurityWord ? 'flex' : 'none'; ?>; width: fit-content; flex-direction: column !important; margin: 0 auto;">
+                        <label for="newSecurityWord" style="font-size: 18px; font-weight: 600; margin-left:35px;">
+                            Nova Palavra de Segurança:
+                        </label>
+                        <br>
+                        <div
+                            style="position: relative; margin-top: 20px; margin-left: 35px; display: flex; align-items: center;">
+                            <!-- Input de palavra de segurança -->
+                            <input type="password" id="newSecurityWord" name="newSecurityWord" class="input"
+                                style="padding-right: 40px; flex-grow: 1;">
+
+                            <!-- Botão para alternar a visualização da palavra de segurança -->
+                            <span type="button" id="toggleSecurityWord" class="toggle-password"
+                                onclick="toggleSecurityWord()"
+                                style="padding-left: 20px; padding-bottom: 25px; cursor: pointer;">
+                                <i class="fas fa-eye" id="toggleSecurityWordIcon"></i>
+                            </span>
                         </div>
                     </div>
 
 
-                </form>
-            </div>
+                    <div style="width: fit-content; margin: 0 0 50px 40%;">
+                        <label class="label" for="newSecurityWord" style="margin: 10px 0px 0px -60px;">Autenticação de
+                            Dois Fatores</label>
+                        <label class="container" style="margin: 20px 0 30px 58px;">
+                            <input type="checkbox" id="enableTwoFactor" name="enableTwoFactor" <?php echo $enableTwoFactor ? 'checked' : ''; ?> onchange="toggleSecurityWordField()">
+                            <div class="checkmark"></div>
+                        </label>
+                    </div>
 
-            <div class="settings-section">
-                <h2 class="settings-title">Autenticação de Dois Fatores</h2>
-                <form id="updateForm" action="" method="post" class="my-form" style="margin: 30px auto 30px 250px;">
-
-
-                    <label class="label" for="newSecurityWord" style="margin: 10px 0px 0px -60px;">Adicionar/Alterar
-                        Palavra de Segurança</label>
-                    <label class="container">
-                        <input type="checkbox" id="enableTwoFactor" name="enableTwoFactor" <?php echo $enableTwoFactor ? 'checked' : ''; ?>>
-                        <div class="checkmark"></div>
-                    </label>
-
-
-
-                    <?php if ($enableTwoFactor == 0): ?>
+                    <?php if (!$enableTwoFactor): ?>
                         <div class="form-group">
-                            <button type="button" id="showQRCodeButton">
-                                Mostrar QR Code
-                            </button>
+                            <button type="button" id="showQRCodeButton">Mostrar QR Code</button>
+                        </div>
+
+                        <div id="qrCodeContainer" style="display: none; margin: 0 auto;">
+                            <p class="label" style="margin: 0 auto 30px auto;">Escaneie o QR code com o Google Authenticator
+                            </p>
+                            <img src="<?php echo $qrCodeUrl; ?>" alt="QR Code Google Authenticator">
+                            <p class="label" style="margin: 40px auto 30px auto;">Ou insira essa chave manualmente:</p>
+                            <p class="label"><?php echo htmlspecialchars($secret); ?></p>
                         </div>
                     <?php endif; ?>
-
-                    <div id="qrCodeContainer" style="display: none;">
-                        <p>Por segurança só mostramos o QR code uma vez.</p>
-                        <p>Escaneie o QR code abaixo com o Google Authenticator:</p>
-                        <img src="<?php echo $qrCodeUrl; ?>" alt="QR Code Google Authenticator">
-                        <p>Ou, se preferir, insira esta chave manualmente no aplicativo:</p>
-                        <strong><?php echo $secret; ?></strong>
-                    </div>
 
                     <div class="form-submit">
-                        <button type="submit" id="initialConfirmButton" class="btn button full">Confirmar
-                            Informações</button>
+                        <button type="submit">Confirmar Informações</button>
                     </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+
 
     <!--FOOTER-->
     <footer>
@@ -365,6 +382,53 @@ require('./php/conta.php');
             toggleSecurityWordField();
         });
 
+
+        function verSenha() {
+            const passwordInput = document.getElementById("userPassword");
+            const togglePasswordIcon = document.getElementById("togglePasswordImage");
+
+            // Alterna entre os tipos "password" e "text"
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePasswordIcon.classList.remove("fa-eye");
+                togglePasswordIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                togglePasswordIcon.classList.remove("fa-eye-slash");
+                togglePasswordIcon.classList.add("fa-eye");
+            }
+        }
+
+
+        function toggleSecurityWord() {
+            const securityWordInput = document.getElementById("newSecurityWord");
+            const togglePasswordIcon = document.getElementById("toggleSecurityWordIcon");
+
+            if (securityWordInput.type === "password") {
+                securityWordInput.type = "text";
+                togglePasswordIcon.classList.remove("fa-eye");
+                togglePasswordIcon.classList.add("fa-eye-slash");
+            } else {
+                securityWordInput.type = "password";
+                togglePasswordIcon.classList.remove("fa-eye-slash");
+                togglePasswordIcon.classList.add("fa-eye");
+            }
+        }
+
+        function toggleOldSecurityWord() {
+            const oldSecurityWordInput = document.getElementById("oldSecurityWord");
+            const togglePasswordIcon = document.getElementById("toggleOldSecurityWordIcon");
+
+            if (oldSecurityWordInput.type === "password") {
+                oldSecurityWordInput.type = "text";
+                togglePasswordIcon.classList.remove("fa-eye");
+                togglePasswordIcon.classList.add("fa-eye-slash");
+            } else {
+                oldSecurityWordInput.type = "password";
+                togglePasswordIcon.classList.remove("fa-eye-slash");
+                togglePasswordIcon.classList.add("fa-eye");
+            }
+        }
     </script>
 
     </script>

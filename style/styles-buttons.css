@@ -13,6 +13,10 @@
     margin: 5% auto 5% auto;
 }
 
+body{
+  font-family: 'Rubik', sans-serif;
+}
+
 .sparkle {
     fill: #AAAAAA;
     transition: all 800ms ease;
@@ -121,7 +125,7 @@
   }
   
   .db-button .db-text {
-    transform: translateX(35px);
+    transform: translateX(25px);
     color: white;
     font-weight: bold;
     font-size: 18px;
