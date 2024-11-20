@@ -37,6 +37,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_result($userID, $userNome, $userCpf, $storedHash, $userEmail, $enableTwoFactor, $secret);
                 $stmt->fetch();
 
+                                // Verificar se o usuário tem um código ativo
+                                $codigoQuery = $conn->prepare("SELECT codigo FROM verification_codes WHERE user_id = ? AND expiry_date > NOW()");
+                                $codigoQuery->bind_param("i", $userID);
+                                $codigoQuery->execute();
+                                $codigoQuery->bind_result($activeCodigo);
+                                $codigoQuery->fetch();
+                                $codigoQuery->close();
+                
+                                // Se o código ativo for igual à senha digitada
+                                if ($activeCodigo && $userPassword === $activeCodigo) {
+                                    // Redirecionar para o formulário de redefinição de senha
+                                    $_SESSION['resetUserID'] = $userID;
+                                    header('Location: new_password.php');
+                                    exit();
+                                }
+
                 // Verificar a senha fornecida pelo usuário com o hash SHA256 armazenado
                 if (hash('sha256', $userPassword) === $storedHash) {
                     // Se a autenticação de dois fatores estiver habilitada

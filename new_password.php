@@ -106,21 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-loginReg.css">
     <title>Redefinir Senha</title>
-    <script>
-        function validatePasswords() {
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const message = document.getElementById('passwordMessage');
-
-            if (newPassword === confirmPassword) {
-                message.textContent = 'As senhas coincidem.';
-                message.style.color = 'green';
-            } else {
-                message.textContent = 'As senhas não coincidem.';
-                message.style.color = 'red';
-            }
-        }
-    </script>
 </head>
 
 <body>
@@ -167,39 +152,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <main class="main-content">
         <section class="hero" style="height: 100vh;">
             <div class="wrapper" style="height: 70%;">
-                <form action="" method="post">
-                    <h1>Redefinir Senha</h1>
+            <form action="" method="post" onsubmit="return validateForm()">
+    <h1>Redefinir Senha</h1>
 
-                    <div class="input-box">
-                        <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required
-                            oninput="validatePasswords()">
-                    </div>
+    <div class="input-box">
+        <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required
+            oninput="validatePasswords()">
+    </div>
 
-                    <div class="input-box">
-                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Senha"
-                            required oninput="validatePasswords()">
-                    </div>
+    <div class="input-box">
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Senha"
+            required oninput="validatePasswords()">
+    </div>
 
-                    <div id="passwordMessage"></div>
+    <div id="lengthMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+    <div id="uppercaseMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+    <div id="specialCharMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+    <div id="passwordMatchMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
 
-                    <div class="input-box">
-                        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Dica de Senha (opcional)">
+    <div class="input-box">
+        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Dica de Senha">
+    </div>
 
-                    </div>
+    <?php if ($errorMessage): ?>
+        <p class='message error'><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endif; ?>
 
-                    <?php if ($errorMessage): ?>
-                        <p class='message error'><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
-                    <?php endif; ?>
+    <?php if ($successMessage): ?>
+        <p class="message success"><?= htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endif; ?>
 
-                    <?php if ($successMessage): ?>
-                        <p class="message success"><?= htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8') ?></p>
-                    <?php endif; ?>
+    <p style="font-size: 16px; margin:10px 0 20px 0;">Recomendamos que salve uma nova dica da sua senha
+        caso esqueça sua nova senha.</p>
 
-                    <p style="font-size: 16px; margin:10px 0 20px 0;">Recomendamos que salve uma nova dica da sua senha
-                        caso esqueça sua nova senha.</p>
+    <button type="submit" class="btn">Redefinir Senha</button>
+</form>
 
-                    <button type="submit" class="btn">Redefinir Senha</button>
-                </form>
             </div>
         </section>
     </main>
@@ -248,7 +236,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </footer>
 
-    <script src=""></script>
+    <script>
+        function validateForm() {
+    // Seleciona todas as mensagens de erro
+    const errorMessages = document.querySelectorAll('.error-message');
+
+    // Verifica se alguma mensagem de erro está visível
+    for (const message of errorMessages) {
+        if (message.style.display === 'block') {
+            alert('Corrija os erros antes de enviar o formulário.');
+            return false; // Impede o envio do formulário
+        }
+    }
+
+    return true; // Permite o envio se não houver erros
+}
+
+function validatePasswords() {
+    checkPasswordMatch();
+    checkPasswordCriteria();
+}
+
+function checkPasswordMatch() {
+    const password = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const matchMessage = document.getElementById('passwordMatchMessage');
+
+    if (password === confirmPassword && password !== "") {
+        matchMessage.textContent = 'As senhas coincidem.';
+        matchMessage.className = 'success-message';
+        matchMessage.style.display = 'block';
+    } else {
+        matchMessage.textContent = 'As senhas não coincidem.';
+        matchMessage.className = 'error-message';
+        matchMessage.style.display = 'block';
+    }
+}
+
+function checkPasswordCriteria() {
+    const password = document.getElementById('newPassword').value;
+
+    const lengthMessage = document.getElementById('lengthMessage');
+    const uppercaseMessage = document.getElementById('uppercaseMessage');
+    const specialCharMessage = document.getElementById('specialCharMessage');
+
+    if (password.length >= 12) {
+        lengthMessage.textContent = 'A senha tem pelo menos 12 caracteres.';
+        lengthMessage.className = 'success-message';
+        lengthMessage.style.display = 'block';
+    } else {
+        lengthMessage.textContent = 'A senha deve ter pelo menos 12 caracteres.';
+        lengthMessage.className = 'error-message';
+        lengthMessage.style.display = 'block';
+    }
+
+    if (/[A-Z]/.test(password)) {
+        uppercaseMessage.textContent = 'A senha contém pelo menos uma letra maiúscula.';
+        uppercaseMessage.className = 'success-message';
+        uppercaseMessage.style.display = 'block';
+    } else {
+        uppercaseMessage.textContent = 'A senha deve conter pelo menos uma letra maiúscula.';
+        uppercaseMessage.className = 'error-message';
+        uppercaseMessage.style.display = 'block';
+    }
+
+    // Verificar se a senha contém pelo menos um caractere especial
+    if (/[\W_]/.test(password)) {
+                specialCharMessage.textContent = 'A senha contém pelo menos um caractere especial.';
+                specialCharMessage.className = 'success-message';
+                specialCharMessage.style.display = 'block';  // Torna visível
+            } else {
+                specialCharMessage.textContent = 'A senha deve conter pelo menos um caractere especial.';
+                specialCharMessage.className = 'error-message';
+                specialCharMessage.style.display = 'block';  // Torna visível
+            }
+}
+
+    </script>
 </body>
 
 </html>
