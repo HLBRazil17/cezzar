@@ -149,48 +149,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </nav>
     </header>
 
-    <main class="main-content">
-        <section class="hero" style="height: 100vh;">
-            <div class="wrapper" style="height: 70%;">
+ <!-- Dentro do corpo do HTML -->
+<main class="main-content">
+    <section class="hero" style="height: 100vh;">
+        <div class="wrapper" style="height: 70%;">
+
             <form action="" method="post" onsubmit="return validateForm()">
-    <h1>Redefinir Senha</h1>
+                <h1>Redefinir Senha</h1>
 
-    <div class="input-box">
-        <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required
-            oninput="validatePasswords()">
-    </div>
+                <div class="input-box">
+                    <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required oninput="validatePasswords()">
+                </div>
 
-    <div class="input-box">
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Senha"
-            required oninput="validatePasswords()">
-    </div>
+                <div class="input-box">
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Senha" required oninput="validatePasswords()">
+                </div>
 
-    <div id="lengthMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
-    <div id="uppercaseMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
-    <div id="specialCharMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
-    <div id="passwordMatchMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                <!-- Adiciona a seção para exibir mensagens dinâmicas -->
+                <div id="messageBox" style="display: none; margin-bottom: 20px;"></div>
 
-    <div class="input-box">
-        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Dica de Senha">
-    </div>
+                <div id="lengthMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                <div id="uppercaseMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                <div id="specialCharMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                <div id="passwordMatchMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
 
-    <?php if ($errorMessage): ?>
-        <p class='message error'><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
-    <?php endif; ?>
+                <div class="input-box">
+                    <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Dica de Senha">
+                </div>
 
-    <?php if ($successMessage): ?>
-        <p class="message success"><?= htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8') ?></p>
-    <?php endif; ?>
+                <?php if ($errorMessage): ?>
+                    <p class='message error'><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
+                <?php endif; ?>
 
-    <p style="font-size: 16px; margin:10px 0 20px 0;">Recomendamos que salve uma nova dica da sua senha
-        caso esqueça sua nova senha.</p>
+                <?php if ($successMessage): ?>
+                    <p class="message success"><?= htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8') ?></p>
+                <?php endif; ?>
 
-    <button type="submit" class="btn">Redefinir Senha</button>
-</form>
+                <p style="font-size: 16px; margin:10px 0 20px 0;">
+                    Recomendamos que salve uma nova dica da sua senha caso esqueça sua nova senha.
+                </p>
 
-            </div>
-        </section>
-    </main>
+                <button type="submit" class="btn">Redefinir Senha</button>
+            </form>
+        </div>
+    </section>
+</main>
+
 
     <!--FOOTER-->
     <footer>
@@ -237,14 +241,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </footer>
 
     <script>
-        function validateForm() {
-    // Seleciona todas as mensagens de erro
+       function validateForm() {
     const errorMessages = document.querySelectorAll('.error-message');
+    const messageBox = document.getElementById('messageBox');
 
     // Verifica se alguma mensagem de erro está visível
     for (const message of errorMessages) {
         if (message.style.display === 'block') {
-            alert('Corrija os erros antes de enviar o formulário.');
+            displayMessage('Corrija os erros antes de enviar o formulário.', 'error');
             return false; // Impede o envio do formulário
         }
     }
@@ -255,6 +259,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 function validatePasswords() {
     checkPasswordMatch();
     checkPasswordCriteria();
+}
+
+function displayMessage(message, type) {
+    const messageBox = document.getElementById('messageBox');
+    messageBox.style.display = 'block';
+    messageBox.textContent = message;
+
+    if (type === 'error') {
+        messageBox.className = 'message error';
+    } else if (type === 'success') {
+        messageBox.className = 'message success';
+    }
 }
 
 function checkPasswordMatch() {
@@ -300,8 +316,8 @@ function checkPasswordCriteria() {
         uppercaseMessage.style.display = 'block';
     }
 
-    // Verificar se a senha contém pelo menos um caractere especial
-    if (/[\W_]/.test(password)) {
+        // Verificar se a senha contém pelo menos um caractere especial
+        if (/[\W_]/.test(password)) {
                 specialCharMessage.textContent = 'A senha contém pelo menos um caractere especial.';
                 specialCharMessage.className = 'success-message';
                 specialCharMessage.style.display = 'block';  // Torna visível
@@ -311,7 +327,6 @@ function checkPasswordCriteria() {
                 specialCharMessage.style.display = 'block';  // Torna visível
             }
 }
-
     </script>
 </body>
 

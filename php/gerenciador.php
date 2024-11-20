@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($inputCodigo == $storedCodigo) {
             // Deletar o código após uso
             $deleteCodigoQuery = $conn->prepare("DELETE FROM verification_codes WHERE user_id = ? AND codigo = ?");
-            $deleteCodigoQuery->bind_param("ii", $userID, $inputCodigo);
+            $deleteCodigoQuery->bind_param("is", $userID, $inputCodigo);
             $deleteCodigoQuery->execute();
             $deleteCodigoQuery->close();
 
