@@ -1,5 +1,13 @@
 <?php
 require('./php/logs.php');
+
+// Verifica se o usuário está logado
+if (isset($_SESSION['userID'])) {
+    $userId = $_SESSION['userID']; // Obtém o ID do usuário da sessão
+    $userPlan = getUserPlan($userId, $conn); // Obtém o plano do usuário
+} else {
+    $userPlan = 'Não logado'; // Valor padrão se o usuário não estiver logado
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,74 +34,164 @@ require('./php/logs.php');
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <title>Logs de Atividades</title>
+
+
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --error-color: #dc2626;
+            --border-color: #e5e7eb;
+            --hover-bg: #f3f4f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background-color: #f9fafb;
+        }
+
+        main{
+            background: linear-gradient(90deg, #090c30 0%, #131B61 50%, #1E2B91 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #111827;
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .error-message {
+            background-color: #fef2f2;
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            font-size: 0.875rem;
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #f8fafc;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #4b5563;
+            border-bottom: 2px solid var(--border-color);
         }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background-color: var(--hover-bg);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            th,
+            td {
+                padding: 0.5rem;
+            }
         }
     </style>
+
 </head>
 
 <body>
-    <!-- Cabeçalho -->
     <header class="header">
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-                    <!-- Logo -->
+
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
-
-                    <!-- Botão de menu hambúrguer -->
-                    <button class="hamburger" id="hamburger">&#9776;</button>
-
-                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                        <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-                        <?php if (checkAdminRole($conn, $userID)) { ?>
-                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                            <a href="logs.php" class="navbar-item">Logs</a>
-                        <?php } ?>
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php else: ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php endif; ?>
+
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <?php if (checkAdminRole($conn, $userId)) { ?>
+                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                                <a href="logs.php" class="navbar-item">Logs</a>
+                            <?php } ?>
+
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <!-- Ícone de perfil com dropdown -->
+                <!-- PROFILE ICON -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
-                            <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="conta.php">Detalhes da Conta</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -102,36 +200,44 @@ require('./php/logs.php');
         </nav>
     </header>
 
-    <h1>Logs de Atividades</h1>
+    <main>
+        <div class="container">
+            <h1>Logs de Atividades</h1>
 
-    <?php if (!empty($errorMessage)): ?>
-        <p style="color: red;"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?></p>
-    <?php endif; ?>
+            <?php if (!empty($errorMessage)): ?>
+                <div class="error-message">
+                    <?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?>
+                </div>
+            <?php endif; ?>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Usuário ID</th>
-                <th>Tipo de Ação</th>
-                <th>Descrição</th>
-                <th>IP</th>
-                <th>Data e Hora</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($logs as $log): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($log['id'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($log['user_id'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($log['action_type'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($log['description'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($log['ip_address'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($log['created_at'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuário ID</th>
+                            <th>Tipo de Ação</th>
+                            <th>Descrição</th>
+                            <th>IP</th>
+                            <th>Data e Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($logs as $log): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($log['id'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($log['user_id'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($log['action_type'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($log['description'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($log['ip_address'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($log['created_at'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
     <!--FOOTER-->
     <footer>

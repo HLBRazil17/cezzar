@@ -1,6 +1,16 @@
 <?php
 require('./php/gerenciador.php');
+
+// Verifica se o usuário está logado
+if (isset($_SESSION['userID'])) {
+    $userId = $_SESSION['userID']; // Obtém o ID do usuário da sessão
+    $userPlan = getUserPlan($userId, $conn); // Obtém o plano do usuário
+} else {
+    $userPlan = 'Não logado'; // Valor padrão se o usuário não estiver logado
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -25,13 +35,6 @@ require('./php/gerenciador.php');
     <link rel="stylesheet" href="./style/styles-gerenciador.css">
 
     <title>Gerenciar Usuários</title>
-
-    <style>
-        /* Estilos para células editáveis */
-        td[contenteditable="true"] {
-            border: 1px solid #ccc;
-        }
-    </style>
 </head>
 
 <body>
@@ -100,70 +103,92 @@ require('./php/gerenciador.php');
         </nav>
     </header>
 
-
-    <!-- Exibir mensagens de sucesso e erro -->
-    <?php if ($errorMessage): ?>
-        <div style="color: red;">
-            <?= htmlspecialchars($errorMessage ?? '', ENT_QUOTES, 'UTF-8') ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if ($successMessage): ?>
-        <div style="color: green;">
-            <?= htmlspecialchars($successMessage ?? '', ENT_QUOTES, 'UTF-8') ?>
-        </div>
-    <?php endif; ?>
-
     <main>
-        <div class="header">
+        <div class="head">
             <h1>Gerenciar Usuários</h1>
         </div>
 
+        <!-- Exibir mensagens de sucesso e erro -->
+        <?php if ($errorMessage): ?>
+            <div
+                style="width: 400px; color: red; font-weight: bold; font-size: 18px; padding: 10px; background-color: #fdd; border-radius: 10px; width:fit-content; margin: 20px auto;">
+                <?= htmlspecialchars($errorMessage ?? '', ENT_QUOTES, 'UTF-8') ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($successMessage): ?>
+            <div
+                style="width: 400px; padding: 10px; color: green; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px; margin: 20px auto;">
+                <?= htmlspecialchars($successMessage ?? '', ENT_QUOTES, 'UTF-8') ?>
+            </div>
+        <?php endif; ?>
+
         <!-- Formulário de pesquisa -->
-        <form method="POST" action="">
+        <form method="POST" action="" class="formulario">
             <input type="text" name="searchTerm" value="<?= htmlspecialchars($searchTerm ?? '', ENT_QUOTES, 'UTF-8') ?>"
                 placeholder="Pesquisar">
             <button type="submit" name="actionType" value="search">Pesquisar</button>
         </form>
 
         <!-- Tabela de usuários -->
-        <table border="2">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
-                    <th>Status</th>
-                    <th>Role</th>
-                    <th>Plano</th>
-                    <th>Ação</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($user['userID'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user['userNome'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user['userEmail'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user['userCpf'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user['userTel'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user['userEstato'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user['role'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user['plano'] ?? 'Sem plano', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td>
-                            <form method="POST" action="">
-                                <input type="hidden" name="userID"
-                                    value="<?= htmlspecialchars($user['userID'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                                <button type="submit" name="actionType" value="update">Atualizar</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div class="container">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Status</th>
+                            <th>Role</th>
+                            <th>Plano</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($user['userID'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($user['userNome'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($user['userEmail'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($user['userCpf'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($user['userTel'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td>
+                                    <span
+                                        class="status-badge <?= strtolower($user['userEstato']) === 'ativo' ? 'status-active' : 'status-inactive' ?>">
+                                        <?= htmlspecialchars($user['userEstato'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span
+                                        class="role-badge <?= strtolower($user['role']) === 'admin' ? 'role-admin' : 'role-user' ?>">
+                                        <?= htmlspecialchars($user['role'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="plano-badge <?=
+                                        $user['plano'] === 'Premium' ? 'plano-premium' :
+                                        ($user['plano'] === 'Basic' ? 'plano-basic' : 'plano-none')
+                                        ?>">
+                                        <?= htmlspecialchars($user['plano'] ?? 'Sem plano', ENT_QUOTES, 'UTF-8') ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="userID"
+                                            value="<?= htmlspecialchars($user['userID'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                                        <button type="submit" name="actionType" value="update"
+                                            class="btn-update">Atualizar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <!-- Formulário de verificação de código -->
         <?php if ($showCodeForm): ?>
@@ -223,10 +248,13 @@ require('./php/gerenciador.php');
                         </option>
                     </select>
                     <br>
-                    <!-- Botão para enviar código de uso único -->
-                    <button type="submit" name="actionType" value="sendUniqueCode">Enviar código de uso único</button>
-                    <br>
-                    <button type="submit" name="actionType" value="saveChanges">Salvar Alterações</button>
+
+                    <div class="buttons-form">
+                        <!-- Botão para enviar código de uso único -->
+                        <button type="submit" name="actionType" value="sendUniqueCode">Enviar código de uso único</button>
+                        <br>
+                        <button type="submit" name="actionType" value="saveChanges">Salvar Alterações</button>
+                    </div>
                 </form>
             </div>
         <?php endif; ?>

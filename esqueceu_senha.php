@@ -79,10 +79,10 @@ require("./php/esqueceu_senha.php");
     <main class="main-content">
         <section class="hero">
             <div class="wrapper">
-                <h1 style="font-size: 46px;">Esqueceu a Senha?</h1>
+                <h1 style="font-size: 36px; padding: 40px;">Esqueceu a Senha?</h1>
                 <form action="" method="post">
                     <div class="input-box" style="margin-top:50px;">
-                        <input type="email" name="userEmail" placeholder="Digite seu email" required>
+                        <input type="email" name="userEmail" placeholder="Digite seu email" required style="margin: 0 50px 30px 50px;">
                     </div>
 
 
@@ -97,7 +97,7 @@ require("./php/esqueceu_senha.php");
 
                 </form>
                 <?php if ($message): ?>
-                    <p class="message"><?php echo $message; ?></p>
+                    <p class="message" style="width:fit-content; margin-left:auto; margin-right:auto;text-align:center;max-width:300px; color: green;font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;padding: 10px; margin-top: 30px;"><?php echo $message; ?></p>
                 <?php endif; ?>
             </div>
         </section>
