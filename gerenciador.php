@@ -179,8 +179,7 @@ if (isset($_SESSION['userID'])) {
                                     <form method="POST" action="">
                                         <input type="hidden" name="userID"
                                             value="<?= htmlspecialchars($user['userID'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                                        <button type="submit" name="actionType" value="update"
-                                            class="btn-update">Atualizar</button>
+                                        <button type="submit" name="actionType" value="update" class="btn-update">Atualizar</button>
                                     </form>
                                 </td>
                             </tr>

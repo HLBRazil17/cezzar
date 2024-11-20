@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Buscar o código do usuário
         $codigoQuery = $conn->prepare("SELECT codigo FROM verification_codes WHERE user_id = ? AND codigo = ? AND expiry_date > NOW()");
-        $codigoQuery->bind_param("ii", $userID, $inputCodigo);
+        $codigoQuery->bind_param("is", $userID, $inputCodigo);
         $codigoQuery->execute();
         $codigoQuery->bind_result($storedCodigo);
         $codigoQuery->fetch();

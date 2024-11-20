@@ -187,7 +187,7 @@ if (isset($_GET['success'])) {
         <!-- Link para WhatsApp -->
         <div class="whatsapp-contact">
             <p>Se preferir, você pode entrar em contato diretamente pelo WhatsApp:</p>
-            <a href="https://wa.me/5518997423619?text=Olá!%20Preciso%20de%20suporte." target="_blank">Converse comigo no WhatsApp</a>
+            <a href="https://wa.me/5518997423619?text=Olá!%20Preciso%20de%20suporte." target="_blank">Entrar em Contato</a>
         </div>
     </main>
 
