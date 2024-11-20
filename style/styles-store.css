@@ -577,15 +577,3 @@ td .buttons {
 .botao-adicionar:active {
   transform: scale(0.9);
 }
-
-.botao-adicionar__texto {
-  /* Estilos para o texto do botão, se necessário */
-}
-
-.botao-adicionar__icone {
-  /* Estilos para o ícone do botão, se necessário */
-}
-
-.svg-icone {
-  /* Estilos para o SVG, se necessário */
-}
