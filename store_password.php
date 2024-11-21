@@ -117,7 +117,7 @@ require('./php/store_password.php');
                 </div>
 
                 <div class="input-group">
-                    <label class="label" for="loginName">Nome de Login</label>
+                    <label class="label" for="loginName">Nome de Usuário/Login</label>
                     <input autocomplete="off" name="loginName" id="loginName" class="input" type="text"
                         placeholder="Ex: usuario123" maxlength="30">
                 </div>

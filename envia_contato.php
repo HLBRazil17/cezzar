@@ -99,7 +99,7 @@ if (isset($_GET['success'])) {
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
- <!-- Menu de navegação -->
+                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
@@ -109,7 +109,7 @@ if (isset($_GET['success'])) {
                             <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
                             <a href="logs.php" class="navbar-item">Logs</a>
                         <?php } ?>
-                    
+
                     </div>
                 </div>
 
@@ -154,16 +154,19 @@ if (isset($_GET['success'])) {
                     <!-- Exibe mensagens de sucesso ou erro -->
                     <div class="message">
                         <?php if ($successMessage): ?>
-                            <p class="success-message"><?php echo $successMessage; ?></p>
+                            <p class="success-message"
+                                style="padding: 10px; color: green; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;">
+                                <?php echo $successMessage; ?></p>
                         <?php elseif ($errorMessage): ?>
-                            <p class="error-message"><?php echo $errorMessage; ?></p>
+                            <p class="error-message"
+                                style="padding: 10px; color: red; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;"><?php echo $errorMessage; ?></p>
                         <?php endif; ?>
                     </div>
 
                     <!-- Campo Nome -->
-                    <div class="form-field">
-                        <input type="text" id="name" name="name" class="input-field" placeholder="Insira seu Nome"
-                            value="<?php echo htmlspecialchars($userNome); ?>" <?php echo $userNome ? 'readonly' : 'required'; ?> />
+                    <div class=" form-field">
+                            <input type="text" id="name" name="name" class="input-field" placeholder="Insira seu Nome"
+                                value="<?php echo htmlspecialchars($userNome); ?>" <?php echo $userNome ? 'readonly' : 'required'; ?> />
                     </div>
 
                     <!-- Campo E-mail -->
@@ -187,8 +190,10 @@ if (isset($_GET['success'])) {
         <!-- Link para WhatsApp -->
         <div class="whatsapp-contact">
             <p>Se preferir, você pode entrar em contato diretamente pelo WhatsApp:</p>
-            <a href="https://wa.me/5518997423619?text=Olá!%20Preciso%20de%20suporte." target="_blank">Entrar em Contato</a>
-        </div>
+            <a href="https://wa.me/5518997423619?text=Olá!%20Preciso%20de%20suporte." target="_blank">Entrar em
+                Contato</a>
+            
+        </div>
     </main>
 
 
