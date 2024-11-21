@@ -1,5 +1,13 @@
 <?php
 require('./php/conta.php');
+
+// Verifica se o usuário está logado
+if (isset($_SESSION['userID'])) {
+    $userId = $_SESSION['userID']; // Obtém o ID do usuário da sessão
+    $userPlan = getUserPlan($userId, $conn); // Obtém o plano do usuário
+} else {
+    $userPlan = 'Não logado'; // Valor padrão se o usuário não estiver logado
+}
 ?>
 
 
@@ -57,37 +65,51 @@ require('./php/conta.php');
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
-
-                    <button class="hamburger" id="hamburger">&#9776;</button>
-
-                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                        <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-                        <?php if (checkAdminRole($conn, $userID)) { ?>
-                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                            <a href="logs.php" class="navbar-item">Logs</a>
-                        <?php } ?>
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php else: ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php endif; ?>
+
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <?php if (checkAdminRole($conn, $userId)) { ?>
+                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                                <a href="logs.php" class="navbar-item">Logs</a>
+                            <?php } ?>
+
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <!--PROFILE ICON-->
+                <!-- PROFILE ICON -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="conta.php">Detalhes</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -186,12 +208,14 @@ require('./php/conta.php');
                     <?php if ($hasSecurityWord): ?>
                         <div class="form-group">
                             <div class="input-group">
-                                <label class="label" for="oldSecurityWord" style="margin-left:30px;">Palavra de Segurança Atual</label>
+                                <label class="label" for="oldSecurityWord" style="margin-left:30px;">Palavra de Segurança
+                                    Atual</label>
 
                                 <!-- Input da antiga palavra de segurança -->
                                 <div style="position: relative; margin-top: 20px;">
                                     <input type="password" id="oldSecurityWord" name="oldSecurityWord" class="input"
-                                        style="padding-right: 40px; margin-left:30px;" placeholder="Palavra de Segurança Antiga">
+                                        style="padding-right: 40px; margin-left:30px;"
+                                        placeholder="Palavra de Segurança Antiga">
 
                                     <!-- Botão para alternar a visualização -->
                                     <span type="button" id="toggleOldSecurityWord" class="toggle-password"
@@ -205,7 +229,7 @@ require('./php/conta.php');
 
                     <?php endif; ?>
 
-                    <div style="width: fit-content; margin: 0 0 50px 34%;">
+                    <div id="palavra-segura" style="width: fit-content; margin: 0 0 50px 34%;">
                         <label class="label" for="newSecurityWord" style="margin: 10px 0px 0px -60px;">Adicionar/Alterar
                             Palavra de Segurança</label>
                         <label class="container">
@@ -215,7 +239,7 @@ require('./php/conta.php');
                         </label>
                     </div>
 
-                    <div id="securityWordContainer"
+                    <div id="securityWordContainer" class="palavra-segura"
                         style="display: <?php echo $hasSecurityWord ? 'flex' : 'none'; ?>; width: fit-content; flex-direction: column !important; margin: 0 auto;">
                         <label for="newSecurityWord" style="font-size: 18px; font-weight: 600; margin-left:35px;">
                             Nova Palavra de Segurança:
@@ -237,7 +261,7 @@ require('./php/conta.php');
                     </div>
 
 
-                    <div style="width: fit-content; margin: 0 0 50px 40%;">
+                    <div id="palavra-segura" style="width: fit-content; margin: 0 0 50px 40%;">
                         <label class="label" for="newSecurityWord" style="margin: 10px 0px 0px -60px;">Autenticação de
                             Dois Fatores</label>
                         <label class="container" style="margin: 20px 0 30px 58px;">
@@ -431,7 +455,86 @@ require('./php/conta.php');
         }
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/scrollreveal"></script>
+
+
+    <script>
+        // Inicialização do ScrollReveal
+        const sr = ScrollReveal({
+            reset: true, // As animações ocorrerão sempre que o elemento entrar na viewport
+            distance: '50px',
+            duration: 1000,
+            easing: 'ease-in-out',
+        });
+
+        sr.reveal('.page-title', {
+            origin: 'top',
+            distance: '50px'
+        });
+
+        sr.reveal('.settings-title', {
+            origin: 'left',
+            distance: '50px'
+        });
+
+        sr.reveal('.form-group', {
+            origin: 'rigth',
+            distance: '50px'
+        });
+
+        sr.reveal('#palavra-segura', {
+            origin: 'left',
+            distance: '50px'
+        });
+
+
+
+        //nav/footer
+        // Animações para a Navegação e Hero
+        sr.reveal('.navbar-item', {
+            origin: 'top',
+            distance: '20px',
+            interval: 100
+        });
+
+        sr.reveal('.logo, .logo-hover', {
+            origin: 'left',
+            distance: '20px'
+        });
+
+        // Animações para o Footer
+        sr.reveal('.logo-details', {
+            origin: 'top',
+            distance: '30px'
+        });
+
+        sr.reveal('.box', {
+            origin: 'left',
+            distance: '50px',
+            interval: 200
+        });
+
+        sr.reveal('.copyright_text', {
+            origin: 'top',
+            distance: '30px'
+        });
+
+
+        sr.reveal('.wrapper', {
+            origin: 'rigth',
+            distance: '50px'
+        });
+
+
+        sr.reveal('.wrapper', {
+            origin: 'rigth',
+            distance: '50px'
+        });
+
+
     </script>
+
+    <!--import js-->
     <script src="../script/script2.js"></script>
 </body>
 

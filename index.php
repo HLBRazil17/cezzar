@@ -36,11 +36,35 @@ if (isset($_SESSION['userID'])) {
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="./style/styles-faq.css">
     <link rel="stylesheet" href="./style/styles-background.css">
+    <link rel="stylesheet" href="./style/styles-carregamento.css">
 
     <title>Protect Key</title>
 </head>
 
 <body>
+
+    <div class="pre-carregamento" id="pre-carregamento">
+        <div class="card">
+            <div class="loader">
+                <p>Carregando</p>
+                <div class="words">
+                    <span class="word"></span>
+                    <span class="word">Criptografia de Ponta</span>
+                    <span class="word">Autenticação Multifatores</span>
+                    <span class="word">Proteção de Dados</span>
+                    <span class="word">Segurança na Web</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="SPINNER">
+            <div class="spinner">
+                <div class="spinner1"></div>
+            </div>
+        </div>
+    </div>
+
+
     <header class="header">
         <nav class="navbar">
             <div class="navbar-container">
@@ -90,12 +114,13 @@ if (isset($_SESSION['userID'])) {
                                 <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
                                 <a href="conta.php"> Detalhes da Conta</a>
                                 <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
-                                
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
                                 <a href="login.php"
-                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;" class="dropdown-content-a2">Login</a>
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -327,7 +352,8 @@ if (isset($_SESSION['userID'])) {
                 <div class="testimonial-item">
                     <img src="./img/person01.png" alt="Foto de Pedro Santussi">
                     <div class="testimonial-text">
-                        <p>"Cara o Protect Key mudou meu dia a dia. Eu sempre esquecia minhas senhas e ficava naquela
+                        <p>"Cara o Protect Key mudou meu dia a dia. Eu sempre esquecia minhas senhas e ficava
+                            naquela
                             correria pra recuperar tudo pedindo email. Agora tá tudo num lugar só, bem mais fácil.
                             Recomendo demais!"</p>
                         <h4>— Pedro Santussi</h4>
@@ -337,7 +363,8 @@ if (isset($_SESSION['userID'])) {
                 <div class="testimonial-item">
                     <img src="./img/person02.png" alt="Foto de Thiago Pereira Mendes">
                     <div class="testimonial-text">
-                        <p>"Eu vivia esquecendo minhas senhas e perdendo tempo pra recuperar. O que sinceramente era bem
+                        <p>"Eu vivia esquecendo minhas senhas e perdendo tempo pra recuperar. O que sinceramente era
+                            bem
                             chato, resolveu meu problema. Agora minha vida ficou bem mais fácil!"</p>
                         <h4>— Thiago Pereira Mendes</h4>
                     </div>
@@ -348,7 +375,8 @@ if (isset($_SESSION['userID'])) {
                 <div class="testimonial-item">
                     <img src="./img/person03.png" alt="Foto de Thiago Pereira Mendes">
                     <div class="testimonial-text">
-                        <p>"Vou te contar funciona top. Eu sempre esquecia minhas senhas e era horrível ficar tentando
+                        <p>"Vou te contar funciona top. Eu sempre esquecia minhas senhas e era horrível ficar
+                            tentando
                             recuperar. Agora tá tudo organizado, bem mais de boa."</p>
                         <h4>— Roger Souza</h4>
                     </div>
@@ -475,7 +503,8 @@ if (isset($_SESSION['userID'])) {
                         <span class="btn" style="color: white; font-size: 18px; padding: 20px 0;">Você já possui este
                             plano</span>
                     <?php else: ?>
-                        <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="action">Escolher Premium</a>
+                        <a href="<?php echo htmlspecialchars($paymentUrlPremium); ?>" class="action">Escolher
+                            Premium</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -512,7 +541,8 @@ if (isset($_SESSION['userID'])) {
                                         </svg>
                                     </div>
                                     <p hidden>O Protect Key utiliza criptografia AES-256 para proteger todas as suas
-                                        senhas. Além disso, oferecemos autenticação multifator (MFA) para adicionar uma
+                                        senhas. Além disso, oferecemos autenticação multifator (MFA) para adicionar
+                                        uma
                                         camada extra de segurança. Isso significa que apenas você tem acesso às suas
                                         senhas, garantindo total privacidade e proteção contra ameaças externas.</p>
                                 </div>
@@ -525,8 +555,10 @@ if (isset($_SESSION['userID'])) {
                                                 fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p hidden>Por razões de segurança, o Protect Key não armazena sua senha mestre em
-                                        nossos servidores. Isso significa que, se você esquecer sua senha mestre, não
+                                    <p hidden>Por razões de segurança, o Protect Key não armazena sua senha mestre
+                                        em
+                                        nossos servidores. Isso significa que, se você esquecer sua senha mestre,
+                                        não
                                         poderemos recuperá-la. Recomendamos que você mantenha sua senha mestre em um
                                         local seguro para evitar perder o acesso às suas contas.</p>
                                 </div>
@@ -539,15 +571,19 @@ if (isset($_SESSION['userID'])) {
                                                 fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p hidden>Os usuários do plano Premium têm acesso a recursos avançados de backup e
-                                        recuperação de dados. Você pode facilmente fazer backup de todas as suas senhas
-                                        e restaurá-las quando necessário, garantindo que você nunca perca acesso às suas
+                                    <p hidden>Os usuários do plano Premium têm acesso a recursos avançados de backup
+                                        e
+                                        recuperação de dados. Você pode facilmente fazer backup de todas as suas
+                                        senhas
+                                        e restaurá-las quando necessário, garantindo que você nunca perca acesso às
+                                        suas
                                         informações importantes.</p>
                                 </div>
 
                                 <div class="faq-item">
                                     <div class="question">
-                                        <h3 tabindex="0">O Protect Key oferece suporte para geração automática de senhas
+                                        <h3 tabindex="0">O Protect Key oferece suporte para geração automática de
+                                            senhas
                                             fortes?</h3>
                                         <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
@@ -557,25 +593,33 @@ if (isset($_SESSION['userID'])) {
                                     <p hidden>Sim, o Protect Key inclui um gerador de senhas integrado que cria
                                         automaticamente senhas fortes e únicas para todas as suas contas. Você pode
                                         personalizar o comprimento da senha e escolher incluir diferentes tipos de
-                                        caracteres, como letras maiúsculas, minúsculas, números e símbolos especiais.
-                                        Isso garante que suas senhas sejam altamente seguras e reduz o risco de acesso
+                                        caracteres, como letras maiúsculas, minúsculas, números e símbolos
+                                        especiais.
+                                        Isso garante que suas senhas sejam altamente seguras e reduz o risco de
+                                        acesso
                                         não autorizado às suas contas.
                                     </p>
                                 </div>
 
                                 <div class="faq-item">
                                     <div class="question">
-                                        <h3 tabindex="0">Como o Protect Key lida com tentativas de login suspeitas?</h3>
+                                        <h3 tabindex="0">Como o Protect Key lida com tentativas de login suspeitas?
+                                        </h3>
                                         <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 .799l4 4 4-4" stroke="#ffffff" stroke-width="2" fill="none"
                                                 fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p hidden>O Protect Key monitora continuamente todas as tentativas de login e aplica
-                                        medidas de segurança avançadas para proteger sua conta. Caso seja detectada uma
-                                        tentativa de login suspeita, como a partir de um novo dispositivo ou localização
-                                        não reconhecida, você será imediatamente notificado via e-mail ou notificação
-                                        push. Além disso, o acesso será bloqueado temporariamente até que a tentativa
+                                    <p hidden>O Protect Key monitora continuamente todas as tentativas de login e
+                                        aplica
+                                        medidas de segurança avançadas para proteger sua conta. Caso seja detectada
+                                        uma
+                                        tentativa de login suspeita, como a partir de um novo dispositivo ou
+                                        localização
+                                        não reconhecida, você será imediatamente notificado via e-mail ou
+                                        notificação
+                                        push. Além disso, o acesso será bloqueado temporariamente até que a
+                                        tentativa
                                         seja confirmada como segura por você, garantindo total controle sobre a
                                         segurança da sua conta.</p>
                                 </div>
@@ -626,167 +670,42 @@ if (isset($_SESSION['userID'])) {
         </div>
         <div class="bottom-details">
             <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2024 <a href="#">Protect Key</a>Todos os direitos reservados.</span>
+                <span class="copyright_text">Copyright © 2024 <a href="#">Protect Key</a>Todos os direitos
+                    reservados.</span>
             </div>
         </div>
     </footer>
 
+
     <script src="./script/script.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="/script/scroll-reveal.js"></script>
+    <script src="/script/preCarregamento.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        document.querySelectorAll('[data-scroll]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        document.addEventListener('DOMContentLoaded', () => {
+            const preCarregamento = document.getElementById('pre-carregamento');
 
-                const targetId = this.getAttribute('data-scroll');
-                const targetElement = document.getElementById(targetId);
+            // Bloquear o scroll
+            document.body.style.overflow = 'hidden';
 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+            if (preCarregamento) {
+                // Fade out after 3.8 seconds
+                setTimeout(() => {
+                    preCarregamento.style.transition = 'opacity .8s ease-out';
+                    preCarregamento.style.opacity = '0';
 
+                    // Remove from DOM after fade out
+                    setTimeout(() => {
+                        preCarregamento.style.display = 'none';
 
-    <script>
-
-        // Inicialização do ScrollReveal
-        const sr = ScrollReveal({
-            reset: true, // As animações ocorrerão sempre que o elemento entrar na viewport
-            distance: '50px',
-            duration: 1000,
-            easing: 'ease-in-out',
-        });
-
-        // Animações para a Navegação e Hero
-        sr.reveal('.navbar-item', {
-            origin: 'top',
-            distance: '20px',
-            interval: 100
-        });
-
-        sr.reveal('.logo, .logo-hover', {
-            origin: 'left',
-            distance: '20px'
-        });
-
-        sr.reveal('.hero h1', {
-            origin: 'left',
-            distance: '50px'
-        });
-
-        sr.reveal('.hero p', {
-            origin: 'right',
-            distance: '50px',
-            delay: 200
-        });
-
-        sr.reveal('.hero-buttons .btn', {
-            origin: 'bottom',
-            distance: '30px',
-            interval: 100
-        });
-
-        sr.reveal('.seta-img', {
-            duration: 1000,
-            easing: 'ease-in-out',
-            reset: 'true',
-            origin: 'bottom'
-        })
-
-        // Animações para Recursos Principais
-        sr.reveal('.recursos-img', {
-            origin: 'bottom',
-            distance: '50px',
-            opacity: 0,        // Começa com opacidade 0 (invisível)
-            duration: 2000,     // Duração da animação (em milissegundos)
-            easing: 'ease-in-out',
-            reset: true,            // Não anima novamente ao rolar para fora e voltar
-            afterReveal: function (el) {
-                el.style.opacity = 1; // Define a opacidade para 1 após a revelação
+                        // Liberar o scroll
+                        document.body.style.overflow = '';
+                    }, 800);
+                }, 4000);
             }
-        });
-
-        sr.reveal('.feature-item', {
-            origin: 'bottom',
-            distance: '50px'
-        });
-
-        // Animações para Testemunhos
-        sr.reveal('.testimonial-item, .testimonials h2' , {
-            origin: 'bottom',
-            distance: '50px',
-        });
-
-        // Animações para Cards de Planos e Preços
-        sr.reveal('.card-price, .pricing h2', {
-            origin: 'right',
-            distance: '50px',
-            interval: 200
-        });
-
-        // Animações para Perguntas Frequentes/ titulo de testemunho
-        sr.reveal('.faq-item, .faq-content h2', {
-            origin: 'bottom',
-            distance: '30px',
-            interval: 100
-        });
-
-        // Animações para a Seção de Contato
-        sr.reveal('.contact h2, .contact p', {
-            origin: 'bottom',
-            distance: '30px',
-            interval: 100
-        });
-
-        // JavaScript para a funcionalidade de transição suave nas respostas do FAQ
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        faqItems.forEach((item) => {
-            const question = item.querySelector('.question');
-            const answer = item.querySelector('p');
-
-            question.addEventListener('click', () => {
-                // Fechar outros itens abertos
-                faqItems.forEach((el) => {
-                    if (el !== item) {
-                        el.classList.remove('active');
-                        el.querySelector('p').style.maxHeight = null;
-                    }
-                });
-
-                // Alternar o item clicado
-                item.classList.toggle('active');
-
-                if (item.classList.contains('active')) {
-                    // Expande a resposta
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                } else {
-                    // Recolhe a resposta
-                    answer.style.maxHeight = null;
-                }
-            });
-        });
-
-        document.querySelectorAll('[data-scroll]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('data-scroll');
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
         });
     </script>
 

@@ -25,9 +25,13 @@ require('./php/store_password.php');
     <link rel="stylesheet" href="./style/styles-store-form.css">
     <link rel="stylesheet" href="./style/styles-buttons.css">
 
-    <script src="https://unpkg.com/scrollreveal"></script>
-
     <title>Controle de Senhas</title>
+
+    <style>
+        body {
+            display: hidden;
+        }
+    </style>
 </head>
 
 <body>
@@ -103,7 +107,7 @@ require('./php/store_password.php');
                 <div class="input-group">
                     <label class="label" for="siteName">Nome da Senha</label>
                     <input autocomplete="off" name="siteName" id="siteName" class="input" type="text"
-                        placeholder="Ex: Conta do Gmail" maxlength="255" required>
+                        placeholder="Ex: Conta do Gmail" maxlength="30" required>
                 </div>
 
                 <div class="input-group">
@@ -115,19 +119,19 @@ require('./php/store_password.php');
                 <div class="input-group">
                     <label class="label" for="loginName">Nome de Login</label>
                     <input autocomplete="off" name="loginName" id="loginName" class="input" type="text"
-                        placeholder="Ex: usuario123" maxlength="100">
+                        placeholder="Ex: usuario123" maxlength="30">
                 </div>
 
                 <div class="input-group">
                     <label class="label" for="email">E-mail</label>
                     <input autocomplete="off" name="email" id="email" class="input" type="email"
-                        placeholder="Ex: usuario@exemplo.com" maxlength="100">
+                        placeholder="Ex: usuario@exemplo.com" maxlength="50">
                 </div>
 
                 <div class="input-group">
                     <label class="label" for="password">Senha</label>
                     <input autocomplete="off" name="password" id="password" class="input" type="password"
-                        placeholder="Digite sua senha" required>
+                        placeholder="Digite sua senha" maxlength="70" required>
                 </div>
 
                 <span type="button" id="togglePassword" class="toggle-password" onclick="verSenha()"
@@ -348,8 +352,15 @@ require('./php/store_password.php');
         </div>
     </footer>
 
+
     <!-- Funções JavaScript para manipular formulário e senhas -->
     <script>
+
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.style.visibility = 'visible'; // Exibe o conteúdo da página após 0.5 segundos
+            }, 5000); // 500 milissegundos = 0.5 segundos
+        };
 
         function gerarSenha(tamanho = 16) {
 
@@ -464,30 +475,38 @@ require('./php/store_password.php');
 
         function toggleForm() {
             const formContainer = document.getElementById('formContainer');
-            formContainer.classList.toggle('show');
-            toggleVisibility();
-        }
-
-        function toggleVisibility() {
-            const formContainer = document.getElementById('formContainer');
+            const botaoAdicionar = document.querySelector('.botao-adicionar');
             const savedTable = document.getElementById('savedTable');
+
+            formContainer.classList.toggle('show');
+
             if (formContainer.classList.contains('show')) {
-                savedTable.style.display = 'none';
+                botaoAdicionar.style.display = 'none';
+                if (savedTable) savedTable.style.display = 'none';
             } else {
-                savedTable.style.display = 'block';
+                botaoAdicionar.style.display = 'block';
+                if (savedTable) savedTable.style.display = 'block';
             }
         }
 
         function cancelForm() {
             const formContainer = document.getElementById('formContainer');
+            const botaoAdicionar = document.querySelector('.botao-adicionar');
+            const savedTable = document.getElementById('savedTable');
+
             formContainer.classList.remove('show');
-            toggleVisibility();
+            botaoAdicionar.style.display = 'block';
+            if (savedTable) savedTable.style.display = 'block';
         }
 
         function editPassword(id, siteName, url, loginName, email, password) {
             const formContainer = document.getElementById('formContainer');
+            const botaoAdicionar = document.querySelector('.botao-adicionar');
+            const savedTable = document.getElementById('savedTable');
+
             formContainer.classList.add('show');
-            toggleVisibility();
+            botaoAdicionar.style.display = 'none';
+            if (savedTable) savedTable.style.display = 'none';
 
             document.getElementById('actionType').value = 'update';
             document.getElementById('passwordId').value = id;
@@ -515,11 +534,7 @@ require('./php/store_password.php');
             addPasswordBtn.addEventListener('click', () => {
                 toggleForm();
             });
-            toggleVisibility(); // Garante que a visibilidade está correta ao carregar a página
         }
-
-        document.addEventListener("DOMContentLoaded", toggleVisibility);
-
 
         function verSenha() {
             const passwordInput = document.getElementById("password");
@@ -536,6 +551,11 @@ require('./php/store_password.php');
             }
         }
     </script>
+
+    <!--import js-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="/script/scroll-reveal.js"></script>
+    <script src="/script/preCarregamento.js"></script>
 
 </body>
 

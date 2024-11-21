@@ -847,6 +847,7 @@ footer .content .link-boxes .box {
   font-size: 15px;
   color: #fff;
   margin-top: 5px;
+  font-family: 'Rubik', sans-serif;
 }
 
 .link-boxes .input-box-fot input::placeholder {

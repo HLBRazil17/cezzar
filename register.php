@@ -133,7 +133,8 @@ require('./php/register.php');
                     </div>
 
                     <div class="input-box" style="margin: 10px 0 30px 0;">
-                        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Digite uma dica para a senha*" required style="margin: 0 30px;">
+                        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Digite uma dica para a senha*"
+                            required style="margin: 0 30px;">
                         <span class="toggle-password" toggle="#dicaSenha" title="Mostrar/ocultar senha">
                         </span>
                         <br><br>
@@ -142,7 +143,8 @@ require('./php/register.php');
                     <div id="lengthMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
                     <div id="uppercaseMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
                     <div id="specialCharMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
-                    <div id="passwordMatchMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                    <div id="passwordMatchMessage" class="error-message" style="display: none; margin-left: 30px;">
+                    </div>
 
                     <div class="register-link">
                         <p>Já possui uma conta?</p>
@@ -289,6 +291,11 @@ require('./php/register.php');
 
         document.getElementById('userPasswordRepeat').addEventListener('input', checkPasswordMatch);
     </script>
+
+    <!--import js-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="/script/scroll-reveal.js"></script>
+    <script src="/script/preCarregamento.js"></script>
 </body>
 
 </html>

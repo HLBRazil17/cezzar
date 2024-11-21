@@ -307,6 +307,7 @@ body {
     padding: 0 1rem;
     border: 2px solid transparent;
     font-size: 1rem;
+    font-family: 'rubik', sans-serif;
     transition: border-color .3s cubic-bezier(.25, .01, .25, 1) 0s, color .3s cubic-bezier(.25, .01, .25, 1) 0s, background .2s cubic-bezier(.25, .01, .25, 1) 0s;
     color: #ffff;
     margin-bottom: 30px;

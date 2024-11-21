@@ -223,6 +223,11 @@ require('./php/login.php');
             }
         });
     </script>
+
+    <!--import js-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="/script/scroll-reveal.js"></script>
+    <script src="/script/preCarregamento.js"></script>
 </body>
 
 </html>

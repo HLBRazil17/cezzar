@@ -9,7 +9,7 @@ require("./php/esqueceu_senha.php");
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Esqueceu a Senha</title>
+    <title>Recuperação de Senha</title>
 
     <!--import favicon-->
     <link rel="icon" href="./img/ICON-prokey.ico">
@@ -32,42 +32,58 @@ require("./php/esqueceu_senha.php");
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-                    <!-- Logo -->
+
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
-
-                    <!-- Botão de menu hambúrguer -->
-                    <button class="hamburger" id="hamburger">&#9776;</button>
-
-                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                        <a href="planos.php" class="navbar-item">Planos</a>
-                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
-                        <a href="#" class="navbar-item">Contate-nos</a>
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+
+                        <?php else: ?>
+                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                            <a href="planos.php" class="navbar-item">Planos</a>
+                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php endif; ?>
+
+                        <?php if (isset($_SESSION['userNome'])): ?>
+                            <?php if (checkAdminRole($conn, $userId)) { ?>
+                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                                <a href="logs.php" class="navbar-item">Logs</a>
+                            <?php } ?>
+
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <!-- Ícone de perfil com dropdown -->
+                <!-- PROFILE ICON -->
                 <div class="navbar-right">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
-                            <!-- Verifica se o usuário está logado -->
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="account.php">Detalhes da Conta</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -78,11 +94,12 @@ require("./php/esqueceu_senha.php");
 
     <main class="main-content">
         <section class="hero">
-            <div class="wrapper">
+            <div class="wrapper" style="margin-bottom:20vh; margin-top:12vh;">
                 <h1 style="font-size: 36px; padding: 40px;">Esqueceu a Senha?</h1>
                 <form action="" method="post">
                     <div class="input-box" style="margin-top:50px;">
-                        <input type="email" name="userEmail" placeholder="Digite seu email" required style="margin: 0 50px 30px 50px;">
+                        <input type="email" name="userEmail" placeholder="Digite seu email" required
+                            style="margin: 0 50px 30px 50px;">
                     </div>
 
 
@@ -97,7 +114,10 @@ require("./php/esqueceu_senha.php");
 
                 </form>
                 <?php if ($message): ?>
-                    <p class="message" style="width:fit-content; margin-left:auto; margin-right:auto;text-align:center;max-width:300px; color: green;font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;padding: 10px; margin-top: 30px;"><?php echo $message; ?></p>
+                    <p class="message"
+                        style="width:fit-content; margin-left:auto; margin-right:auto;text-align:center;max-width:300px; color: green;font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;padding: 10px; margin-top: 30px;">
+                        <?php echo $message; ?>
+                    </p>
                 <?php endif; ?>
             </div>
         </section>
@@ -147,6 +167,10 @@ require("./php/esqueceu_senha.php");
         </div>
     </footer>
 
+    <!--import js-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="/script/scroll-reveal.js"></script>
+    <script src="/script/preCarregamento.js"></script>
 </body>
 
 </html>

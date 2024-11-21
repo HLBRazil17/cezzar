@@ -11,14 +11,14 @@ body {
 
 main {
   background: linear-gradient(160deg, #090c30 0%, #1e2a91 50%, #3d84d6c7 100%);
-  min-height: 1200px;
+  min-height: 1000px;
 }
 
 /* Estilo da imagem que não possui senhas */
 .img-no-itens {
   display: block;
   margin: 10vh auto 0% auto;
-  width: 320px;
+  width: 400px;
 }
 
 table {

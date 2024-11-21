@@ -69,7 +69,7 @@ td:last-child:hover a{
 }
 
 thead{
-    background-image: linear-gradient(65deg, #0d4ec0d8 0%,#8a6eec 45%, #5690F3 95%);
+    background-image: linear-gradient(65deg, #0d4ec0d8 0%,#472baad7 45%, #5690F3 95%);
     transition: background-image ease .8s;
 }
 

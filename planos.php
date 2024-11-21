@@ -264,6 +264,15 @@ require("./php/planos.php")
             </div>
         </div>
     </footer>
+
+    <!--import js-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="/script/scroll-reveal.js"></script>
+    <script src="/script/preCarregamento.js"></script>
+
+    <script>
+        
+    </script>
 </body>
 
 </html>
