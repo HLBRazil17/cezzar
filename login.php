@@ -1,6 +1,8 @@
 <?php
 session_start();
 require('./php/login.php');
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ require('./php/login.php');
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-
+                    <!-- Logo -->
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
@@ -43,30 +45,46 @@ require('./php/login.php');
                                 class="logo-hover"></a>
                     </div>
 
+                    <!-- Botão de menu hambúrguer -->
                     <button class="hamburger" id="hamburger">&#9776;</button>
+
+                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                        <a href="store_documents.php" class="navbar-item">Controle de Documentos</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
                         <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php if (checkAdminRole($conn, $userID)) { ?>
+                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                            <a href="logs.php" class="navbar-item">Logs</a>
+                        <?php } ?>
                     </div>
                 </div>
 
-                <!--PROFILE ICON-->
-                <div class="navbar-right">
+                <!-- PROFILE ICON -->
+                <div class="navbar-right" style="z-index:2;">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="conta.php">Detalhes</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>

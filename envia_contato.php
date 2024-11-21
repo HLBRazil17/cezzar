@@ -92,16 +92,21 @@ if (isset($_GET['success'])) {
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-
+                    <!-- Logo -->
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
+
+                    <!-- Botão de menu hambúrguer -->
+                    <button class="hamburger" id="hamburger">&#9776;</button>
+
                     <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                        <a href="store_documents.php" class="navbar-item">Controle de Documentos</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
                         <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
@@ -109,12 +114,11 @@ if (isset($_GET['success'])) {
                             <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
                             <a href="logs.php" class="navbar-item">Logs</a>
                         <?php } ?>
-
                     </div>
                 </div>
 
                 <!-- PROFILE ICON -->
-                <div class="navbar-right">
+                <div class="navbar-right" style="z-index:2;">
                     <details class="dropdown">
                         <summary class="profile-icon">
                             <img src="./img/user.png" alt="Profile" class="user">
@@ -156,17 +160,19 @@ if (isset($_GET['success'])) {
                         <?php if ($successMessage): ?>
                             <p class="success-message"
                                 style="padding: 10px; color: green; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #ddffe0; border-radius: 10px;">
-                                <?php echo $successMessage; ?></p>
+                                <?php echo $successMessage; ?>
+                            </p>
                         <?php elseif ($errorMessage): ?>
                             <p class="error-message"
-                                style="padding: 10px; color: red; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;"><?php echo $errorMessage; ?></p>
+                                style="padding: 10px; color: red; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;">
+                                <?php echo $errorMessage; ?></p>
                         <?php endif; ?>
                     </div>
 
                     <!-- Campo Nome -->
                     <div class=" form-field">
-                            <input type="text" id="name" name="name" class="input-field" placeholder="Insira seu Nome"
-                                value="<?php echo htmlspecialchars($userNome); ?>" <?php echo $userNome ? 'readonly' : 'required'; ?> />
+                        <input type="text" id="name" name="name" class="input-field" placeholder="Insira seu Nome"
+                            value="<?php echo htmlspecialchars($userNome); ?>" <?php echo $userNome ? 'readonly' : 'required'; ?> />
                     </div>
 
                     <!-- Campo E-mail -->
@@ -192,7 +198,7 @@ if (isset($_GET['success'])) {
             <p>Se preferir, você pode entrar em contato diretamente pelo WhatsApp:</p>
             <a href="https://wa.me/5518997423619?text=Olá!%20Preciso%20de%20suporte." target="_blank">Entrar em
                 Contato</a>
-            
+
         </div>
     </main>
 

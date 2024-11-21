@@ -113,34 +113,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
+                    <!-- Logo -->
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
                         <a href="index.php"><img src="./img/ProtectKey-LOGOB.png" alt="Protect Key Logo Hover"
                                 class="logo-hover"></a>
                     </div>
+
+                    <!-- Botão de menu hambúrguer -->
                     <button class="hamburger" id="hamburger">&#9776;</button>
+
+                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                        <a href="store_documents.php" class="navbar-item">Controle de Documentos</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
-                        <a href="#" class="navbar-item">Contate-nos</a>
+                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php if (checkAdminRole($conn, $userID)) { ?>
+                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                            <a href="logs.php" class="navbar-item">Logs</a>
+                        <?php } ?>
                     </div>
                 </div>
 
-                <div class="navbar-right">
+                <!-- PROFILE ICON -->
+                <div class="navbar-right" style="z-index:2;">
                     <details class="dropdown">
                         <summary class="profile-icon">
-                            <img src="./img/user.png" alt="Profile">
+                            <img src="./img/user.png" alt="Profile" class="user">
+                            <img src="./img/user02.png" alt="Profile Hover" class="user-hover">
                         </summary>
                         <div class="dropdown-content">
                             <?php if (isset($_SESSION['userNome'])): ?>
-                                <p>Bem-vindo, <?php echo $_SESSION['userNome']; ?></p>
-                                <a href="conta.php">Detalhes</a>
-                                <a href="./php/logout.php" style="border-bottom: none;">Sair da Conta</a>
+                                <?php
+                                // Utiliza strtok para obter a primeira parte antes do espaço
+                                $primeiroNome = strtok($_SESSION['userNome'], ' ');
+                                ?>
+                                <p>Bem-vindo, <?php echo $primeiroNome; ?></p>
+                                <a href="conta.php"> Detalhes da Conta</a>
+                                <a href="./php/logout.php" style="border-radius: 15px;">Sair da Conta</a>
+
                             <?php else: ?>
                                 <p>Bem-vindo!</p>
                                 <a href="register.php">Registrar</a>
-                                <a href="login.php" style="border-bottom: none;">Login</a>
+                                <a href="login.php"
+                                    style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"
+                                    class="dropdown-content-a2">Login</a>
                             <?php endif; ?>
                         </div>
                     </details>
@@ -149,51 +169,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </nav>
     </header>
 
- <!-- Dentro do corpo do HTML -->
-<main class="main-content">
-    <section class="hero" style="height: 100vh;">
-        <div class="wrapper" style="height: 70%;">
+    <!-- Dentro do corpo do HTML -->
+    <main class="main-content">
+        <section class="hero" style="height: 100vh;">
+            <div class="wrapper" style="height: 70%;">
 
-            <form action="" method="post" onsubmit="return validateForm()">
-                <h1>Redefinir Senha</h1>
+                <form action="" method="post" onsubmit="return validateForm()">
+                    <h1>Redefinir Senha</h1>
 
-                <div class="input-box">
-                    <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required oninput="validatePasswords()">
-                </div>
+                    <div class="input-box">
+                        <input type="password" id="newPassword" name="newPassword" placeholder="Nova Senha" required
+                            oninput="validatePasswords()">
+                    </div>
 
-                <div class="input-box">
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Senha" required oninput="validatePasswords()">
-                </div>
+                    <div class="input-box">
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Senha"
+                            required oninput="validatePasswords()">
+                    </div>
 
-                <!-- Adiciona a seção para exibir mensagens dinâmicas -->
-                <div id="messageBox" style="display: none; margin-bottom: 20px;"></div>
+                    <!-- Adiciona a seção para exibir mensagens dinâmicas -->
+                    <div id="messageBox" style="display: none; margin-bottom: 20px;"></div>
 
-                <div id="lengthMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
-                <div id="uppercaseMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
-                <div id="specialCharMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
-                <div id="passwordMatchMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                    <div id="lengthMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                    <div id="uppercaseMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                    <div id="specialCharMessage" class="error-message" style="display: none; margin-left: 30px;"></div>
+                    <div id="passwordMatchMessage" class="error-message" style="display: none; margin-left: 30px;">
+                    </div>
 
-                <div class="input-box">
-                    <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Dica de Senha">
-                </div>
+                    <div class="input-box">
+                        <input type="text" id="dicaSenha" name="dicaSenha" placeholder="Dica de Senha">
+                    </div>
 
-                <?php if ($errorMessage): ?>
-                    <p class='message error'><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
-                <?php endif; ?>
+                    <?php if ($errorMessage): ?>
+                        <p class='message error'><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
+                    <?php endif; ?>
 
-                <?php if ($successMessage): ?>
-                    <p class="message success"><?= htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8') ?></p>
-                <?php endif; ?>
+                    <?php if ($successMessage): ?>
+                        <p class="message success"><?= htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8') ?></p>
+                    <?php endif; ?>
 
-                <p style="font-size: 16px; margin:10px 0 20px 0;">
-                    Recomendamos que salve uma nova dica da sua senha caso esqueça sua nova senha.
-                </p>
+                    <p style="font-size: 16px; margin:10px 0 20px 0;">
+                        Recomendamos que salve uma nova dica da sua senha caso esqueça sua nova senha.
+                    </p>
 
-                <button type="submit" class="btn">Redefinir Senha</button>
-            </form>
-        </div>
-    </section>
-</main>
+                    <button type="submit" class="btn">Redefinir Senha</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
 
     <!--FOOTER-->
@@ -241,83 +264,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </footer>
 
     <script>
-       function validateForm() {
-    const errorMessages = document.querySelectorAll('.error-message');
-    const messageBox = document.getElementById('messageBox');
+        function validateForm() {
+            const errorMessages = document.querySelectorAll('.error-message');
+            const messageBox = document.getElementById('messageBox');
 
-    // Verifica se alguma mensagem de erro está visível
-    for (const message of errorMessages) {
-        if (message.style.display === 'block') {
-            displayMessage('Corrija os erros antes de enviar o formulário.', 'error');
-            return false; // Impede o envio do formulário
+            // Verifica se alguma mensagem de erro está visível
+            for (const message of errorMessages) {
+                if (message.style.display === 'block') {
+                    displayMessage('Corrija os erros antes de enviar o formulário.', 'error');
+                    return false; // Impede o envio do formulário
+                }
+            }
+
+            return true; // Permite o envio se não houver erros
         }
-    }
 
-    return true; // Permite o envio se não houver erros
-}
+        function validatePasswords() {
+            checkPasswordMatch();
+            checkPasswordCriteria();
+        }
 
-function validatePasswords() {
-    checkPasswordMatch();
-    checkPasswordCriteria();
-}
+        function displayMessage(message, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.style.display = 'block';
+            messageBox.textContent = message;
 
-function displayMessage(message, type) {
-    const messageBox = document.getElementById('messageBox');
-    messageBox.style.display = 'block';
-    messageBox.textContent = message;
+            if (type === 'error') {
+                messageBox.className = 'message error';
+            } else if (type === 'success') {
+                messageBox.className = 'message success';
+            }
+        }
 
-    if (type === 'error') {
-        messageBox.className = 'message error';
-    } else if (type === 'success') {
-        messageBox.className = 'message success';
-    }
-}
+        function checkPasswordMatch() {
+            const password = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const matchMessage = document.getElementById('passwordMatchMessage');
 
-function checkPasswordMatch() {
-    const password = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const matchMessage = document.getElementById('passwordMatchMessage');
+            if (password === confirmPassword && password !== "") {
+                matchMessage.textContent = 'As senhas coincidem.';
+                matchMessage.className = 'success-message';
+                matchMessage.style.display = 'block';
+            } else {
+                matchMessage.textContent = 'As senhas não coincidem.';
+                matchMessage.className = 'error-message';
+                matchMessage.style.display = 'block';
+            }
+        }
 
-    if (password === confirmPassword && password !== "") {
-        matchMessage.textContent = 'As senhas coincidem.';
-        matchMessage.className = 'success-message';
-        matchMessage.style.display = 'block';
-    } else {
-        matchMessage.textContent = 'As senhas não coincidem.';
-        matchMessage.className = 'error-message';
-        matchMessage.style.display = 'block';
-    }
-}
+        function checkPasswordCriteria() {
+            const password = document.getElementById('newPassword').value;
 
-function checkPasswordCriteria() {
-    const password = document.getElementById('newPassword').value;
+            const lengthMessage = document.getElementById('lengthMessage');
+            const uppercaseMessage = document.getElementById('uppercaseMessage');
+            const specialCharMessage = document.getElementById('specialCharMessage');
 
-    const lengthMessage = document.getElementById('lengthMessage');
-    const uppercaseMessage = document.getElementById('uppercaseMessage');
-    const specialCharMessage = document.getElementById('specialCharMessage');
+            if (password.length >= 12) {
+                lengthMessage.textContent = 'A senha tem pelo menos 12 caracteres.';
+                lengthMessage.className = 'success-message';
+                lengthMessage.style.display = 'block';
+            } else {
+                lengthMessage.textContent = 'A senha deve ter pelo menos 12 caracteres.';
+                lengthMessage.className = 'error-message';
+                lengthMessage.style.display = 'block';
+            }
 
-    if (password.length >= 12) {
-        lengthMessage.textContent = 'A senha tem pelo menos 12 caracteres.';
-        lengthMessage.className = 'success-message';
-        lengthMessage.style.display = 'block';
-    } else {
-        lengthMessage.textContent = 'A senha deve ter pelo menos 12 caracteres.';
-        lengthMessage.className = 'error-message';
-        lengthMessage.style.display = 'block';
-    }
+            if (/[A-Z]/.test(password)) {
+                uppercaseMessage.textContent = 'A senha contém pelo menos uma letra maiúscula.';
+                uppercaseMessage.className = 'success-message';
+                uppercaseMessage.style.display = 'block';
+            } else {
+                uppercaseMessage.textContent = 'A senha deve conter pelo menos uma letra maiúscula.';
+                uppercaseMessage.className = 'error-message';
+                uppercaseMessage.style.display = 'block';
+            }
 
-    if (/[A-Z]/.test(password)) {
-        uppercaseMessage.textContent = 'A senha contém pelo menos uma letra maiúscula.';
-        uppercaseMessage.className = 'success-message';
-        uppercaseMessage.style.display = 'block';
-    } else {
-        uppercaseMessage.textContent = 'A senha deve conter pelo menos uma letra maiúscula.';
-        uppercaseMessage.className = 'error-message';
-        uppercaseMessage.style.display = 'block';
-    }
-
-        // Verificar se a senha contém pelo menos um caractere especial
-        if (/[\W_]/.test(password)) {
+            // Verificar se a senha contém pelo menos um caractere especial
+            if (/[\W_]/.test(password)) {
                 specialCharMessage.textContent = 'A senha contém pelo menos um caractere especial.';
                 specialCharMessage.className = 'success-message';
                 specialCharMessage.style.display = 'block';  // Torna visível
@@ -326,7 +349,7 @@ function checkPasswordCriteria() {
                 specialCharMessage.className = 'error-message';
                 specialCharMessage.style.display = 'block';  // Torna visível
             }
-}
+        }
     </script>
 </body>
 

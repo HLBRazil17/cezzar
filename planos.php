@@ -30,7 +30,7 @@ require("./php/planos.php")
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-left">
-
+                    <!-- Logo -->
                     <div class="logo-container">
                         <a href="index.php"><img src="./img/ProtectKey-LOGOW.png" alt="Protect Key Logo"
                                 class="logo"></a>
@@ -38,33 +38,25 @@ require("./php/planos.php")
                                 class="logo-hover"></a>
                     </div>
 
+                    <!-- Botão de menu hambúrguer -->
                     <button class="hamburger" id="hamburger">&#9776;</button>
+
+                    <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
-                        <?php if (isset($_SESSION['userNome'])): ?>
-                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                            <a href="planos.php" class="navbar-item">Planos</a>
-                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-
-                        <?php else: ?>
-                            <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                            <a href="planos.php" class="navbar-item">Planos</a>
-                            <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-                        <?php endif; ?>
-
-                        <?php if (isset($_SESSION['userNome'])): ?>
-                            <?php if (checkAdminRole($conn, $userId)) { ?>
-                                <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                                <a href="logs.php" class="navbar-item">Logs</a>
-                            <?php } ?>
-
-                        <?php endif; ?>
-
-
+                        <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
+                        <a href="store_documents.php" class="navbar-item">Controle de Documentos</a>
+                        <a href="planos.php" class="navbar-item">Planos</a>
+                        <!--    <a href="#" class="navbar-item">Sobre</a>   -->
+                        <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
+                        <?php if (checkAdminRole($conn, $userID)) { ?>
+                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
+                            <a href="logs.php" class="navbar-item">Logs</a>
+                        <?php } ?>
                     </div>
                 </div>
 
                 <!-- PROFILE ICON -->
-                <div class="navbar-right">
+                <div class="navbar-right" style="z-index:2;">
                     <details class="dropdown">
                         <summary class="profile-icon">
                             <img src="./img/user.png" alt="Profile" class="user">
@@ -271,7 +263,7 @@ require("./php/planos.php")
     <script src="/script/preCarregamento.js"></script>
 
     <script>
-        
+
     </script>
 </body>
 
