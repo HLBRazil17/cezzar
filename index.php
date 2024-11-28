@@ -6,10 +6,11 @@ require("php/preference.php");
 
 // Verifica se o usuário está logado
 if (isset($_SESSION['userID'])) {
-    $userId = $_SESSION['userID']; // Obtém o ID do usuário da sessão
-    $userPlan = getUserPlan($userId, $conn); // Obtém o plano do usuário
+    $userID = $_SESSION['userID']; // Obtém o ID do usuário da sessão
+    $userPlan = getUserPlan($userID, $conn); // Obtém o plano do usuário
 } else {
     $userPlan = 'Não logado'; // Valor padrão se o usuário não estiver logado
+    $userID = null; // Inicializa a variável userID
 }
 ?>
 
@@ -146,10 +147,10 @@ if (isset($_SESSION['userID'])) {
                     <div class="hero-buttons">
                         <?php if (isset($_SESSION['userNome'])): ?>
                             <a href="store_password.php" class="btn btn-primary">Salvar Senha</a>
-                            <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
+                            <a href="planos.php" class="btn btn-secondary" >Ver planos e preços</a>
                         <?php else: ?>
                             <a href="register.php" class="btn btn-primary">Iniciar um teste gratuito</a>
-                            <a class="btn btn-secondary" data-scroll="planos">Ver planos e preços</a>
+                            <a href="planos.php" class="btn btn-secondary">Ver planos e preços</a>
                         <?php endif; ?>
                     </div>
                 </div>

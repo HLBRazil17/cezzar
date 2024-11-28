@@ -66,10 +66,6 @@ require('./php/register.php');
                         <a href="planos.php" class="navbar-item">Planos</a>
                         <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
-                        <?php if (checkAdminRole($conn, $userID)) { ?>
-                            <a href="gerenciador.php" class="navbar-item">Gerenciador</a>
-                            <a href="logs.php" class="navbar-item">Logs</a>
-                        <?php } ?>
                     </div>
                 </div>
 
