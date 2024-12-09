@@ -38,6 +38,7 @@ $userNome = $userInfo['userNome'];
 $userEmail = $userInfo['userEmail'];
 $userCpf = $userInfo['userCpf'];
 $userTel = $userInfo['userTel'];
+$userEstato = $userInfo['userEstato'];
 $securityWord = $userInfo['securityWord'];
 $hasSecurityWord = !empty($securityWord);
 $enableTwoFactor = $userInfo['enableTwoFactor'] ?? false;
@@ -58,7 +59,33 @@ if (empty($secret)) {
 
 // Gere a URL do QR code para o Google Authenticator
 $siteName = 'Protect Key'; // Nome que aparecerá no Google Authenticator
-$qrCodeUrl = GoogleQrUrl::generate($siteName, $secret, 'SuaEmpresa');
+$qrCodeUrl = GoogleQrUrl::generate($siteName, $secret, 'Empresa');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deactivateAccount'])) {
+    // Alterar o estado do usuário para "inativo"
+    $deactivateSql = "UPDATE users SET userEstato = 'Inativo' WHERE userID = ?";
+    if ($stmt = $conn->prepare($deactivateSql)) {
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        
+        if ($stmt->affected_rows > 0) {
+            // Log de ação
+            logAction($conn, $userID, 'Conta Desativada', 'O usuário alterou seu estado para inativo.');
+
+            // Encerrar a sessão
+            session_destroy();
+
+            // Redirecionar para a página inicial ou de login
+            header("Location: ../desativacao.php");
+            exit();
+        } else {
+            $errorMessage = 'Erro ao desativar a conta. Por favor, tente novamente.';
+        }
+        $stmt->close();
+    } else {
+        $errorMessage = 'Erro ao processar a solicitação.';
+    }
+}
 
 // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

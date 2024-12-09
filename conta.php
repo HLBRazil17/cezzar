@@ -284,6 +284,9 @@ if (isset($_SESSION['userID'])) {
                         <button type="submit">Confirmar Informações</button>
                     </div>
             </form>
+            <form method="POST" onsubmit="return confirm('Tem certeza de que deseja desativar sua conta?')">
+    <button type="submit" name="deactivateAccount" class="btn btn-warning">Desativar Conta</button>
+</form>
         </div>
     </div>
 
@@ -299,7 +302,7 @@ if (isset($_SESSION['userID'])) {
             <div class="link-boxes">
                 <ul class="box">
                     <li class="link_name">Companhia</li>
-                    <li><a href="#">Página Inicial</a></li>
+                    <li><a href="./index.php">Página Inicial</a></li>
                     <li><a href="./register.php">Começar Agora</a></li>
                     <li><a href="./planos.php">Planos</a></li>
                     <li><a href="./envia_contato.php">Entrar em Contato</a></li>
@@ -307,8 +310,8 @@ if (isset($_SESSION['userID'])) {
                 <ul class="box">
                     <li class="link_name">Serviços</li>
                     <li><a href="./store_password.php">Gerenciar Senhas</a></li>
-                    <li><a href="./store_password.php">Gerar uma Senha</a></li>
-                    <li><a href="./store_password.php">Criar uma Senha</a></li>
+                    <li><a href="./gerador_senha.php">Gerar uma Senha</a></li>
+                    <li><a href="./gerador_senha.php">Criar uma Senha</a></li>
                     <li><a href="./store_password.php">Inserir um Documento</a></li>
                 </ul>
                 <ul class="box">

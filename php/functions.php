@@ -57,7 +57,7 @@ function getUserPlan($userID, $conn)
 // Função para obter as informações do usuário
 function getUserInfo($conn, $userID)
 {
-    $sql = "SELECT userNome, userEmail, userCpf, userTel, securityWord, enableTwoFactor, dicaSenha, secret FROM users WHERE userID = ?";
+    $sql = "SELECT userNome, userEmail, userCpf, userTel, userEstato, securityWord, enableTwoFactor, dicaSenha, secret FROM users WHERE userID = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $userID);
         $stmt->execute();

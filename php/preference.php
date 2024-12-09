@@ -56,7 +56,7 @@ $paymentUrlPro = createPreference(
     $client, 
     "Pro", 
     "Armazenamento ilimitado de senhas, acesso em múltiplos dispositivos, autenticação multifator, suporte prioritário e relatórios de segurança.", 
-    0.99
+    14.99
 );
 
 $paymentUrlPremium = createPreference(
