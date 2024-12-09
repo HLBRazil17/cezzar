@@ -106,7 +106,7 @@ if (isset($_GET['success'])) {
                     <!-- Menu de navegação -->
                     <div class="navbar-menu" id="navbarMenu">
                         <a href="store_password.php" class="navbar-item">Controle de Senhas</a>
-                        <a href="store_documents.php" class="navbar-item">Controle de Documentos</a>
+                        <a href="gerador_senha.php" class="navbar-item">Gerador de Senhas</a>
                         <a href="planos.php" class="navbar-item">Planos</a>
                         <!--    <a href="#" class="navbar-item">Sobre</a>   -->
                         <a href="envia_contato.php" class="navbar-item">Contate-nos</a>
@@ -165,7 +165,8 @@ if (isset($_GET['success'])) {
                         <?php elseif ($errorMessage): ?>
                             <p class="error-message"
                                 style="padding: 10px; color: red; margin-bottom: 7%; font-weight: bold; font-size: 14px; background-color: #fdd; border-radius: 10px;">
-                                <?php echo $errorMessage; ?></p>
+                                <?php echo $errorMessage; ?>
+                            </p>
                         <?php endif; ?>
                     </div>
 

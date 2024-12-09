@@ -1,14 +1,4 @@
 <?php
-// Arquivo: store_documents.php
-
-// Constantes para configuração
-define('UPLOAD_DIR', './uploads/');
-define('MAX_FILE_SIZE', 5 * 1024 * 1024); // 5MB
-define('ALLOWED_FILE_TYPES', ['pdf', 'jpg', 'jpeg', 'png']);
-define('MAX_DOCUMENTS_BASIC_PLAN', 10);
-
-    
-
 class DocumentManager
 {
     private $conn;

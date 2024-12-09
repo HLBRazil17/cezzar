@@ -206,7 +206,10 @@ $showAddButton = true;
                                 <td data-label="Data de Emissão">
                                     <?php echo htmlspecialchars($document['issue_date']); ?>
                                 </td>
+
+
                                 <td data-label="Ações" class="buttons" style="display:flex; justify-content:center;">
+
                                     <!-- Botão de atualização de documento -->
                                     <button style="margin-right: 20px;" type="button" class="button" onclick="editDocument(<?php echo htmlspecialchars($document['documentId']); ?>,
                                     '<?php echo htmlspecialchars($document['document_name']); ?>', 
@@ -323,172 +326,148 @@ $showAddButton = true;
     </footer>
 
     <script>
-        let $showAddButton = true; // Controla a exibição do botão adicionar
-
-
-        // Função para gerar nome de arquivo temporário
-        function gerarNomeArquivo(tamanho = 16) {
-            const caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            let nome = '';
-            for (let i = 0; i < tamanho; i++) {
-                nome += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-            }
-            return nome + '.pdf'; // Adiciona extensão padrão
-        }
-
-        // Exibir/esconder o formulário com transição suave
-        function toggleForm() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // Seleção de elementos principais
             const formContainer = document.getElementById('formContainer');
-            const botaoAdicionar = document.querySelector('.botao-adicionar');
             const savedTable = document.getElementById('savedTable');
+            const imgDocumento = document.getElementById('img-documento');
+            const botaoAdicionar = document.querySelector('.botao-adicionar');
+            const documentForm = document.getElementById('documentForm');
+            const cancelButton = document.querySelector('.db-button.db-noselect');
 
-            formContainer.classList.toggle('show');
-            $showAddButton = !formContainer.classList.contains('show'); // Atualiza a variável
+            // Função para validar campos obrigatórios
+            function validateRequiredFields() {
+                const documentName = document.getElementById('documentName');
+                const documentType = document.getElementById('documentType');
+                const issueDate = document.getElementById('issueDate');
 
-            if ($showAddButton) {
-                botaoAdicionar.style.display = 'block';
-                if (savedTable) savedTable.style.display = 'block';
-            } else {
-                botaoAdicionar.style.display = 'none';
-                if (savedTable) savedTable.style.display = 'none';
+                return documentName.value.trim() !== '' &&
+                    documentType.value !== '' &&
+                    issueDate.value.trim() !== '';
             }
 
-            // Limpa o formulário ao abrir para nova adição
-            if (document.getElementById('actionType').value !== 'update') {
-                document.getElementById('documentForm').reset();
+            // Função para mostrar/ocultar elementos conforme estado inicial
+            function updateInitialState() {
+                const hasSavedDocuments = savedTable && savedTable.querySelector('tbody')?.rows.length > 0;
+
+                if (hasSavedDocuments) {
+                    // Se há documentos salvos
+                    savedTable.style.display = 'block';
+                    imgDocumento.style.display = 'none';
+                    botaoAdicionar.style.display = 'block';
+                    formContainer.classList.remove('show');
+                } else {
+                    // Se não há documentos salvos
+                    savedTable.style.display = 'none';
+                    imgDocumento.style.display = 'flex';
+                    botaoAdicionar.style.display = 'block';
+                    formContainer.classList.remove('show');
+                }
+            }
+
+            // Função para exibir formulário suavemente
+            function showFormContainer() {
+                formContainer.classList.add('show');
+                savedTable.style.display = 'none';
+                imgDocumento.style.display = 'none';
+                botaoAdicionar.style.display = 'none';
+
+                // Resetar formulário para novo documento
+                documentForm.reset();
                 document.getElementById('actionType').value = 'add';
                 document.getElementById('documentId').value = '';
             }
-        }
 
+            // Função para fechar formulário suavemente
+            function hideFormContainer(forceShowSavedTable = true) {
+                formContainer.classList.remove('show');
 
-        // Cancelar formulário
-        function cancelForm() {
-            const formContainer = document.getElementById('formContainer');
-            const botaoAdicionar = document.querySelector('.botao-adicionar');
-            const savedTable = document.getElementById('savedTable');
+                const hasSavedDocuments = savedTable && savedTable.querySelector('tbody')?.rows.length > 0;
 
-            formContainer.classList.remove('show');
-            botaoAdicionar.style.display = 'block';
-            if (savedTable) savedTable.style.display = 'block';
-
-            // Limpa o formulário
-            document.getElementById('documentForm').reset();
-            document.getElementById('actionType').value = 'add';
-            document.getElementById('documentId').value = '';
-        }
-
-        // Editar documento
-        function editDocument(id, name, type, number, issueDate) {
-            const formContainer = document.getElementById('formContainer');
-            const botaoAdicionar = document.querySelector('.botao-adicionar');
-            const savedTable = document.getElementById('savedTable');
-
-            formContainer.classList.add('show');
-            botaoAdicionar.style.display = 'none';
-            if (savedTable) savedTable.style.display = 'none';
-
-            document.getElementById('actionType').value = 'update';
-            document.getElementById('documentId').value = id;
-            document.getElementById('documentName').value = name;
-            document.getElementById('documentType').value = type;
-            document.getElementById('documentNumber').value = number;
-            document.getElementById('issueDate').value = issueDate;
-        }
-
-        // Verificar tabela e imagem
-        function verificarTabela() {
-            const tabela = document.querySelector('#savedTable table');
-            const imagem = document.getElementById('img-documento');
-            const botaoAdicionar = document.querySelector('.botao-adicionar');
-
-            if (tabela && tabela.rows.length > 1) {
-                imagem.style.display = 'none';
-            } else {
-                imagem.style.display = 'flex';
-            }
-        }
-
-        // Observador de mudanças na tabela
-        const observer = new MutationObserver(verificarTabela);
-        observer.observe(document.body, { childList: true, subtree: true });
-
-        // Evento de carregamento inicial
-        document.addEventListener("DOMContentLoaded", function () {
-            verificarTabela();
-
-            // Adiciona evento para limpar formulário ao clicar no botão adicionar
-            const addDocumentoBtn = document.querySelector('.botao-adicionar');
-            if (addDocumentoBtn) {
-                addDocumentoBtn.addEventListener('click', function () {
-                    document.getElementById('documentForm').reset();
-                    document.getElementById('actionType').value = 'add';
-                    document.getElementById('documentId').value = '';
-                });
-            }
-            document.addEventListener("DOMContentLoaded", function () {
-                const formContainer = document.getElementById('formContainer');
-                const botaoAdicionar = document.querySelector('.botao-adicionar');
-
-                $showAddButton = !formContainer.classList.contains('show');
-                botaoAdicionar.style.display = $showAddButton ? 'block' : 'none';
-            });
-
-            // Validação de número de documento baseado no tipo
-            const documentType = document.getElementById('documentType');
-            const documentNumber = document.getElementById('documentNumber');
-
-            documentType.addEventListener('change', function () {
-                switch (this.value) {
-                    case 'rg':
-                        documentNumber.setAttribute('pattern', '\\d{2}\\.\\d{3}\\.\\d{3}-\\d{1}');
-                        documentNumber.setAttribute('placeholder', 'Ex: 12.345.678-9');
-                        break;
-                    case 'cpf':
-                        documentNumber.setAttribute('pattern', '\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}');
-                        documentNumber.setAttribute('placeholder', 'Ex: 123.456.789-00');
-                        break;
-                    case 'cnh':
-                        documentNumber.setAttribute('pattern', '\\d{11}');
-                        documentNumber.setAttribute('placeholder', 'Ex: 12345678900');
-                        break;
-                    default:
-                        documentNumber.removeAttribute('pattern');
-                        documentNumber.setAttribute('placeholder', 'Número do Documento');
+                if (forceShowSavedTable && hasSavedDocuments) {
+                    savedTable.style.display = 'block';
+                    imgDocumento.style.display = 'none';
+                } else {
+                    savedTable.style.display = 'none';
+                    imgDocumento.style.display = 'flex';
                 }
-            });
-        });
 
-        // Limita a data de emissão para não ser futura
-        document.addEventListener('DOMContentLoaded', function () {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('issueDate').setAttribute('max', today);
-        });
-
-
-
-        // Modificações para gerenciamento de documentos
-
-        // Função para atualizar a visibilidade da tabela e imagem
-        function updateTableVisibility() {
-            const tabela = document.querySelector('#savedTable table');
-            const imagem = document.getElementById('img-documento');
-            const botaoAdicionar = document.querySelector('.botao-adicionar');
-
-            if (tabela && tabela.rows.length > 1) {
-                imagem.style.display = 'none';
-            } else {
-                imagem.style.display = 'flex';
+                botaoAdicionar.style.display = 'block';
             }
-        }
 
-        // Modificar a função de exclusão de documento
-        document.addEventListener('DOMContentLoaded', function () {
-            const forms = document.querySelectorAll('form[method="post"]');
+            // Adicionar evento no botão de adicionar
+            botaoAdicionar.addEventListener('click', showFormContainer);
 
-            forms.forEach(form => {
-                if (form.querySelector('.bin-button')) {
-                    form.addEventListener('submit', function (e) {
+            // Adicionar evento no botão de cancelar
+            cancelButton.addEventListener('click', () => hideFormContainer());
+
+            // Validar e submeter formulário
+            documentForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                if (!validateRequiredFields()) {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    return;
+                }
+
+                const formData = new FormData(this);
+
+                fetch('', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = result;
+
+                        const newRow = tempDiv.querySelector('#savedTable table tbody tr:last-child');
+
+                        if (newRow) {
+                            const tableBody = document.querySelector('#savedTable table tbody');
+
+                            if (tableBody) {
+                                tableBody.appendChild(newRow);
+                                hideFormContainer(true);
+                                updateInitialState();
+
+                                // Adicionar eventos de edição e exclusão para a nova linha
+                                attachDocumentRowEvents(newRow);
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Erro ao salvar o documento');
+                    });
+            });
+
+            // Função para adicionar eventos de edição e exclusão em linhas de documento
+            function attachDocumentRowEvents(row) {
+                const editButton = row.querySelector('.button');
+                const deleteForm = row.querySelector('form');
+
+                if (editButton) {
+                    editButton.addEventListener('click', function () {
+                        const documentId = this.closest('tr').querySelector('input[name="documentId"]').value;
+                        const documentName = this.closest('tr').querySelector('td[data-label="Nome"]').textContent.trim();
+                        const documentType = this.closest('tr').querySelector('td[data-label="Tipo"]').textContent.trim();
+                        const documentNumber = this.closest('tr').querySelector('td[data-label="Número"]').textContent.trim();
+                        const issueDate = this.closest('tr').querySelector('td[data-label="Data de Emissão"]').textContent.trim();
+
+                        document.getElementById('actionType').value = 'update';
+                        document.getElementById('documentId').value = documentId;
+                        document.getElementById('documentName').value = documentName;
+                        document.getElementById('documentType').value = documentType;
+                        document.getElementById('documentNumber').value = documentNumber;
+                        document.getElementById('issueDate').value = issueDate;
+
+                        showFormContainer();
+                    });
+                }
+
+                if (deleteForm) {
+                    deleteForm.addEventListener('submit', function (e) {
                         e.preventDefault();
 
                         if (confirm('Tem certeza que deseja excluir este documento?')) {
@@ -499,15 +478,9 @@ $showAddButton = true;
                                 body: formData
                             })
                                 .then(response => response.text())
-                                .then(result => {
-                                    // Remove a linha da tabela
-                                    const row = this.closest('tr');
-                                    if (row) {
-                                        row.remove();
-                                    }
-
-                                    // Atualiza visibilidade da tabela e imagem
-                                    updateTableVisibility();
+                                .then(() => {
+                                    this.closest('tr').remove();
+                                    updateInitialState();
                                 })
                                 .catch(error => {
                                     console.error('Erro:', error);
@@ -516,91 +489,13 @@ $showAddButton = true;
                         }
                     });
                 }
-            });
-        });
-
-        // Modificar a submissão do formulário para adicionar documento
-        document.addEventListener('DOMContentLoaded', function () {
-            const documentForm = document.getElementById('documentForm');
-
-            documentForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const formData = new FormData(this);
-
-                fetch('', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => response.text())
-                    .then(result => {
-                        // Cria um elemento temporário para parsear o HTML retornado
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = result;
-
-                        // Encontra a nova linha de documento no HTML retornado
-                        const newRow = tempDiv.querySelector('#savedTable table tbody tr:last-child');
-
-                        if (newRow) {
-                            // Insere a nova linha na tabela existente
-                            const tableBody = document.querySelector('#savedTable table tbody');
-
-                            if (tableBody) {
-                                tableBody.appendChild(newRow);
-
-                                // Atualiza visibilidade da tabela e imagem
-                                updateTableVisibility();
-
-                                // Fecha o formulário após adicionar
-                                cancelForm();
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erro:', error);
-                        alert('Erro ao salvar o documento');
-                    });
-            });
-        });
-
-        // Manter as funções existentes de toggleForm e cancelForm
-        function toggleForm() {
-            const formContainer = document.getElementById('formContainer');
-            const botaoAdicionar = document.querySelector('.botao-adicionar');
-            const savedTable = document.getElementById('savedTable');
-
-            formContainer.classList.toggle('show');
-            $showAddButton = !formContainer.classList.contains('show');
-
-            if ($showAddButton) {
-                botaoAdicionar.style.display = 'block';
-                if (savedTable) savedTable.style.display = 'block';
-            } else {
-                botaoAdicionar.style.display = 'none';
-                if (savedTable) savedTable.style.display = 'none';
             }
 
-            // Limpa o formulário ao abrir para nova adição
-            if (document.getElementById('actionType').value !== 'update') {
-                document.getElementById('documentForm').reset();
-                document.getElementById('actionType').value = 'add';
-                document.getElementById('documentId').value = '';
-            }
-        }
+            // Adicionar eventos de edição e exclusão para linhas existentes
+            document.querySelectorAll('#savedTable table tbody tr').forEach(attachDocumentRowEvents);
 
-        function cancelForm() {
-            const formContainer = document.getElementById('formContainer');
-            const botaoAdicionar = document.querySelector('.botao-adicionar');
-            const savedTable = document.getElementById('savedTable');
-
-            formContainer.classList.remove('show');
-            botaoAdicionar.style.display = 'block';
-            if (savedTable) savedTable.style.display = 'block';
-
-            // Limpa o formulário
-            document.getElementById('documentForm').reset();
-            document.getElementById('actionType').value = 'add';
-            document.getElementById('documentId').value = '';
-        }
+            // Estado inicial
+            updateInitialState();
+        });
     </script>
 </body>

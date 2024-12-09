@@ -106,6 +106,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
+                // Verificar se o CPF é válido (se foi informado)
+                if (!empty($newUserCpf) && !validarCPF($newUserCpf)) {
+                    $errorMessage = 'CPF inválido. Tente novamente.';
+                } else {
+                    // Verificar se o e-mail já está registrado
+                    if (isAlreadyRegistered($conn, 'userEmail', $userEmail)) {
+                    } elseif (!empty($userCpf) && isAlreadyRegistered($conn, 'userCpf', $userCpf)) {
+                        $errorMessage = 'O CPF informado já está cadastrado.';
+                    } else {
+                    }
+                }
+
                 // Continuar a atualização se não houver erros
                 if (empty($errorMessage)) {
                     // Hash da senha, se fornecida SHA256

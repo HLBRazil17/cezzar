@@ -61,7 +61,7 @@ sr.reveal('.feature-item', {
 });
 
 // Animações para Testemunhos
-sr.reveal('.testimonial-item, .testimonials h2' , {
+sr.reveal('.testimonial-item, .testimonials h2', {
     origin: 'bottom',
     distance: '50px',
 });
@@ -157,4 +157,51 @@ ScrollReveal().reveal('#savedTable', {
     delay: 100, // Atraso entre os elementos
     interval: 100, // Intervalo de animação entre as linhas da tabela
     easing: 'ease-in-out'
+});
+
+
+// Initialize ScrollReveal
+ScrollReveal().reveal('.title', {
+    distance: '50px',
+    origin: 'bottom',
+    duration: 1000,
+    delay: 300
+});
+
+ScrollReveal().reveal('.tab-content', {
+    distance: '30px',
+    origin: 'top',
+    duration: 800,
+    delay: 200,
+    interval: 100
+});
+
+ScrollReveal().reveal('.field-group', {
+    distance: '30px',
+    origin: 'left',
+    duration: 800,
+    delay: 400,
+    interval: 150
+});
+
+ScrollReveal().reveal('.options-container, .actions', {
+    distance: '30px',
+    origin: 'right',
+    duration: 800,
+    delay: 500,
+    interval: 150
+});
+
+ScrollReveal().reveal('.slider-container', {
+    distance: '30px',
+    origin: 'bottom',
+    duration: 900,
+    delay: 600
+});
+
+ScrollReveal().reveal('.copy-button', {
+    distance: '50px',
+    origin: 'bottom',
+    duration: 1000,
+    delay: 700
 });

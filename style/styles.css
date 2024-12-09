@@ -186,17 +186,17 @@ main {
   transition: all ease 0.6s;
 }
 
-.dropdown-content p:hover{
+.dropdown-content p:hover {
   color: #1f7fd6;
   border-bottom: 2px solid #1f7fd6;
 }
 
-.dropdown-content .sem-traço{
+.dropdown-content .sem-traço {
   border-bottom: none !important;
   font-size: 24px !important;
 }
 
-.dropdown-content .sem-traço:hover{
+.dropdown-content .sem-traço:hover {
   border-bottom: none !important;
 }
 
@@ -216,12 +216,12 @@ main {
   /* Evita a quebra de linha */
 }
 
-.dropdown-content-a2{
+.dropdown-content-a2 {
   border-bottom: 4px solid #000000 !important;
   transition: all ease 0.6s;
 }
 
-.dropdown-content-a2:hover{
+.dropdown-content-a2:hover {
   border-bottom: 4px solid #1f7fd6 !important;
 }
 
@@ -451,7 +451,8 @@ main {
 .feature-list {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Espaçamento entre os itens */
+  gap: 20px;
+  /* Espaçamento entre os itens */
 }
 
 /* Estiliza cada item de funcionalidade individual */
@@ -464,7 +465,7 @@ main {
   box-shadow: 0 0 calc(var(--card-width) / 6) #ffffff44;
   border: 2px solid rgba(255, 255, 255, 0.322) !important;
   /* Borda semitransparente */
-  transition: all 0.3s ease ;
+  transition: all 0.3s ease;
   border-radius: 20px;
   backdrop-filter: blur(var(--blur-amount));
   z-index: 10;
@@ -581,7 +582,8 @@ main {
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Espaçamento entre os itens */
+  gap: 20px;
+  /* Espaçamento entre os itens */
   margin-bottom: 90px;
 }
 
@@ -599,21 +601,7 @@ main {
   height: 45vh;
 }
 
-/* Estilização específica para testimonial-item */
-.testimonial-item {
-  display: flex;
-  /* Aplica Flexbox apenas ao testimonial-item */
-  align-items: center;
-  /* Alinha a imagem e o texto verticalmente no centro */
-  background-color: #F2F2F2;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 40px;
-  flex: 1 1 calc(33.333% - 40px);
-  box-sizing: border-box;
-  gap: 20px;
-  /* Espaçamento entre imagem e texto */
-}
+
 
 /* Títulos dos itens nas seções adicionais */
 .feature-item h3,
@@ -1002,6 +990,8 @@ footer .bottom-details .bottom_text {
 
 /* Estilização específica para testimonial-item */
 .testimonial-item {
+  width: 37vw;
+  height: 200px;
   display: flex;
   /* Manter o layout flex para alinhar imagem e texto lado a lado */
   align-items: center;
@@ -1010,7 +1000,6 @@ footer .bottom-details .bottom_text {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
   text-align: left;
   gap: 20px;
   /* Espaço entre a imagem e o texto */
@@ -1273,11 +1262,10 @@ footer .bottom-details .bottom_text {
 
 /* ESTILO DE TRIANGULO */
 
-.seta-img{
+.seta-img {
   width: 1900px;
   position: absolute;
   z-index: 2;
   left: 2px;
   top: 87vh;
 }
-
